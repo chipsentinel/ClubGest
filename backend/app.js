@@ -56,10 +56,13 @@ cd .\backend\
     npm install cors        // Instalar CORS
 3. Iniciar el servidor:
     node app.js          // Ejecutar el archivo app.js
+    
 4. Verificar que el servidor esté corriendo:
     curl http://localhost:8080/api/data
+5. Instalar sqlite3 para la base de datos:
+    npm install sqlite3
 
-5. Instalar nodemon para desarrollo (opcional):
+X. Instalar nodemon para desarrollo (opcional):
     npm install --save-dev nodemon
     npm run dev      // Ejecutar el servidor con nodemon para reinicios automáticos
     
