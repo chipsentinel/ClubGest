@@ -1,6 +1,6 @@
 /**
  * @author: Cristian G.Gz
- * Archivo: server.js
+ * Archivo: app.js
  * Descripción: Este archivo configura un servidor web básico utilizando Express.js.
  *              El servidor escucha en un puerto específico y maneja solicitudes GET
  *              para servir datos JSON.
@@ -10,10 +10,14 @@
 const express = require('express');     // Importar el módulo Express
 const cors = require('cors');           // Importar el módulo CORS para manejar solicitudes de diferentes orígenes
 const path = require('path');           // Importar el módulo Path para manejar rutas de archivos
-
-const app = express();                  // Crear una instancia de la aplicación Express 
-app.use(cors());                        // Habilitar CORS para todas las rutas
+const routes = require('./src/route');     // Importar las rutas definidas en otro archivo (si existen)
 const PORT = 8080;                      // Definir el puerto en el que el servidor escuchará
+const app = express();                  // Crear una instancia de la aplicación Express 
+
+app.use(cors());                        // Habilitar CORS para todas las rutas
+app.use(express.json());                // Habilitar el análisis de JSON en las solicitudes entrantes que comienzan con /api
+app.use('/app', routes);                // Usar las rutas definidas en el archivo routes.js para las solicitudes
+
 
 
 // Servir archivos estáticos del frontend
@@ -51,7 +55,7 @@ cd .\backend\
     npm install express     // Instalar Express.js
     npm install cors        // Instalar CORS
 3. Iniciar el servidor:
-    node server.js          // Ejecutar el archivo server.js
+    node app.js          // Ejecutar el archivo app.js
 4. Verificar que el servidor esté corriendo:
     curl http://localhost:8080/api/data
 
