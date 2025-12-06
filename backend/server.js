@@ -54,4 +54,9 @@ cd .\backend\
     node server.js          // Ejecutar el archivo server.js
 4. Verificar que el servidor esté corriendo:
     curl http://localhost:8080/api/data
+
+5. Instalar nodemon para desarrollo (opcional):
+    npm install --save-dev nodemon
+    npm run dev      // Ejecutar el servidor con nodemon para reinicios automáticos
+    
 */
