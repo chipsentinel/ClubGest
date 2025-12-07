@@ -11,7 +11,10 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Fondo coherente con el bloque izquierdo */
+    /* Gradiente translúcido sobre imagen de fondo */
+    background: 
+        /*linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%),*/
+        url('../img/ACG-backgraund-index-big.jpg') center center / cover no-repeat fixed;
     display: flex;                 /* Centro todo en pantalla */
     justify-content: center;
     align-items: center;
@@ -35,6 +38,7 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Sombra para levantar la tarjeta */
     width: 100%;
     max-width: 1000px;
+    height: 650px;                /* Altura fija para que siempre sea igual */
     display: flex;                /* Split horizontal con flex (izquierda fija, derecha cambia) */
     flex-direction: row;
     overflow: hidden;             /* Evita desbordes visuales */
@@ -99,6 +103,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: auto;             /* Scroll si el contenido excede la altura fija */
 }
 
 /* TABS PRINCIPALES (Login / Registro) */
