@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const {config} = require('../src/configuration/configuration');
+const { config } = require('../src/configuration/configuration');
 
 const dbPath = path.resolve(__dirname, '..', config.db.filename); // Ruta a la base de datos SQLite
 

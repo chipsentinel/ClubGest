@@ -11,15 +11,14 @@ const express = require('express');
 const cors = require('cors');
 const {config} = require('./src/configuration/configuration');
 const path = require('path');
-const routes = require('./src/route');  // Importar las rutas definidas en otro archivo (si existen)
-const PORT = config?.port ?? 8080;                      // Definir el puerto en el que el servidor escuchará
+const routes = require('./src/route');               // Importar las rutas definidas en otro archivo (si existen)
+const PORT = config?.service?.port ?? 8080;          // Definir el puerto en el que el servidor escuchará - ?? cambia la escucha para yaml
 
 const app = express();                  // Crear una instancia de la aplicación Express 
 
 app.use(cors());                        // Habilitar CORS para todas las rutas
 app.use(express.json());                // Habilitar el análisis de JSON en las solicitudes entrantes que comienzan con /api
 
-app.use('/', routes);                // Usar las rutas definidas en el archivo routes.js para las solicitudes
 
 // Servir archivos estáticos del frontend (si existe carpeta frontend)
 // Esto es opcional y solo sirve archivos estáticos, no la API.

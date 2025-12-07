@@ -1,8 +1,9 @@
 const express = require('express');
-const jugadoresRoutes = require('./jugadore.route');
+const jugadoresRoutes = require('./jugador.route');
 
 const router = express.Router();
 
+router.use('/jugador', jugadoresRoutes);
 router.use('/jugadores', jugadoresRoutes);
 
 // Aquí en el futuro: entrenadores, entrenamientos, etc.

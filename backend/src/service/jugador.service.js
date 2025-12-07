@@ -1,4 +1,5 @@
-const db = require('../../db/db');
+const { run, get, all } = require('../../db/db');
+
 
 // Devuelve todos los jugadores async es para usar await
 async function getAll() {
