@@ -1,10 +1,10 @@
 /****************************************
- * 1. Reset básico y globales
+ * 1. RESET BÁSICO Y GLOBALES
  ****************************************/
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Incluye padding/border en width/height total */
 }
 
 body {
@@ -13,30 +13,36 @@ body {
 }
 
 /****************************************
- * 2. Layout general (header, sidebar, main)
+ * 2. LAYOUT CON CSS GRID
  ****************************************/
+/* CSS GRID: Sistema de rejilla (filas y columnas) para layouts complejos */
 .layout {
     display: grid;
+    
+    /* Define áreas con nombres. Cada línea = 1 fila, cada palabra = 1 celda */
     grid-template-areas:
-        "header header"
-        "sidebar main";
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: 60px 1fr;
-    min-height: 100vh;
+        "header header"   /* Fila 1: header ocupa 2 columnas */
+        "sidebar main";   /* Fila 2: sidebar y main */
+    
+    grid-template-columns: 200px 1fr; /* Col 1: 200px fijos | Col 2: resto (1fr) */
+    grid-template-rows: 60px 1fr;     /* Fila 1: 60px fijos | Fila 2: resto */
+    min-height: 100vh; /* 100vh = 100% altura de ventana */
 }
 
 .header {
-    grid-area: header;
+    grid-area: header; /* Coloca en área "header" */
     background: #667eea;
     color: white;
     padding: 0 20px;
+    
+    /* FLEXBOX: Sistema flexible en 1 dimensión */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center;            /* Centra verticalmente */
 }
 
 .header h1 {
-    font-size: 1.5em;
+    font-size: 1.5em; /* em: relativo al tamaño base */
 }
 
 .sidebar {
@@ -47,9 +53,10 @@ body {
 
 .sidebar nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Vertical (por defecto es horizontal) */
 }
 
+/* Bloque comentado de ejemplo (cómo se comenta CSS) */
 /* .sidebar nav a {
     color: white;
     text-decoration: none;
@@ -57,7 +64,7 @@ body {
     transition: background 0.3s;
 } */
 
-.sidebar nav a:hover {
+.sidebar nav a:hover { /* :hover = al pasar el ratón */
     background: #34495e;
 }
 
@@ -74,31 +81,33 @@ body {
 
 .main p {
     color: #666;
-    line-height: 1.6;
+    line-height: 1.6;    /* Espacio entre líneas de texto */
     margin-bottom: 10px;
 }
 
 .main ul {
-    margin-left: 20px;
+    margin-left: 20px;   /* Sangría para las viñetas */
     color: #666;
 }
 
 /****************************************
- * 3. Componentes reutilizables
+ * 3. COMPONENTES REUTILIZABLES
  ****************************************/
-/* Botones, cards, tables, badges a desarrollar */
+/* Botones, tarjetas (cards), tablas, badges */
+/* A desarrollar cuando aprendas más CSS */
 
 /****************************************
- * 4. Formularios internos
+ * 4. FORMULARIOS INTERNOS
  ****************************************/
-/* Formularios a desarrollar */
+/* Estilos para formularios dentro de las páginas internas */
+/* A desarrollar según necesidades */
 
 /****************************************
- * 5. Estilos específicos por página
+ * 5. ESTILOS ESPECÍFICOS POR PÁGINA
  ****************************************/
-/* .page-dashboard, .page-jugadores, etc. */
+/* Cada página tiene class="page-*" en body para personalización */
 .page-dashboard .main {
-    /* Estilos específicos del dashboard */
+    /* Ejemplo: estilos exclusivos del dashboard */
 }
 
 .page-jugadores .main {

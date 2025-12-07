@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive: adapta a móviles -->
     <title>Registrar Jugador - ClubGest</title>
-    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/auth.css"> <!-- ../ = subir un nivel de directorio -->
 </head>
 <body>
     <div class="container">
@@ -12,13 +12,19 @@
             <h1>⚽ ClubGest</h1>
             <p>Registro de Jugador</p>
         </div>
+        
+        <!-- FORMULARIO CONECTADO AL BACKEND -->
+        <!-- action: URL del endpoint API | method="POST": crear recurso nuevo -->
+        <!-- IMPORTANTE: Backend debe estar corriendo en http://localhost:8080 -->
         <form action="http://localhost:8080/api/jugadores" method="POST">
             <div class="form-group">
                 <label>Nombre</label>
+                <!-- name="nombre": clave enviada al backend -->
                 <input type="text" name="nombre" placeholder="Nombre">
             </div>
             <div class="form-group">
                 <label>Apellidos</label>
+                <!-- required: campo obligatorio (requerido por backend) -->
                 <input type="text" name="apellidos" placeholder="Apellidos" required>
             </div>
             <div class="form-group">
@@ -27,6 +33,7 @@
             </div>
             <div class="form-group">
                 <label>Teléfono</label>
+                <!-- type="tel": muestra teclado numérico en móviles -->
                 <input type="tel" name="telefono" placeholder="600123456">
             </div>
             <div class="form-group">
@@ -35,12 +42,14 @@
             </div>
             <div class="form-group">
                 <label>Dorsal</label>
+                <!-- type="number": solo acepta números -->
                 <input type="number" name="dorsal" placeholder="10">
             </div>
             <div class="form-group">
                 <label>Posición</label>
                 <input type="text" name="posicion" placeholder="Delantero">
             </div>
+            <!-- type="submit": envía todos los campos con name="..." al action -->
             <button type="submit" class="btn">Registrar Jugador</button>
         </form>
         <div class="links">

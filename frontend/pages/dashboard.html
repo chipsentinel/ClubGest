@@ -5,14 +5,17 @@
     <title>Dashboard - ClubGest</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="page-dashboard">
+<body class="page-dashboard"> <!-- class para estilos específicos de esta página -->
+    <!-- LAYOUT CON CSS GRID: 3 áreas (header, sidebar, main) -->
     <div class="layout">
         <header class="header">
             <h1>⚽ ClubGest</h1>
-            <span>Usuario: admin@club.com</span>
+            <span>Usuario: admin@club.com</span> <!-- Hardcodeado: vendría del backend con autenticación -->
         </header>
         
+        <!-- aside: etiqueta semántica HTML5 para contenido lateral -->
         <aside class="sidebar">
+            <!-- nav: etiqueta semántica para menús de navegación -->
             <nav>
                 <a href="dashboard.html">Dashboard</a>
                 <a href="jugadores.html">Jugadores</a>
@@ -25,10 +28,11 @@
                 <a href="seguros.html">Seguros</a>
                 <a href="datos-personales.html">Datos Personales</a>
                 <a href="configuracion.html">Configuración</a>
-                <a href="../index.html">Salir</a>
+                <a href="../index.html">Salir</a> <!-- ../ = salir de pages/ -->
             </nav>
         </aside>
         
+        <!-- main: etiqueta semántica para contenido principal -->
         <main class="main">
             <h2>Dashboard - Resumen General</h2>
             <p>Bienvenido al sistema de gestión del club. Aquí verás:</p>
@@ -38,6 +42,7 @@
                 <li>Estado de pagos</li>
                 <li>Resumen de asistencias</li>
             </ul>
+            <!-- Contenido estático (mockup). Con JS cargarías datos del backend -->
         </main>
     </div>
 </body>

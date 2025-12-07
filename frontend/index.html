@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <!-- Configuración básica de la página -->
+    <meta charset="UTF-8"> <!-- Codificación UTF-8: permite acentos, ñ, etc. -->
     <title>ClubGest - Login</title>
     <link rel="stylesheet" href="css/auth.css">
 </head>
@@ -12,15 +13,20 @@
             <p>Sistema de Gestión de Clubes Deportivos</p>
         </div>
         
+        <!-- Formulario sin action: no envía datos aún (sin autenticación real) -->
         <form>
             <div class="form-group">
                 <label>Email</label>
+                <!-- type="email": valida formato automáticamente -->
+                <!-- required: campo obligatorio (validación HTML5) -->
                 <input type="email" placeholder="ejemplo@correo.com" required>
             </div>
             <div class="form-group">
                 <label>Contraseña</label>
+                <!-- type="password": oculta el texto con puntos -->
                 <input type="password" placeholder="••••••••" required>
             </div>
+            <!-- type="button" + onclick: redirige sin enviar formulario -->
             <button type="button" class="btn" onclick="location.href='pages/dashboard.html'">Entrar</button>
         </form>
         
