@@ -7,34 +7,154 @@
     <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
+    <!-- Radios ocultos: grupo principal (login / registro) -->
+    <input type="radio" id="tab-login" name="main-tabs" class="tab-radio" checked>
+    <input type="radio" id="tab-registro" name="main-tabs" class="tab-radio">
+    <!-- Radios ocultos: sub-grupo de registro (club / jugador / entrenador) -->
+    <input type="radio" id="tab-club" name="registro-tabs" class="tab-radio" checked>
+    <input type="radio" id="tab-jugador" name="registro-tabs" class="tab-radio">
+    <input type="radio" id="tab-entrenador" name="registro-tabs" class="tab-radio">
+
+    <!-- CONTENEDOR PRINCIPAL: Izquierda + Derecha -->
     <div class="container">
-        <div class="logo">
-            <h1>⚽ ClubGest</h1>
-            <p>Sistema de Gestión de Clubes Deportivos</p>
+        <!-- LADO IZQUIERDO (FIJO)-->
+         <div class="lado-izquierdo">
+            <div class="logo">
+                <img src="./img/ACG-small-logo.png" alt="LOGO">
+                <h1>ClubGest Amateurs</h1>
+                <p>Sistema de Gestión de Clubes Deportivos Amateurs</p>
+            </div>
         </div>
         
-        <!-- Formulario sin action: no envía datos aún (sin autenticación real) -->
-        <form>
-            <div class="form-group">
-                <label>Email</label>
-                <!-- type="email": valida formato automáticamente -->
-                <!-- required: campo obligatorio (validación HTML5) -->
-                <input type="email" placeholder="ejemplo@correo.com" required>
-            </div>
-            <div class="form-group">
-                <label>Contraseña</label>
-                <!-- type="password": oculta el texto con puntos -->
-                <input type="password" placeholder="••••••••" required>
-            </div>
-            <!-- type="button" + onclick: redirige sin enviar formulario -->
-            <button type="button" class="btn" onclick="location.href='pages/dashboard.html'">Entrar</button>
-        </form>
+        <!-- LADO DERECHO (CAMBIA SEGÚN TAB SELECCIONADO) -->
+        <div class="lado-derecho">
+
+        <!-- TABS EN LA PARTE SUPERIOR DERECHA -->
+        <div class="tabs">
+            <label for="tab-login" class="tab-btn">Login</label>
+            <label for="tab-registro" class="tab-btn">Registro</label>
+        </div>
+
+        <!-- FORMULARIO LOGIN-->
+         <div class="form-section login-form">
+            <h2>Acceso</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email</label>
+                    <!-- type="email": valida formato automáticamente -->
+                    <!-- required: campo obligatorio (validación HTML5) -->
+                    <input type="email" placeholder="ejemplo@correo.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <!-- type="password": oculta el texto con puntos -->
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <!-- type="button" + onclick: redirige sin enviar formulario -->
+                <button type="button" class="btn" onclick="location.href='pages/dashboard.html'">Entrar</button>
+            </form>
+        </div>
         
-        <div class="links">
-            <p>¿No tienes cuenta?</p>
-            <a href="pages/register-club.html">Registrar Club</a>
-            <a href="pages/register-jugador.html">Registrar Jugador</a>
-            <a href="pages/register-entrenador.html">Registrar Entrenador</a>
+        <!-- OPCIONES REGISTRO (3 botones) -->
+            <div class="form-section registro-opciones">
+                <h2>¿Qué deseas registrar?</h2>
+                <div class="registro-buttons">
+                    <label for="tab-club" class="reg-btn club-btn">Club</label>
+                    <label for="tab-jugador" class="reg-btn jugador-btn">Jugador</label>
+                    <label for="tab-entrenador" class="reg-btn entrenador-btn">Entrenador</label>
+                </div>
+            </div>
+
+            <!-- FORMULARIO CLUB -->
+                <div class="form-section form-registro club-color">
+                <h2>Registrar Club</h2>
+                <form action="http://localhost:8080/api/clubes" method="POST">
+                    <div class="form-group">
+                        <label>Nombre del Club</label>
+                        <input type="text" name="nombre" placeholder="Ej: Club Deportivo XYZ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Deporte</label>
+                        <input type="text" name="deporte" placeholder="Ej: Fútbol" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" name="ciudad" placeholder="Ej: Madrid" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="club@correo.com" required>
+                    </div>
+                    <button type="submit" class="btn">Registrar Club</button>
+                    <label for="tab-registro" class="btn-volver">Volver</label>
+                </form>
+            </div>
+
+            <!-- FORMULARIO JUGADOR -->
+            <div class="form-section form-registro jugador-color">
+                <h2>Registrar Jugador</h2>
+                <form action="http://localhost:8080/api/jugadores" method="POST">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" name="apellidos" placeholder="Apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="jugador@correo.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" name="telefono" placeholder="600123456">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <input type="text" name="categoria" placeholder="Sub-16">
+                    </div>
+                    <div class="form-group">
+                        <label>Dorsal</label>
+                        <input type="number" name="dorsal" placeholder="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Posición</label>
+                        <input type="text" name="posicion" placeholder="Delantero">
+                    </div>
+                    <button type="submit" class="btn">Registrar Jugador</button>
+                    <label for="tab-registro" class="btn-volver">Volver</label>
+                </form>
+            </div>
+
+            <!-- FORMULARIO ENTRENADOR -->
+            <div class="form-section form-registro entrenador-color">
+                <h2>Registrar Entrenador</h2>
+                <form action="http://localhost:8080/api/entrenadores" method="POST">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" name="apellidos" placeholder="Apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="entrenador@correo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" name="telefono" placeholder="600123456" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría que entrena</label>
+                        <input type="text" name="categoria" placeholder="Sub-18" required>
+                    </div>
+                    <button type="submit" class="btn">Registrar Entrenador</button>
+                    <label for="tab-registro" class="btn-volver">Volver</label>
+                </form>
+            </div>
         </div>
     </div>
 </body>

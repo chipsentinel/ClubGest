@@ -1,6 +1,8 @@
 /****************************************
- * CSS PARA LOGIN Y REGISTRO
+ * CSS LOGIN/REGISTRO - LAYOUT SPLIT (SOLO FLEX)
+ * Radio buttons controlan qué formulario se ve
  ****************************************/
+
 * {
     margin: 0;
     padding: 0;
@@ -8,99 +10,411 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    /* Gradiente: degradado diagonal de morado a púrpura */
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    
-    /* Flexbox: centra el contenedor horizontal y verticalmente */
-    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Fondo coherente con el bloque izquierdo */
+    display: flex;                 /* Centro todo en pantalla */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
 }
 
+/* Radios ocultos: su estado :checked maneja qué tab y formulario se muestran */
+#tab-login,
+#tab-registro,
+#tab-club,
+#tab-jugador,
+#tab-entrenador {
+    display: none;
+}
+
+/* CONTENEDOR PRINCIPAL */
 .container {
     background: white;
-    padding: 40px;
-    border-radius: 10px; /* Esquinas redondeadas */
+    border-radius: 15px;          /* Bordes más suaves */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Sombra para levantar la tarjeta */
     width: 100%;
-    max-width: 400px;    /* Límite de anchura */
+    max-width: 1000px;
+    display: flex;                /* Split horizontal con flex (izquierda fija, derecha cambia) */
+    flex-direction: row;
+    overflow: hidden;             /* Evita desbordes visuales */
+}
+
+/* LADO IZQUIERDO: solo marca/branding, se mantiene fijo */
+.lado-izquierdo {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Bloque estático de marca */
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 40%;
+    min-height: 500px;
+}
+
+/* Tema dinámico: el lado izquierdo toma el color del sub-tab activo en registro */
+#tab-registro:checked ~ #tab-club:checked ~ .container .lado-izquierdo {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8676 100%);
+}
+
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .lado-izquierdo {
+    background: linear-gradient(135deg, #4ECDC4 0%, #3BB5AD 100%);
+}
+
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .lado-izquierdo {
+    background: linear-gradient(135deg, #FFD93D 0%, #FFC700 100%);
 }
 
 .logo {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;          /* Extra aire debajo del logo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
 }
 
 .logo h1 {
-    color: #667eea;
-    font-size: 2em;
-    margin-bottom: 5px;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .logo p {
+    font-size: 0.95em;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* LADO DERECHO: contiene tabs y formularios */
+.lado-derecho {
+    padding: 40px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* TABS PRINCIPALES (Login / Registro) */
+.tabs {
+    display: flex;
+    justify-content: flex-end;    /* Alineados arriba a la derecha del panel blanco */
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 0.95em;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: #667eea;
+}
+
+/* Estados activos: label asociado al radio :checked toma color y subrayado */
+#tab-login:checked ~ .container .tabs label[for="tab-login"],
+#tab-registro:checked ~ .container .tabs label[for="tab-registro"] {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+/* Bloques de formularios: ocultos por defecto, visibles cuando su radio está activo */
+.form-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#tab-login:checked ~ .container .lado-derecho .login-form {
+    display: flex;
+    opacity: 1;
+}
+
+#tab-registro:checked ~ .container .lado-derecho .registro-opciones {
+    display: flex;
+    opacity: 1;
+}
+
+/* Botones de selección de tipo de registro */
+.registro-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.reg-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.25s ease;
+    color: #fff;
+}
+
+.club-btn { background: #FF6B6B; }
+.jugador-btn { background: #4ECDC4; }
+.entrenador-btn { background: #FFD93D; color: #333; }
+
+/* Estados activos de sub-tabs (registro) */
+#tab-registro:checked ~ #tab-club:checked ~ .container .registro-buttons .club-btn { border-color: #c43f3f; box-shadow: 0 6px 15px rgba(255, 107, 107, 0.35); }
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .registro-buttons .jugador-btn { border-color: #2ea79c; box-shadow: 0 6px 15px rgba(78, 205, 196, 0.35); }
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .registro-buttons .entrenador-btn { border-color: #d8b300; box-shadow: 0 6px 15px rgba(255, 217, 61, 0.35); }
+
+/* Formularios de registro: ocultos por defecto */
+.form-registro {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#tab-registro:checked ~ #tab-club:checked ~ .container .lado-derecho .form-registro.club-color,
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .lado-derecho .form-registro.jugador-color,
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .lado-derecho .form-registro.entrenador-color {
+    display: flex;
+    opacity: 1;
+}
+
+/* Campos de formulario */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95em;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Halo suave al enfocar para accesibilidad visual */
+}
+
+/* Botonera común */
+.button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn:hover,
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Colores dinámicos según sub-tab de registro (usa el radio activo) */
+.registro-form.club .btn-primary,
+#tab-registro:checked ~ #tab-club:checked ~ .container .form-registro.club-color .btn-primary {
+    background: #FF6B6B;
+}
+
+.registro-form.club .btn-primary:hover,
+#tab-registro:checked ~ #tab-club:checked ~ .container .form-registro.club-color .btn-primary:hover {
+    background: #FF5252;
+}
+
+.registro-form.jugador .btn-primary,
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .form-registro.jugador-color .btn-primary {
+    background: #4ECDC4;
+}
+
+.registro-form.jugador .btn-primary:hover,
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .form-registro.jugador-color .btn-primary:hover {
+    background: #45B7AA;
+}
+
+.registro-form.entrenador .btn-primary,
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .form-registro.entrenador-color .btn-primary {
+    background: #FFD93D;
+    color: #333;
+}
+
+.registro-form.entrenador .btn-primary:hover,
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .form-registro.entrenador-color .btn-primary:hover {
+    background: #FFC700;
+    color: #333;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+/* Pie de formulario (links y ayuda) */
+.form-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-footer p {
     color: #666;
     font-size: 0.9em;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;      /* Ocupa toda la línea */
-    color: #333;
-    margin-bottom: 5px;
-    font-weight: 500;    /* Semi-negrita */
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.form-group input:focus { /* :focus = al hacer clic en el campo */
-    outline: none;          /* Quita borde azul por defecto */
-    border-color: #667eea;
-}
-
-.btn {
-    width: 100%;
-    padding: 12px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;      /* Manita al pasar ratón */
-    font-size: 1em;
-    font-weight: 600;
-    margin-top: 10px;
-}
-
-.btn:hover { /* :hover = al pasar el ratón */
-    background: #5568d3;
-}
-
-.links {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.links p {
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.links a {
-    display: block;
+.form-footer a {
     color: #667eea;
     text-decoration: none;
-    margin: 5px 0;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.links a:hover {
+.form-footer a:hover {
+    color: #5568d3;
     text-decoration: underline;
+}
+
+/* Secciones de registro: ocultas salvo la activa (requiere tab-registro + sub-tab) */
+.registro-form {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#tab-registro:checked ~ #tab-club:checked ~ .container .form-registro.club-color,
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .form-registro.jugador-color,
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .form-registro.entrenador-color {
+    display: flex;
+    opacity: 1;
+}
+
+/* Responsive: tablet/móvil */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;  /* Apila izquierda sobre derecha */
+    }
+
+    .lado-izquierdo {
+        width: 100%;
+        min-height: 200px;
+        padding: 40px 20px;
+    }
+
+    .lado-izquierdo .logo img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .lado-izquierdo .logo h1 {
+        font-size: 1.8em;
+    }
+
+    .lado-derecho {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .tabs {
+        gap: 8px;
+    }
+
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Responsive: móvil pequeño */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 8px;
+    }
+
+    .lado-izquierdo {
+        padding: 30px 15px;
+        min-height: 150px;
+    }
+
+    .lado-derecho {
+        padding: 20px 15px;
+    }
+
+    .form-group input,
+    .form-group select {
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+
+    .tabs {
+        margin-bottom: 20px;
+    }
 }
