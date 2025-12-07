@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html>
-    <head>
-       <title>ClubGest</title> 
-    </head>
-    <bod>
-        <h1>ClubGest</h1>
-        <p>Click <a href="./jugador.html">aqui</a> para ver el menu del jugador</p>
-    </bod>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ClubGest - Login</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>⚽ ClubGest</h1>
+            <p>Sistema de Gestión de Clubes Deportivos</p>
+        </div>
+        
+        <form>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="ejemplo@correo.com" required>
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="button" class="btn" onclick="location.href='pages/dashboard.html'">Entrar</button>
+        </form>
+        
+        <div class="links">
+            <p>¿No tienes cuenta?</p>
+            <a href="pages/register-club.html">Registrar Club</a>
+            <a href="pages/register-jugador.html">Registrar Jugador</a>
+            <a href="pages/register-entrenador.html">Registrar Entrenador</a>
+        </div>
+    </div>
+</body>
 </html>
