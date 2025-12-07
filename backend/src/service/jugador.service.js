@@ -1,43 +1,98 @@
-const db = require('../configuration/database');
+const db = require('../../db/db');
 
-function getAll() {
-  return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM jugadores', [], (err, rows) => {
-      if (err) return reject(err);
-      resolve(rows);
-    });
-  });
+// Devuelve todos los jugadores async es para usar await
+async function getAll() {
+  const sql = `
+    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    FROM jugadores
+  `;
+  return await all(sql);
 }
 
-function getById(id) {
-  return new Promise((resolve, reject) => {
-    db.get('SELECT * FROM jugadores WHERE id = ?', [id], (err, row) => {
-      if (err) return reject(err);
-      resolve(row);
-    });
-  });
+// Devuelve un jugador por su ID
+async function getById(id) {
+  const sql = `
+    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    FROM jugadores
+    WHERE id = ?
+  `;
+  return await get(sql, [id]);
 }
 
-function create({ nombre, edad, posicion, tiene_seguro = 0, esta_lesionado = 0, activo = 1 }) {
-  return new Promise((resolve, reject) => {
-    db.run(
-      `INSERT INTO jugadores (nombre, edad, posicion, tiene_seguro, esta_lesionado, activo)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [nombre, edad, posicion, tiene_seguro, esta_lesionado, activo],
-      function (err) {
-        if (err) return reject(err);
-        resolve({
-          id: this.lastID,
-          nombre,
-          edad,
-          posicion,
-          tiene_seguro,
-          esta_lesionado,
-          activo
-        });
-      }
-    );
-  });
+// Crea un nuevo jugador
+async function create(jugador) {
+  const sql = `
+    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, asistencia_entrenamientos)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  const asistencia = jugador.asistencia_entrenamientos ? 1 : 0;
+
+  const result = await run(sql, [
+    jugador.nombre,
+    jugador.apellidos,
+    jugador.posicion,
+    jugador.dorsal,
+    asistencia
+  ]);
+
+  return {
+    id: result.lastID,
+    ...jugador,
+    asistencia_entrenamientos: asistencia
+  };
 }
 
-module.exports = { getAll, getById, create };
+// Actualiza todos los campos de un jugador
+async function update(id, jugador) {
+  const sql = `
+    UPDATE jugadores
+    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, asistencia_entrenamientos = ?
+    WHERE id = ?
+  `;
+
+  const asistencia = jugador.asistencia_entrenamientos ? 1 : 0;
+
+  const result = await run(sql, [
+    jugador.nombre,
+    jugador.apellidos,
+    jugador.posicion,
+    jugador.dorsal,
+    asistencia,
+    id
+  ]);
+
+  return result.changes; // filas afectadas
+}
+
+// Actualiza solo la asistencia
+async function updateAsistencia(id, asistencia_entrenamientos) {
+  const sql = `
+    UPDATE jugadores
+    SET asistencia_entrenamientos = ?
+    WHERE id = ?
+  `;
+
+  const asistencia = asistencia_entrenamientos ? 1 : 0;
+  const result = await run(sql, [asistencia, id]);
+  return result.changes;
+}
+
+// Elimina un jugador
+async function remove(id) {
+  const sql = `
+    DELETE FROM jugadores
+    WHERE id = ?
+  `;
+  const result = await run(sql, [id]);
+  return result.changes;
+}
+
+module.exports = {   
+  getAll,
+  getById,
+  create,
+  update,
+  updateAsistencia,
+  remove 
+};
