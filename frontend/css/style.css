@@ -50,12 +50,12 @@ body {
     flex-direction: column;
 }
 
-.sidebar nav a {
+/* .sidebar nav a {
     color: white;
     text-decoration: none;
     padding: 12px 20px;
     transition: background 0.3s;
-}
+} */
 
 .sidebar nav a:hover {
     background: #34495e;
