@@ -12,7 +12,7 @@ const cors = require('cors');
 const {config} = require('./src/configuration/configuration');
 const path = require('path');
 const routes = require('./src/route');  // Importar las rutas definidas en otro archivo (si existen)
-const PORT = 8080;                      // Definir el puerto en el que el servidor escuchará
+const PORT = config?.port ?? 8080;                      // Definir el puerto en el que el servidor escuchará
 
 const app = express();                  // Crear una instancia de la aplicación Express 
 
@@ -21,8 +21,13 @@ app.use(express.json());                // Habilitar el análisis de JSON en las
 
 app.use('/', routes);                // Usar las rutas definidas en el archivo routes.js para las solicitudes
 
-// Servir archivos estáticos del frontend
+// Servir archivos estáticos del frontend (si existe carpeta frontend)
+// Esto es opcional y solo sirve archivos estáticos, no la API.
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Usar las rutas definidas en src/route para las solicitudes de la API
+// Ejemplo: /api/jugadores, /api/entrenamientos, etc.
+app.use('/api', routes);
 
 /*
 req: Objeto de solicitud que contiene información sobre la solicitud HTTP entrante.
@@ -32,16 +37,6 @@ res: Objeto de respuesta que se utiliza para enviar una respuesta al cliente.
 // Ruta sencilla de estado
 app.get('/status', (req, res) => {
   res.json({ message: 'API ClubGest funcionando' });
-});
-
-// Definir una ruta para la raíz del servidor
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));            
-});
-
-// Definir una ruta para manejar solicitudes GET en /api/data
-app.get('/jugador', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'jugador.html'));
 });
 
 // Configurar middleware (intermediarios)  que procesan las solicitudes entrantes
