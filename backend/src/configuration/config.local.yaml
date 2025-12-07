@@ -1,0 +1,5 @@
+db:
+  filename: ./clubgest.db
+
+service:
+  port: 8080
