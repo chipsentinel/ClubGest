@@ -14,7 +14,20 @@ body {
     /* Gradiente translúcido sobre imagen de fondo */
     background: 
         /*linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%),*/
-        url('../img/ACG-backgraund-index-big.jpg') center center / cover no-repeat fixed;
+        url('../img/ACG-background-index-original.png') center center / cover no-repeat fixed;
+
+/* Utilidad para ocultar visualmente pero mantener en accesibilidad/SEO */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
     display: flex;                 /* Centro todo en pantalla */
     justify-content: center;
     align-items: center;
@@ -37,8 +50,8 @@ body {
     border-radius: 15px;          /* Bordes más suaves */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Sombra para levantar la tarjeta */
     width: 100%;
-    max-width: 1000px;
-    height: 650px;                /* Altura fija para que siempre sea igual */
+    max-width: 950px;
+    height: 480px;                /* Altura fija para que siempre sea igual */
     display: flex;                /* Split horizontal con flex (izquierda fija, derecha cambia) */
     flex-direction: row;
     overflow: hidden;             /* Evita desbordes visuales */
@@ -46,7 +59,7 @@ body {
 
 /* LADO IZQUIERDO: solo marca/branding, se mantiene fijo */
 .lado-izquierdo {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Bloque estático de marca */
+    background: linear-gradient(135deg, #1D6AAE  0%, white 100%); /* Bloque estático de marca */
     padding: 60px 40px;
     display: flex;
     flex-direction: column;
@@ -59,41 +72,54 @@ body {
 
 /* Tema dinámico: el lado izquierdo toma el color del sub-tab activo en registro */
 #tab-registro:checked ~ #tab-club:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #FF6B6B 0%, #FF8676 100%);
+    background: linear-gradient(135deg, #2E9E67 0%, white 100%);
 }
 
 #tab-registro:checked ~ #tab-jugador:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #4ECDC4 0%, #3BB5AD 100%);
+    background: linear-gradient(135deg, #ff1e00 0%, white 100%);
 }
 
 #tab-registro:checked ~ #tab-entrenador:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #FFD93D 0%, #FFC700 100%);
+    background: linear-gradient(135deg, #25C5C0 0%, white 100%);
 }
 
 .logo {
     text-align: center;
-    margin-bottom: 40px;          /* Extra aire debajo del logo */
+    margin-bottom: 20px;          /* Extra aire debajo del logo */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .logo img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 10px;
 }
 
 .logo h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
     font-weight: 700;
+    color: #E9B34A; /* Amarillo del logo */
+    text-shadow:
+        -1px -1px 0 #1F3A5B,
+         1px -1px 0 #1F3A5B,
+        -1px  1px 0 #1F3A5B,
+         1px  1px 0 #1F3A5B;
 }
 
 .logo p {
-    font-size: 0.95em;
+    font-size: 1.4em;
     opacity: 0.9;
     line-height: 1.5;
+    color: #F1E4C2; /* Verde aqua solicitado */
+    /* Trazo alrededor del texto usando text-shadow (compatible cross-browser) */
+    text-shadow:
+        -0.5px -0.5px 0 #1F3A5B,
+         0.5px -0.5px 0 #1F3A5B,
+        -0.5px  0.5px 0 #1F3A5B,
+         0.5px  0.5px 0 #1F3A5B;
 }
 
 /* LADO DERECHO: contiene tabs y formularios */
@@ -261,7 +287,7 @@ body {
 
 .btn:hover,
 .btn-primary:hover {
-    background: #5568d3;
+    background: #25C5C0;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
