@@ -4,9 +4,8 @@
   "description": "API REST para la gestión de clubes deportivos amateurs: jugadores, entrenadores, entrenamientos, asistencia, seguros, lesiones y categorías.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js -- --config src/configuration/config.local.yaml",
+    "start": "node app.js --config src/configuration/config.prod.yaml"
   },
   "keywords": [
     "club",
@@ -20,7 +19,10 @@
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "js-yaml": "^4.1.1",
+    "sqlite3": "^5.1.7",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
