@@ -18,6 +18,7 @@ const app = express();                  // Crear una instancia de la aplicación
 
 app.use(cors());                        // Habilitar CORS para todas las rutas
 app.use(express.json());                // Habilitar el análisis de JSON en las solicitudes entrantes que comienzan con /api
+app.use(express.urlencoded({ extended: true })); // Aceptar formularios HTML (application/x-www-form-urlencoded)
 
 
 // Servir archivos estáticos del frontend (si existe carpeta frontend)

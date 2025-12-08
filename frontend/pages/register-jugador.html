@@ -145,7 +145,7 @@
         // Cargar fichas desde el backend
         async function cargarFichas() {
             try {
-                const response = await fetch('http://localhost:8080/api/jugadores');
+            const response = await fetch('/api/jugadores');
                 const jugadores = await response.json();
                 
                 const fichasGrid = document.getElementById('fichasGrid');
@@ -201,8 +201,8 @@
             alert('Ver detalles completos de la ficha ' + id);
         }
 
-        // Cargar fichas al inicio (descomentar cuando el backend esté listo)
-        // window.onload = cargarFichas;
+        // Cargar fichas al inicio
+        window.onload = cargarFichas;
     </script>
 </body>
 </html>
