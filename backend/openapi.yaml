@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: ClubGest API
+  version: "1.0.0"
+  description: |
+    API REST de ClubGest (Express + SQLite). Endpoints públicos sin auth.
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /status:
+    get:
+      summary: Comprobar estado del servicio
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /jugadores:
+    get:
+      summary: Listar jugadores
+      responses:
+        '200':
+          description: Lista de jugadores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Jugador'
+    post:
+      summary: Crear jugador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JugadorCreate'
+      responses:
+        '201':
+          description: Jugador creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jugador'
+        '400': { description: Validación fallida }
+  /jugadores/{id}:
+    get:
+      summary: Obtener jugador por ID
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Jugador' } } } }
+        '404': { description: No encontrado }
+    put:
+      summary: Actualizar jugador
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JugadorCreate'
+      responses:
+        '204': { description: Actualizado }
+        '400': { description: Validación fallida }
+        '404': { description: No encontrado }
+    delete:
+      summary: Borrar jugador
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204': { description: Borrado }
+        '404': { description: No encontrado }
+  /entrenamientos:
+    get:
+      summary: Listar entrenamientos
+      responses:
+        '200':
+          description: Lista de entrenamientos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entrenamiento'
+    post:
+      summary: Crear entrenamiento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntrenamientoCreate'
+      responses:
+        '201': { description: Creado }
+        '400': { description: Validación fallida }
+  /entrenamientos/{id}:
+    get:
+      summary: Obtener entrenamiento por ID
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200': { description: OK, content: { application/json: { schema: { $ref: '#/components/schemas/Entrenamiento' } } } }
+        '404': { description: No encontrado }
+    put:
+      summary: Actualizar entrenamiento
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntrenamientoCreate'
+      responses:
+        '204': { description: Actualizado }
+        '400': { description: Validación fallida }
+        '404': { description: No encontrado }
+    delete:
+      summary: Borrar entrenamiento
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204': { description: Borrado }
+        '404': { description: No encontrado }
+  /entrenamientos/{id}/estado:
+    patch:
+      summary: Actualizar solo el estado
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                estado:
+                  type: boolean
+      responses:
+        '204': { description: Actualizado }
+        '400': { description: Validación fallida }
+        '404': { description: No encontrado }
+  /asistencias/entrenamiento/{idE}:
+    get:
+      summary: Listar asistencias de un entrenamiento
+      parameters:
+        - name: idE
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200': { description: OK }
+        '404': { description: Entrenamiento no encontrado }
+  /asistencias/jugador/{idJ}:
+    get:
+      summary: Listar asistencias de un jugador
+      parameters:
+        - name: idJ
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200': { description: OK }
+        '404': { description: Jugador no encontrado }
+  /asistencias/estadisticas/jugador/{idJ}:
+    get:
+      summary: Estadísticas de asistencia de un jugador
+      parameters:
+        - name: idJ
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1 }
+      responses:
+        '200': { description: OK }
+        '404': { description: Jugador no encontrado }
+  /asistencias:
+    post:
+      summary: Registrar asistencia
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsistenciaCreate'
+      responses:
+        '201': { description: Creada }
+        '400': { description: Validación fallida }
+    patch:
+      summary: Actualizar asistencia (requiere path /:jugadorId/:entrenamientoId)
+      responses:
+        '204': { description: Actualizado }
+    delete:
+      summary: Borrar asistencia (requiere path /:jugadorId/:entrenamientoId)
+      responses:
+        '204': { description: Borrado }
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    Jugador:
+      type: object
+      properties:
+        id: { type: integer }
+        nombre: { type: string }
+        apellidos: { type: string }
+        posicion: { type: string }
+        dorsal: { type: integer }
+        fechaNacimiento: { type: string, format: date }
+        peso: { type: number, format: float }
+    JugadorCreate:
+      type: object
+      required: [nombre]
+      properties:
+        nombre: { type: string }
+        apellidos: { type: string }
+        posicion: { type: string }
+        dorsal: { type: integer }
+        fechaNacimiento: { type: string, format: date }
+        peso: { type: number, format: float }
+    Entrenamiento:
+      type: object
+      properties:
+        id: { type: integer }
+        nombre: { type: string }
+        descripcion: { type: string }
+        fechaHora: { type: string, format: date-time }
+        duracionMinutos: { type: integer }
+        lugar: { type: string }
+        tipo: { type: string, enum: ["Técnico", "Táctico", "Físico", "Mixto"] }
+        estado: { type: boolean }
+    EntrenamientoCreate:
+      type: object
+      required: [nombre, fechaHora, tipo, duracionMinutos, lugar]
+      properties:
+        nombre: { type: string }
+        descripcion: { type: string }
+        fechaHora: { type: string, format: date-time }
+        duracionMinutos: { type: integer }
+        lugar: { type: string }
+        tipo: { type: string, enum: ["Técnico", "Táctico", "Físico", "Mixto"] }
+        estado: { type: boolean }
+    AsistenciaCreate:
+      type: object
+      required: [jugadorId, entrenamientoId, asistencia]
+      properties:
+        jugadorId: { type: integer }
+        entrenamientoId: { type: integer }
+        asistencia: { type: boolean }
