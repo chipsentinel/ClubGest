@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesiones - Club Gest</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../img/ACG-paint-logo.png">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header header-club">
+        <div class="header-left">
+            <img src="../img/ACG-paint-logo.png" alt="Logo Club Gest" class="header-logo">
+            <div>
+                <h1>Club Gest</h1>
+                <p class="header-subtitle">Registro de Lesiones de Jugadores</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="user-info">Admin: <strong>Club Deportivo</strong></span>
+            <a href="../index.html" class="btn btn-small btn-danger">Salir</a>
+        </div>
+    </header>
+
+    <!-- NAVBAR la forma mas visual esta en home.html-->
+    <nav class="navbar-top">
+        <a href="home.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Inicio</a>
+        <a href="convocatorias.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Convocatorias</a>
+        <a href="entrenamientos.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="10" r="2.5"></circle><circle cx="19" cy="10" r="2.5"></circle><line x1="8" y1="10" x2="16" y2="10"></line><path d="M7 5v10M17 5v10"></path></svg>Entrenamientos</a>
+        <a href="lesiones.html" class="nav-link active"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Lesiones</a>
+        <a href="seguros.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Seguros</a>
+        <a href="fichas.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 3H5c-1 0-2 1-2 2v14c0 1 1 2 2 2h14c1 0 2-1 2-2V5c0-1-1-2-2-2z"></path><path d="M9 7h6M9 11h6M9 15h2"></path></svg>Fichas</a>
+    </nav>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+        <!-- Radios ocultos para paginación -->
+        <input type="radio" id="les-page1" name="les-pagination" class="pagination-radio" checked>
+        <input type="radio" id="les-page2" name="les-pagination" class="pagination-radio">
+        <input type="radio" id="les-page3" name="les-pagination" class="pagination-radio">
+        <input type="radio" id="les-page4" name="les-pagination" class="pagination-radio">
+        <input type="radio" id="les-page5" name="les-pagination" class="pagination-radio">
+
+        <!-- MAIN -->
+        <main class="main">
+            <div class="page-header">
+                <h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Registro de Lesiones</h1>
+                <button class="btn btn-success">+ Nueva Lesión</button>
+            </div>
+
+            <!-- Tabla de lesiones -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Jugador</th>
+                            <th>Tipo de Lesión</th>
+                            <th>Fecha Lesión</th>
+                            <th>Gravedad</th>
+                            <th>Días de Baja</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-page="1"><td><strong>Juan Pérez García</strong></td><td>Esguince de tobillo</td><td>15/11/2024</td><td><span class="badge badge-warning">Moderada</span></td><td>14 días</td><td><span class="badge badge-success">Recuperado</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Carlos Ruiz López</strong></td><td>Contractura muscular</td><td>20/11/2024</td><td><span class="badge badge-info">Leve</span></td><td>3 días</td><td><span class="badge badge-success">Recuperado</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Miguel Sánchez Romero</strong></td><td>Distensión isquiotibial</td><td>25/11/2024</td><td><span class="badge badge-danger">Grave</span></td><td>21 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>David Fernández Ruiz</strong></td><td>Fractura de clavícula</td><td>01/12/2024</td><td><span class="badge badge-danger">Grave</span></td><td>45 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Antonio López García</strong></td><td>Tendinitis rotuliana</td><td>05/12/2024</td><td><span class="badge badge-warning">Moderada</span></td><td>10 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Roberto Martín Sanz</strong></td><td>Esquince de muñeca</td><td>08/12/2024</td><td><span class="badge badge-info">Leve</span></td><td>5 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Francisco García López</strong></td><td>Esguince de rodilla</td><td>10/12/2024</td><td><span class="badge badge-warning">Moderada</span></td><td>20 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>José María González</strong></td><td>Contusión muscular</td><td>12/12/2024</td><td><span class="badge badge-info">Leve</span></td><td>4 días</td><td><span class="badge badge-success">Recuperado</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Luis Rodríguez Díaz</strong></td><td>Desgarro muscular</td><td>13/12/2024</td><td><span class="badge badge-danger">Grave</span></td><td>30 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="1"><td><strong>Andrés Martínez Blanco</strong></td><td>Luxación de hombro</td><td>14/12/2024</td><td><span class="badge badge-danger">Grave</span></td><td>60 días</td><td><span class="badge badge-warning">En recuperación</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="2"><td><strong>Pedro Jiménez Costa</strong></td><td>Esguince de tobillo</td><td>15/12/2024</td><td><span class="badge badge-info">Leve</span></td><td>7 días</td><td><span class="badge badge-success">Recuperado</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                        <tr data-page="2"><td><strong>Javier Sánchez Ruiz</strong></td><td>Fractura de dedo</td><td>16/12/2024</td><td><span class="badge badge-info">Leve</span></td><td>8 días</td><td><span class="badge badge-success">Recuperado</span></td><td><button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button><button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Controles de paginación -->
+            <div class="pagination-controls">
+                <label for="les-page1" class="btn btn-small btn-info pagination-btn">← ANTERIOR</label>
+                <span class="pagination-info">
+                    Página <strong class="pagination-page-num">1</strong> de <strong class="pagination-total-pages">1</strong>
+                </span>
+                <label for="les-page2" class="btn btn-small btn-info pagination-btn">SIGUIENTE →</label>
+            </div>
+
+            <div class="table-info">
+                <p>Total registros: <strong>12</strong> lesiones | Mostrando: <strong>10</strong> por página</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <!-- Pie de página con información de copyright y versión del sistema -->
+    <footer class="footer">
+        <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
+    </footer>
+
+    <script>
+        // Sincroniza número y total de páginas basados en los radios y filas maquetadas.
+        document.addEventListener('DOMContentLoaded', () => {
+            const radios = Array.from(document.querySelectorAll('.pagination-radio'));
+            const pageNumEl = document.querySelector('.pagination-page-num');
+            const totalEl = document.querySelector('.pagination-total-pages');
+            const filas = document.querySelectorAll('[data-page]');
+
+            if (totalEl && filas.length > 0) {
+                const totalPaginas = Math.max(...Array.from(filas, fila => parseInt(fila.dataset.page) || 1));
+                totalEl.textContent = totalPaginas;
+            }
+
+            const actualizar = () => {
+                if (!pageNumEl) return;
+                const checkedIndex = radios.findIndex(radio => radio.checked);
+                pageNumEl.textContent = checkedIndex >= 0 ? checkedIndex + 1 : 1;
+            };
+
+            radios.forEach(radio => {
+                radio.onchange = actualizar;
+            });
+
+            actualizar();
+        });
+    </script>
+</body>
+</html>

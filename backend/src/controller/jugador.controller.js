@@ -6,14 +6,15 @@ async function listar(req, res) {
   try {
     const jugadoresDB = await service.getAll();
 
+    // La capa API responde en camelCase aunque la base guarde snake_case
     const jugadores = jugadoresDB.map((j) => ({
       id: j.id,
       nombre: j.nombre,
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
-      // 0/1 → true/false
-      asistenciaEntrenamientos: !!j.asistencia_entrenamientos
+      fechaNacimiento: j.fecha_nacimiento,
+      peso: j.peso
     }));
 
     res.status(200).json(jugadores);
@@ -41,7 +42,8 @@ async function obtener(req, res) {
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
-      asistenciaEntrenamientos: !!j.asistencia_entrenamientos
+      fechaNacimiento: j.fecha_nacimiento,
+      peso: j.peso
     };
 
     res.status(200).json(jugador);
@@ -60,32 +62,18 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
-      asistenciaEntrenamientos
+      fechaNacimiento,
+      peso
     } = req.body;
 
-    // Validaciones básicas
-    if (!nombre || nombre.trim() === '') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'nombre' es obligatorio"
-      });
-    }
-
-    if (dorsal !== undefined && Number(dorsal) <= 0) {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: 'El dorsal debe ser mayor que 0'
-      });
-    }
-
-    const asistenciaBD = asistenciaEntrenamientos ? 1 : 0;
-
+    // Las validaciones ya se hicieron en el middleware (express-validator)
     const nuevo = await service.create({
       nombre,
       apellidos,
       posicion,
       dorsal,
-      asistencia_entrenamientos: asistenciaBD
+      fecha_nacimiento: fechaNacimiento,
+      peso
     });
 
     res.status(201).json({
@@ -94,7 +82,8 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
-      asistenciaEntrenamientos: !!asistenciaBD
+      fechaNacimiento,
+      peso
     });
   } catch (err) {
     console.error(err);
@@ -111,16 +100,11 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
-      asistenciaEntrenamientos
+      fechaNacimiento,
+      peso
     } = req.body;
 
-    if (!nombre || nombre.trim() === '') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'nombre' es obligatorio"
-      });
-    }
-
+    // Las validaciones ya se hicieron en el middleware (express-validator)
     const jugadorDB = await service.getById(id);
     if (!jugadorDB) {
       return res.status(404).json({
@@ -134,7 +118,8 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
-      asistencia_entrenamientos: asistenciaEntrenamientos ? 1 : 0
+      fecha_nacimiento: fechaNacimiento,
+      peso
     });
 
     if (cambios === 0) {
@@ -150,35 +135,7 @@ async function actualizar(req, res) {
   }
 }
 
-// PATCH /jugadores/:id/asistencia  (solo asistencia)
-async function actualizarAsistencia(req, res) {
-  try {
-    const id = req.params.id;
-    const { asistenciaEntrenamientos } = req.body;
 
-    if (typeof asistenciaEntrenamientos !== 'boolean') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'asistenciaEntrenamientos' debe ser booleano"
-      });
-    }
-
-    const jugadorDB = await service.getById(id);
-    if (!jugadorDB) {
-      return res.status(404).json({
-        status: 'not-found',
-        message: 'Jugador no encontrado'
-      });
-    }
-
-    await service.updateAsistencia(id, asistenciaEntrenamientos);
-
-    res.status(204).json({});
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error actualizando asistencia' });
-  }
-}
 
 // DELETE /jugadores/:id
 async function borrar(req, res) {
@@ -207,6 +164,5 @@ module.exports = {
   obtener,
   crear,
   actualizar,
-  actualizarAsistencia,
   borrar
 };

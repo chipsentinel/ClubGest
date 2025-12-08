@@ -1,10 +1,10 @@
 const { run, get, all } = require('../../db/db');
 
 
-// Devuelve todos los jugadores async es para usar await
+// Devuelve todos los jugadores; columnas en snake_case como en la tabla
 async function getAll() {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso
     FROM jugadores
   `;
   return await all(sql);
@@ -13,7 +13,7 @@ async function getAll() {
 // Devuelve un jugador por su ID
 async function getById(id) {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso
     FROM jugadores
     WHERE id = ?
   `;
@@ -23,24 +23,22 @@ async function getById(id) {
 // Crea un nuevo jugador
 async function create(jugador) {
   const sql = `
-    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, asistencia_entrenamientos)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso)
+    VALUES (?, ?, ?, ?, ?, ?)
   `;
-
-  const asistencia = jugador.asistencia_entrenamientos ? 1 : 0;
 
   const result = await run(sql, [
     jugador.nombre,
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
-    asistencia
+    jugador.fecha_nacimiento,
+    jugador.peso
   ]);
 
   return {
     id: result.lastID,
-    ...jugador,
-    asistencia_entrenamientos: asistencia
+    ...jugador
   };
 }
 
@@ -48,34 +46,20 @@ async function create(jugador) {
 async function update(id, jugador) {
   const sql = `
     UPDATE jugadores
-    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, asistencia_entrenamientos = ?
+    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, fecha_nacimiento = ?, peso = ?
     WHERE id = ?
   `;
-
-  const asistencia = jugador.asistencia_entrenamientos ? 1 : 0;
 
   const result = await run(sql, [
     jugador.nombre,
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
-    asistencia,
+    jugador.fecha_nacimiento,
+    jugador.peso,
     id
   ]);
 
-  return result.changes; // filas afectadas
-}
-
-// Actualiza solo la asistencia
-async function updateAsistencia(id, asistencia_entrenamientos) {
-  const sql = `
-    UPDATE jugadores
-    SET asistencia_entrenamientos = ?
-    WHERE id = ?
-  `;
-
-  const asistencia = asistencia_entrenamientos ? 1 : 0;
-  const result = await run(sql, [asistencia, id]);
   return result.changes;
 }
 
@@ -94,6 +78,5 @@ module.exports = {
   getById,
   create,
   update,
-  updateAsistencia,
   remove 
 };

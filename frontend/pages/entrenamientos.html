@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenamientos - Club Gest</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../img/ACG-paint-logo.png">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header header-club">
+        <div class="header-left">
+            <img src="../img/ACG-paint-logo.png" alt="Logo Club Gest" class="header-logo">
+            <div>
+                <h1>Club Gest</h1>
+                <p class="header-subtitle">Gestión de Entrenamientos</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="user-info">Admin: <strong>Club Deportivo</strong></span>
+            <a href="../index.html" class="btn btn-small btn-danger">Salir</a>
+        </div>
+    </header>
+
+    <!-- NAVBAR la forma mas visual esta en home.html-->
+    <nav class="navbar-top">
+        <a href="home.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Inicio</a>
+        <a href="convocatorias.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Convocatorias</a>
+        <a href="entrenamientos.html" class="nav-link active"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="10" r="2.5"></circle><circle cx="19" cy="10" r="2.5"></circle><line x1="8" y1="10" x2="16" y2="10"></line><path d="M7 5v10M17 5v10"></path></svg>Entrenamientos</a>
+        <a href="lesiones.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Lesiones</a>
+        <a href="seguros.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Seguros</a>
+        <a href="fichas.html" class="nav-link"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 3H5c-1 0-2 1-2 2v14c0 1 1 2 2 2h14c1 0 2-1 2-2V5c0-1-1-2-2-2z"></path><path d="M9 7h6M9 11h6M9 15h2"></path></svg>Fichas</a>
+    </nav>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+        <!-- Radios ocultos para paginación -->
+        <input type="radio" id="ent-page1" name="ent-pagination" class="pagination-radio" checked>
+        <input type="radio" id="ent-page2" name="ent-pagination" class="pagination-radio">
+        <input type="radio" id="ent-page3" name="ent-pagination" class="pagination-radio">
+        <input type="radio" id="ent-page4" name="ent-pagination" class="pagination-radio">
+        <input type="radio" id="ent-page5" name="ent-pagination" class="pagination-radio">
+
+        <main class="main">
+            <div class="page-header">
+                <h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="10" r="2.5"></circle><circle cx="19" cy="10" r="2.5"></circle><line x1="8" y1="10" x2="16" y2="10"></line><path d="M7 5v10M17 5v10"></path></svg>Entrenamientos</h1>
+                <button class="btn btn-success" onclick="mostrarFormularioCrear()">+ Nuevo Entrenamiento</button>
+            </div>
+
+            <!-- Formulario crear entrenamiento -->
+            <div id="formCrear" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <h3>Crear Nuevo Entrenamiento</h3>
+                <form id="formNuevoEntrenamiento" onsubmit="crearEntrenamiento(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div class="form-group">
+                            <label>Nombre *</label>
+                            <input type="text" name="nombre" required placeholder="Ej: Entrenamiento técnico">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo *</label>
+                            <select name="tipo" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Táctico">Táctico</option>
+                                <option value="Físico">Físico</option>
+                                <option value="Mixto">Mixto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha y Hora *</label>
+                            <input type="datetime-local" name="fechaHora" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Duración (minutos) *</label>
+                            <input type="number" name="duracionMinutos" min="15" max="300" required placeholder="90">
+                        </div>
+                        <div class="form-group">
+                            <label>Lugar *</label>
+                            <input type="text" name="lugar" required placeholder="Campo Principal">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select name="estado">
+                                <option value="true">Programado</option>
+                                <option value="false">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea name="descripcion" rows="3" placeholder="Descripción del entrenamiento..."></textarea>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button type="submit" class="btn btn-success">Crear Entrenamiento</button>
+                        <button type="button" class="btn btn-secondary" onclick="ocultarFormularioCrear()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha y Hora</th>
+                            <th>Tipo</th>
+                            <th>Duración</th>
+                            <th>Lugar</th>
+                            <th>Estado</th>
+                            <th>Mi Asistencia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entrenamientosTable">
+                        <tr><td colspan="8" style="text-align: center;">Cargando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Controles de paginación -->
+            <div class="pagination-controls">
+                <label for="ent-page1" class="btn btn-small btn-info pagination-btn">← ANTERIOR</label>
+                <span class="pagination-info">
+                    Página <strong id="paginaActual" class="pagination-page-num">1</strong> de <strong id="totalPaginas" class="pagination-total-pages">1</strong>
+                </span>
+                <label for="ent-page2" class="btn btn-small btn-info pagination-btn">SIGUIENTE →</label>
+            </div>
+
+            <div class="table-info">
+                <p>Total registros: <strong id="totalEntrenamientos">0</strong> entrenamientos | Mostrando: <strong>10</strong> por página</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <!-- Pie de página con información de copyright y versión del sistema -->
+    <footer class="footer">
+        <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
+    </footer>
+    <script>
+        // ID del jugador actual (hardcodeado) y API_BASE según sirvas estáticos o no.
+        const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
+        const JUGADOR_ACTUAL_ID = 1;
+        let entrenamientos = [];
+        let asistencias = {};
+
+        // Cargar entrenamientos y después las asistencias del jugador.
+        async function cargarEntrenamientos() {
+            try {
+                const response = await fetch(`${API_BASE}/entrenamientos`);
+                if (!response.ok) throw new Error('Error al cargar entrenamientos');
+                entrenamientos = await response.json();
+                await cargarAsistenciasJugador();
+                renderEntrenamientos();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('entrenamientosTable').innerHTML = 
+                    '<tr><td colspan="8" style="text-align: center; color: red;">Error al cargar entrenamientos. ¿Está el servidor corriendo?</td></tr>';
+            }
+        }
+
+        // Cargar asistencias del jugador actual
+        async function cargarAsistenciasJugador() {
+            try {
+                const response = await fetch(`${API_BASE}/asistencias/jugador/${JUGADOR_ACTUAL_ID}`);
+                if (!response.ok) return;
+                const asistenciasArray = await response.json();
+                
+                // Convertir array a objeto indexado por entrenamientoId
+                asistencias = {};
+                asistenciasArray.forEach(a => {
+                    asistencias[a.entrenamientoId] = a.asistencia;
+                });
+            } catch (error) {
+                console.error('Error cargando asistencias:', error);
+            }
+        }
+
+        // Formatear fecha
+        function formatearFecha(fechaISO) {
+            const fecha = new Date(fechaISO);
+            const opciones = { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return fecha.toLocaleDateString('es-ES', opciones);
+        }
+
+        // Badge de estado del entrenamiento
+        function estadoBadge(estado) {
+            return estado 
+                ? '<span class="badge badge-success">Programado</span>'
+                : '<span class="badge badge-danger">Cancelado</span>';
+        }
+
+        // Badge de asistencia del jugador
+        function asistenciaBadge(entrenamientoId) {
+            if (asistencias[entrenamientoId] === undefined) {
+                return '<span class="badge badge-warning">Sin registrar</span>';
+            }
+            return asistencias[entrenamientoId]
+                ? '<span class="badge badge-success">Asistiré</span>'
+                : '<span class="badge badge-danger">No asistiré</span>';
+        }
+
+        // Renderiza filas con data-page para que los radios oculten/mostrar por CSS.
+        function renderEntrenamientos() {
+            const tbody = document.getElementById('entrenamientosTable');
+            
+            if (entrenamientos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No hay entrenamientos programados</td></tr>';
+                return;
+            }
+
+            const ITEMS_POR_PAGINA = 10;
+            tbody.innerHTML = entrenamientos.map((e, index) => {
+                const pagina = Math.floor(index / ITEMS_POR_PAGINA) + 1;
+                return `
+                <tr data-page="${pagina}">
+                    <td><strong>${e.nombre}</strong></td>
+                    <td>${formatearFecha(e.fechaHora)}</td>
+                    <td>${e.tipo}</td>
+                    <td>${e.duracionMinutos} min</td>
+                    <td>${e.lugar}</td>
+                    <td>${estadoBadge(e.estado)}</td>
+                    <td>${asistenciaBadge(e.id)}</td>
+                    <td>
+                        <button class="btn btn-small btn-success" onclick="marcarAsistencia(${e.id}, true)" title="Confirmar asistencia">✓</button>
+                        <button class="btn btn-small btn-danger" onclick="marcarAsistencia(${e.id}, false)" title="No asistiré">✗</button>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+            
+            document.getElementById('totalEntrenamientos').textContent = entrenamientos.length;
+            generarControles();
+            conectarPaginacionRadios();
+        }
+
+        // Marcar asistencia
+        async function marcarAsistencia(entrenamientoId, asistira) {
+            try {
+                const response = await fetch(`${API_BASE}/asistencias`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jugadorId: JUGADOR_ACTUAL_ID,
+                        entrenamientoId: entrenamientoId,
+                        asistencia: asistira
+                    })
+                });
+
+                if (!response.ok) throw new Error('Error al registrar asistencia');
+                
+                // Actualizar estado local
+                asistencias[entrenamientoId] = asistira;
+                renderEntrenamientos();
+                
+                alert(asistira ? 'Asistencia confirmada' : 'Ausencia registrada');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al registrar asistencia');
+            }
+        }
+
+        // Crear nuevo entrenamiento
+        async function crearEntrenamiento(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const nuevoEntrenamiento = {
+                nombre: formData.get('nombre'),
+                descripcion: formData.get('descripcion') || '',
+                fechaHora: formData.get('fechaHora'),
+                duracionMinutos: parseInt(formData.get('duracionMinutos')),
+                lugar: formData.get('lugar'),
+                tipo: formData.get('tipo'),
+                estado: formData.get('estado') === 'true'
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/entrenamientos`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(nuevoEntrenamiento)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Error al crear entrenamiento');
+                }
+
+                alert('Entrenamiento creado exitosamente');
+                form.reset();
+                ocultarFormularioCrear();
+                cargarEntrenamientos();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al crear entrenamiento: ' + error.message);
+            }
+        }
+
+        function mostrarFormularioCrear() {
+            document.getElementById('formCrear').style.display = 'block';
+        }
+
+        function ocultarFormularioCrear() {
+            document.getElementById('formCrear').style.display = 'none';
+        }
+
+        // Genera radios extra si hace falta y muestra total de páginas.
+        function generarControles() {
+            const ITEMS_POR_PAGINA = 10;
+            const totalPaginas = Math.ceil(entrenamientos.length / ITEMS_POR_PAGINA);
+            const paginasContainer = document.querySelector('.pagination-controls');
+            
+            document.getElementById('totalPaginas').textContent = totalPaginas;
+            
+            if (totalPaginas <= 1) {
+                paginasContainer.style.display = 'none';
+            } else {
+                paginasContainer.style.display = 'flex';
+                
+                // Crear radios dinámicamente si hay más de 5 páginas
+                if (totalPaginas > 5) {
+                    for (let i = 6; i <= totalPaginas; i++) {
+                        const existingRadio = document.getElementById(`ent-page${i}`);
+                        if (!existingRadio) {
+                            const radio = document.createElement('input');
+                            radio.type = 'radio';
+                            radio.id = `ent-page${i}`;
+                            radio.name = 'ent-pagination';
+                            radio.className = 'pagination-radio';
+                            document.querySelector('.layout').insertBefore(radio, document.querySelector('.main'));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Sincroniza el texto "Página X" con el radio activo.
+        function conectarPaginacionRadios() {
+            const radios = document.querySelectorAll('.pagination-radio');
+            radios.forEach(radio => {
+                radio.onchange = actualizarMostrados;
+            });
+            actualizarMostrados();
+        }
+
+        // Actualizar página mostrada
+        function actualizarMostrados() {
+            const ITEMS_POR_PAGINA = 10;
+            const totalPaginas = Math.ceil(entrenamientos.length / ITEMS_POR_PAGINA);
+            
+            for (let i = 1; i <= totalPaginas; i++) {
+                const radio = document.getElementById(`ent-page${i}`);
+                if (radio && radio.checked) {
+                    document.getElementById('paginaActual').textContent = i;
+                    break;
+                }
+            }
+        }
+
+        // Cargar al iniciar
+        cargarEntrenamientos();
+    </script>
+</body>
+</html>
