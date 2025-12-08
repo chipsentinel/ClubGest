@@ -117,14 +117,18 @@
                     </tbody>
                 </table>
             </div>
-        </main>
 
-        <!-- Controles de paginación -->
-        <div class="pagination-controls">
-            <label for="ent-page1" class="btn pagination-btn">← Anterior</label>
-            <span class="pagination-info">Página <strong id="paginaActual">1</strong> de <strong id="totalPaginas">1</strong></span>
-            <label for="ent-page2" class="btn pagination-btn">Siguiente →</label>
-        </div>
+            <!-- Controles de paginación -->
+            <div class="pagination-controls">
+                <label for="ent-page1" class="btn btn-small btn-info pagination-btn">← Anterior</label>
+                <span class="pagination-info">Página <strong id="paginaActual">1</strong> de <strong id="totalPaginas">1</strong></span>
+                <label for="ent-page2" class="btn btn-small btn-info pagination-btn">Siguiente →</label>
+            </div>
+
+            <div class="table-info">
+                <span>Total entrenamientos: <strong id="totalEntrenamientos">0</strong></span>
+            </div>
+        </main>
     </div>
 
     <!-- FOOTER -->
@@ -229,6 +233,7 @@
             `;
             }).join('');
             
+            document.getElementById('totalEntrenamientos').textContent = entrenamientos.length;
             generarControles();
         }
 
