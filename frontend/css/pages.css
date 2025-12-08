@@ -689,3 +689,122 @@
     padding: var(--spacing-xl);
     animation: fadeInUp 0.5s ease-out 0.1s both;
 }
+
+/* ========== CONTROLES DE PAGINACIÓN (CSS PURO) ========== */
+
+/* Ocultar radios */
+.pagination-radio {
+    display: none;
+}
+
+/* Ocultar todas las fichas por defecto */
+.ficha-card {
+    display: none;
+}
+
+/* Mostrar fichas de la página 1 */
+#page1:checked ~ .table-container .fichas-grid .ficha-card[data-page="1"],
+#page2:checked ~ .table-container .fichas-grid .ficha-card[data-page="2"],
+#page3:checked ~ .table-container .fichas-grid .ficha-card[data-page="3"],
+#page4:checked ~ .table-container .fichas-grid .ficha-card[data-page="4"],
+#page5:checked ~ .table-container .fichas-grid .ficha-card[data-page="5"] {
+    display: grid;
+}
+
+/* Controles de paginación */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    padding: var(--spacing-lg);
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.pagination-info {
+    color: var(--color-primary-blue);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.pagination-info strong {
+    color: var(--color-accent-gold);
+    font-weight: 700;
+}
+
+/* Botones de paginación */
+.pagination-btn {
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.pagination-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(29, 58, 112, 0.3);
+}
+
+.pagination-btn:active {
+    transform: translateY(0);
+}
+
+/* Botón deshabilitado (previo) */
+#page1:checked ~ .pagination-controls #btnPrev {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Botón deshabilitado (siguiente) - se calcula dinámicamente con JS */
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Actualizar página actual dinámicamente */
+#page1:checked ~ .pagination-controls .pagination-page-num::after { content: "1"; }
+#page2:checked ~ .pagination-controls .pagination-page-num::after { content: "2"; }
+#page3:checked ~ .pagination-controls .pagination-page-num::after { content: "3"; }
+#page4:checked ~ .pagination-controls .pagination-page-num::after { content: "4"; }
+#page5:checked ~ .pagination-controls .pagination-page-num::after { content: "5"; }
+
+#page1:checked ~ .pagination-controls .pagination-page-num {
+    color: transparent;
+}
+
+/* Responsive para tablet */
+@media (max-width: 768px) {
+    .pagination-controls {
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+    }
+    
+    .pagination-info {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Responsive para móvil */
+@media (max-width: 480px) {
+    .pagination-controls {
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    .pagination-info {
+        font-size: var(--font-size-xs);
+        width: 100%;
+        text-align: center;
+        order: 3;
+    }
+    
+    .pagination-btn {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+

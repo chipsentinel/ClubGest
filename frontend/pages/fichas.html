@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fichas - Club Gest</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../img/ACG-paint-logo.png">
 </head>
 <body>
     <!-- HEADER -->
@@ -33,80 +34,186 @@
     </nav>
 
     <!-- LAYOUT -->
-    <div class="layout-flex">
-        <main class="main-content">
+    <div class="layout">
+        <main class="main">
             <div class="page-header">
                 <h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 3H5c-1 0-2 1-2 2v14c0 1 1 2 2 2h14c1 0 2-1 2-2V5c0-1-1-2-2-2z"></path><path d="M9 7h6M9 11h6M9 15h2"></path></svg>Fichas de Jugadores</h1>
             </div>
 
-            <!-- Grid de fichas -->
-            <div class="fichas-grid" id="fichasGrid">
-                <p style="text-align: center; padding: 2rem;">Cargando jugadores...</p>
+            <!-- Checkboxes ocultos para paginación -->
+            <input type="radio" id="page1" name="pagination" class="pagination-radio" checked>
+            <input type="radio" id="page2" name="pagination" class="pagination-radio">
+            <input type="radio" id="page3" name="pagination" class="pagination-radio">
+            <input type="radio" id="page4" name="pagination" class="pagination-radio">
+            <input type="radio" id="page5" name="pagination" class="pagination-radio">
+
+            <!-- Grid de fichas con paginación CSS -->
+            <div class="table-container">
+                <div class="fichas-grid" id="fichasGrid">
+                    <p style="text-align: center; padding: 2rem;">Cargando jugadores...</p>
+                </div>
+            </div>
+
+            <!-- Controles de paginación con labels -->
+            <div class="pagination-controls">
+                <label for="page1" class="btn btn-small btn-info pagination-btn" id="btnPrev">← Anterior</label>
+                <span class="pagination-info">
+                    Página <strong class="pagination-page-num">1</strong> de <strong class="pagination-total-pages">1</strong>
+                </span>
+                <label for="page2" class="btn btn-small btn-info pagination-btn" id="btnNext">Siguiente →</label>
             </div>
 
             <div class="table-info">
-                <p>Total fichas: <strong id="totalFichas">0</strong></p>
+                <p>Total fichas: <strong id="totalFichas">0</strong> | Mostrando: <strong id="fichaMostradas">0</strong> por página</p>
             </div>
         </main>
     </div>
 
     <!-- FOOTER -->
+    <!-- Pie de página con información de copyright y versión del sistema -->
     <footer class="footer">
-        <p>&copy; 2025 Rugby Club Gest</p>
+        <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
     </footer>
 
     <script>
+        const jugadoresPorPagina = 10;
+        let todosLosJugadores = [];
+
         async function cargarFichas() {
             try {
                 const response = await fetch('http://localhost:8080/api/jugadores');
                 if (!response.ok) throw new Error('Error cargando jugadores');
                 
-                const jugadores = await response.json();
-                const fichasGrid = document.getElementById('fichasGrid');
-                fichasGrid.innerHTML = '';
+                todosLosJugadores = await response.json();
                 
-                if (jugadores.length === 0) {
-                    fichasGrid.innerHTML = '<p style="text-align: center; padding: 2rem;">No hay jugadores registrados</p>';
+                if (todosLosJugadores.length === 0) {
+                    document.getElementById('fichasGrid').innerHTML = '<p style="text-align: center; padding: 2rem;">No hay jugadores registrados</p>';
                     document.getElementById('totalFichas').textContent = '0';
+                    document.getElementById('fichaMostradas').textContent = '0';
+                    ocultarControlesPaginacion();
                     return;
                 }
                 
-                jugadores.forEach(jugador => {
-                    const ficha = crearFichaHTML(jugador);
-                    fichasGrid.innerHTML += ficha;
-                });
+                // Generar fichas HTML
+                generarFichasHTML();
                 
-                document.getElementById('totalFichas').textContent = jugadores.length;
+                // Actualizar info
+                document.getElementById('totalFichas').textContent = todosLosJugadores.length;
+                actualizarFichaMostradas();
+                
+                // Generar controles de paginación
+                generarControlesPaginacion();
+                
+                // Animar
+                const fichas = document.querySelectorAll('.ficha-card');
+                fichas.forEach((ficha, index) => {
+                    ficha.style.animationDelay = `${index * 0.05}s`;
+                });
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('fichasGrid').innerHTML = '<p style="text-align: center; padding: 2rem; color: red;">Error al cargar. ¿Está el servidor corriendo?</p>';
             }
         }
 
-        function crearFichaHTML(jugador) {
+        function generarFichasHTML() {
+            const fichasGrid = document.getElementById('fichasGrid');
+            fichasGrid.innerHTML = '';
+            
+            todosLosJugadores.forEach((jugador, index) => {
+                const pagina = Math.floor(index / jugadoresPorPagina) + 1;
+                const fichaHTML = crearFichaHTML(jugador, pagina);
+                fichasGrid.innerHTML += fichaHTML;
+            });
+        }
+
+        function crearFichaHTML(jugador, pagina) {
             const fechaNac = jugador.fechaNacimiento ? new Date(jugador.fechaNacimiento).toLocaleDateString('es-ES') : '-';
             
             return `
-                <div class="ficha-card">
+                <div class="ficha-card ficha-card-red" data-page="${pagina}">
                     <div class="ficha-header">
-                        <h3>#${jugador.dorsal || '?'}</h3>
-                        <span class="badge badge-success">✓</span>
+                        <h3>ID: ${jugador.id}</h3>
+                        <span class="badge badge-danger">Jugador</span>
                     </div>
                     <div class="ficha-body">
                         <p style="font-weight: 600; margin-bottom: 0.5rem;">${jugador.nombre} ${jugador.apellidos || ''}</p>
+                        <p><strong>Dorsal:</strong> ${jugador.dorsal || '-'}</p>
                         <p><strong>Posición:</strong> ${jugador.posicion || '-'}</p>
                         <p><strong>Nacimiento:</strong> ${fechaNac}</p>
                         <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : '-'}</p>
                     </div>
                     <div class="ficha-actions">
                         <button class="btn btn-small btn-info" onclick="verDetalles(${jugador.id})">Ver más</button>
+                        <button class="btn btn-small btn-danger" onclick="eliminarJugador(${jugador.id}, '${jugador.nombre} ${jugador.apellidos || ''}')">Eliminar</button>
                     </div>
                 </div>
             `;
         }
 
+        function generarControlesPaginacion() {
+            const totalPaginas = Math.ceil(todosLosJugadores.length / jugadoresPorPagina);
+            
+            // Crear nuevos radios si hay más de 5 páginas
+            const paginationContainer = document.querySelector('.layout');
+            const currentRadios = document.querySelectorAll('.pagination-radio');
+            
+            if (currentRadios.length < totalPaginas) {
+                for (let i = currentRadios.length; i < totalPaginas; i++) {
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.id = `page${i + 1}`;
+                    radio.name = 'pagination';
+                    radio.className = 'pagination-radio';
+                    paginationContainer.insertBefore(radio, document.querySelector('.main'));
+                }
+            }
+            
+            // Actualizar controles visibles
+            if (totalPaginas > 1) {
+                document.querySelector('.pagination-info').style.display = 'inline-block';
+                document.querySelector('.pagination-page-num').textContent = '1';
+                document.querySelector('.pagination-total-pages').textContent = totalPaginas;
+            } else {
+                document.querySelector('.pagination-info').style.display = 'none';
+            }
+        }
+
+        function actualizarFichaMostradas() {
+            const totalPaginas = Math.ceil(todosLosJugadores.length / jugadoresPorPagina);
+            if (totalPaginas === 1) {
+                document.getElementById('fichaMostradas').textContent = todosLosJugadores.length;
+            } else {
+                document.getElementById('fichaMostradas').textContent = jugadoresPorPagina;
+            }
+        }
+
+        function ocultarControlesPaginacion() {
+            document.querySelector('.pagination-info').style.display = 'none';
+            document.querySelector('.pagination-controls').style.display = 'none';
+        }
+
         function verDetalles(id) {
             alert('Ver detalles del jugador ' + id);
+        }
+
+        async function eliminarJugador(id, nombre) {
+            if (confirm(`¿Está seguro de que desea eliminar a ${nombre}?`)) {
+                try {
+                    const response = await fetch(`http://localhost:8080/api/jugadores/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (response.ok) {
+                        alert('Jugador eliminado exitosamente');
+                        cargarFichas();
+                    } else {
+                        alert('Error al eliminar el jugador');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error al conectar con el servidor');
+                }
+            }
         }
 
         window.onload = cargarFichas;
