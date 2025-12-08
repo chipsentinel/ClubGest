@@ -118,6 +118,13 @@
                 </table>
             </div>
         </main>
+
+        <!-- Controles de paginación -->
+        <div class="pagination-controls">
+            <label for="ent-page1" class="btn pagination-btn">← Anterior</label>
+            <span class="pagination-info">Página <strong id="paginaActual">1</strong> de <strong id="totalPaginas">1</strong></span>
+            <label for="ent-page2" class="btn pagination-btn">Siguiente →</label>
+        </div>
     </div>
 
     <!-- FOOTER -->
@@ -202,8 +209,11 @@
                 return;
             }
 
-            tbody.innerHTML = entrenamientos.map((e) => `
-                <tr>
+            const ITEMS_POR_PAGINA = 10;
+            tbody.innerHTML = entrenamientos.map((e, index) => {
+                const pagina = Math.floor(index / ITEMS_POR_PAGINA) + 1;
+                return `
+                <tr data-page="${pagina}">
                     <td><strong>${e.nombre}</strong></td>
                     <td>${formatearFecha(e.fechaHora)}</td>
                     <td>${e.tipo}</td>
@@ -216,7 +226,10 @@
                         <button class="btn btn-small btn-danger" onclick="marcarAsistencia(${e.id}, false)" title="No asistiré">✗</button>
                     </td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
+            
+            generarControles();
         }
 
         // Marcar asistencia
@@ -289,6 +302,50 @@
 
         function ocultarFormularioCrear() {
             document.getElementById('formCrear').style.display = 'none';
+        }
+
+        // Generar controles de paginación
+        function generarControles() {
+            const ITEMS_POR_PAGINA = 10;
+            const totalPaginas = Math.ceil(entrenamientos.length / ITEMS_POR_PAGINA);
+            const paginasContainer = document.querySelector('.pagination-controls');
+            
+            document.getElementById('totalPaginas').textContent = totalPaginas;
+            
+            if (totalPaginas <= 1) {
+                paginasContainer.style.display = 'none';
+            } else {
+                paginasContainer.style.display = 'flex';
+                
+                // Crear radios dinámicamente si hay más de 5 páginas
+                if (totalPaginas > 5) {
+                    for (let i = 6; i <= totalPaginas; i++) {
+                        const existingRadio = document.getElementById(`ent-page${i}`);
+                        if (!existingRadio) {
+                            const radio = document.createElement('input');
+                            radio.type = 'radio';
+                            radio.id = `ent-page${i}`;
+                            radio.name = 'ent-pagination';
+                            radio.className = 'pagination-radio';
+                            document.querySelector('.layout').insertBefore(radio, document.querySelector('.main'));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Actualizar página mostrada
+        function actualizarMostrados() {
+            const ITEMS_POR_PAGINA = 10;
+            const totalPaginas = Math.ceil(entrenamientos.length / ITEMS_POR_PAGINA);
+            
+            for (let i = 1; i <= totalPaginas; i++) {
+                const radio = document.getElementById(`ent-page${i}`);
+                if (radio && radio.checked) {
+                    document.getElementById('paginaActual').textContent = i;
+                    break;
+                }
+            }
         }
 
         // Cargar al iniciar

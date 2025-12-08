@@ -63,52 +63,21 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Juan Pérez García</strong></td>
-                            <td>Esguince de tobillo</td>
-                            <td>15/11/2024</td>
-                            <td><span class="badge badge-warning">Moderada</span></td>
-                            <td>14 días</td>
-                            <td><span class="badge badge-success">Recuperado</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carlos Ruiz López</strong></td>
-                            <td>Contractura muscular</td>
-                            <td>20/11/2024</td>
-                            <td><span class="badge badge-info">Leve</span></td>
-                            <td>3 días</td>
-                            <td><span class="badge badge-success">Recuperado</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Miguel Sánchez Romero</strong></td>
-                            <td>Distensión isquiotibial</td>
-                            <td>25/11/2024</td>
-                            <td><span class="badge badge-danger">Grave</span></td>
-                            <td>21 días</td>
-                            <td><span class="badge badge-warning">En recuperación</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
+                    <tbody id="lesionesTable">
+                        <tr><td colspan="7" style="text-align: center; padding: 2rem;">Cargando lesiones...</td></tr>
                     </tbody>
                 </table>
             </div>
 
+            <!-- Controles de paginación -->
+            <div class="pagination-controls">
+                <label for="les-page1" class="btn btn-small btn-info pagination-btn">← Anterior</label>
+                <span class="pagination-info">Página <strong id="paginaActualLes">1</strong> de <strong id="totalPaginasLes">1</strong></span>
+                <label for="les-page2" class="btn btn-small btn-info pagination-btn">Siguiente →</label>
+            </div>
+
             <div class="table-info">
-                <p>Total lesiones registradas: <strong>3</strong> | En recuperación: <strong>1</strong> | Recuperados: <strong>2</strong></p>
+                <p>Total lesiones registradas: <strong id="totalLesiones">0</strong></p>
             </div>
         </main>
     </div>
@@ -120,19 +89,89 @@
     </footer>
 
     <script>
-        function verDetalles(id) {
-            alert('Ver detalles de la lesión ' + id);
-        }
+        const registrosPorPagina = 10;
+        let todasLasLesiones = [];
 
-        function editarLesion(id) {
-            alert('Editar lesión ' + id);
-        }
+        // Datos mockup para lesiones (demostración sin BD)
+        const datosLesiones = [
+            { jugador: 'Juan Pérez García', tipo: 'Esguince de tobillo', fecha: '15/11/2024', gravedad: 'Moderada', dias: 14, estado: 'Recuperado' },
+            { jugador: 'Carlos Ruiz López', tipo: 'Contractura muscular', fecha: '20/11/2024', gravedad: 'Leve', dias: 3, estado: 'Recuperado' },
+            { jugador: 'Miguel Sánchez Romero', tipo: 'Distensión isquiotibial', fecha: '25/11/2024', gravedad: 'Grave', dias: 21, estado: 'En recuperación' },
+            { jugador: 'David Fernández Ruiz', tipo: 'Fractura de clavícula', fecha: '01/12/2024', gravedad: 'Grave', dias: 45, estado: 'En recuperación' },
+            { jugador: 'Antonio López García', tipo: 'Tendinitis rotuliana', fecha: '05/12/2024', gravedad: 'Moderada', dias: 10, estado: 'En recuperación' },
+            { jugador: 'Roberto Martín Sanz', tipo: 'Esquince de muñeca', fecha: '08/12/2024', gravedad: 'Leve', dias: 5, estado: 'En recuperación' },
+            { jugador: 'Francisco García López', tipo: 'Esguince de rodilla', fecha: '10/12/2024', gravedad: 'Moderada', dias: 20, estado: 'En recuperación' },
+            { jugador: 'José María González', tipo: 'Contusión muscular', fecha: '12/12/2024', gravedad: 'Leve', dias: 4, estado: 'Recuperado' },
+            { jugador: 'Luis Rodríguez Díaz', tipo: 'Desgarro muscular', fecha: '13/12/2024', gravedad: 'Grave', dias: 30, estado: 'En recuperación' },
+            { jugador: 'Andrés Martínez Blanco', tipo: 'Luxación de hombro', fecha: '14/12/2024', gravedad: 'Grave', dias: 60, estado: 'En recuperación' },
+            { jugador: 'Pedro Jiménez Costa', tipo: 'Esguince de tobillo', fecha: '15/12/2024', gravedad: 'Leve', dias: 7, estado: 'Recuperado' },
+            { jugador: 'Javier Sánchez Ruiz', tipo: 'Fractura de dedo', fecha: '16/12/2024', gravedad: 'Leve', dias: 8, estado: 'Recuperado' }
+        ];
 
-        function eliminarLesion(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este registro de lesión?')) {
-                alert('Lesión ' + id + ' eliminada');
+        function cargarLesiones() {
+            try {
+                todasLasLesiones = datosLesiones;
+                generarFilasLesiones();
+                document.getElementById('totalLesiones').textContent = todasLasLesiones.length;
+                generarControlesLesiones();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('lesionesTable').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">Error al cargar lesiones</td></tr>';
             }
         }
+
+        function generarFilasLesiones() {
+            const tabla = document.getElementById('lesionesTable');
+            tabla.innerHTML = '';
+            
+            todasLasLesiones.forEach((item, index) => {
+                const pagina = Math.floor(index / registrosPorPagina) + 1;
+                const badgeGravedad = item.gravedad === 'Grave' ? 'badge-danger' : item.gravedad === 'Moderada' ? 'badge-warning' : 'badge-info';
+                const badgeEstado = item.estado === 'Recuperado' ? 'badge-success' : 'badge-warning';
+                
+                const fila = `
+                    <tr data-page="${pagina}">
+                        <td><strong>${item.jugador}</strong></td>
+                        <td>${item.tipo}</td>
+                        <td>${item.fecha}</td>
+                        <td><span class="badge ${badgeGravedad}">${item.gravedad}</span></td>
+                        <td>${item.dias} días</td>
+                        <td><span class="badge ${badgeEstado}">${item.estado}</span></td>
+                        <td>
+                            <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                            <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
+                            <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+                        </td>
+                    </tr>
+                `;
+                tabla.innerHTML += fila;
+            });
+        }
+
+        function generarControlesLesiones() {
+            const totalPaginas = Math.ceil(todasLasLesiones.length / registrosPorPagina);
+            const layout = document.querySelector('.layout');
+            const currentRadios = document.querySelectorAll('[name="les-pagination"]');
+            
+            if (currentRadios.length < totalPaginas) {
+                for (let i = currentRadios.length; i < totalPaginas; i++) {
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.id = `les-page${i + 1}`;
+                    radio.name = 'les-pagination';
+                    radio.className = 'pagination-radio';
+                    layout.insertBefore(radio, document.querySelector('.main'));
+                }
+            }
+            
+            document.getElementById('totalPaginasLes').textContent = totalPaginas;
+            if (totalPaginas > 1) {
+                document.querySelector('.pagination-controls').style.display = 'flex';
+            }
+        }
+
+        // Cargar al iniciar
+        cargarLesiones();
     </script>
 </body>
 </html>

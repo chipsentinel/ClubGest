@@ -91,12 +91,26 @@
         const registrosPorPagina = 10;
         let todosLosRegistros = [];
 
-        async function cargarConvocatorias() {
+        // Datos mockup para convocatorias (demostración sin BD)
+        const datosConvocatorias = [
+            { nombre: 'Copa del Rey - Fase Eliminatoria', fechaHora: '2025-12-15T18:00:00', lugar: 'Estadio Central', estado: 'Confirmada' },
+            { nombre: 'Amistoso vs Club Estrella', fechaHora: '2025-12-18T19:30:00', lugar: 'Campo Principal', estado: 'Confirmada' },
+            { nombre: 'Torneo Local - Semifinal', fechaHora: '2025-12-22T17:00:00', lugar: 'Estadio de Barrio', estado: 'Por confirmar' },
+            { nombre: 'Partido Liga Regional', fechaHora: '2025-12-28T20:00:00', lugar: 'Estadio Central', estado: 'Confirmada' },
+            { nombre: 'Encuentro de pretemporada', fechaHora: '2026-01-05T18:30:00', lugar: 'Campo Auxiliar', estado: 'Confirmada' },
+            { nombre: 'Clásico Local', fechaHora: '2026-01-12T21:00:00', lugar: 'Estadio Central', estado: 'Confirmada' },
+            { nombre: 'Torneo Benéfico', fechaHora: '2026-01-20T16:00:00', lugar: 'Campo Municipal', estado: 'Por confirmar' },
+            { nombre: 'Partido de Clasificación', fechaHora: '2026-02-01T19:00:00', lugar: 'Estadio Central', estado: 'Confirmada' },
+            { nombre: 'Amistoso Internacional', fechaHora: '2026-02-15T20:30:00', lugar: 'Estadio Metropolitano', estado: 'Confirmada' },
+            { nombre: 'Encuentro Copa Local', fechaHora: '2026-02-25T18:00:00', lugar: 'Campo Principal', estado: 'Confirmada' },
+            { nombre: 'Partido de Playoffs', fechaHora: '2026-03-10T19:30:00', lugar: 'Estadio Central', estado: 'Por confirmar' },
+            { nombre: 'Fecha FIFA - Partidos de selecciones', fechaHora: '2026-03-25T20:00:00', lugar: 'Estadio Metropolitano', estado: 'Confirmada' }
+        ];
+
+        function cargarConvocatorias() {
             try {
-                const response = await fetch('http://localhost:8080/api/entrenamientos');
-                if (!response.ok) throw new Error('Error cargando convocatorias');
-                
-                todosLosRegistros = await response.json();
+                // Usar datos mockup en lugar de API
+                todosLosRegistros = datosConvocatorias;
                 
                 if (todosLosRegistros.length === 0) {
                     document.getElementById('convocatoriasTable').innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;">No hay convocatorias registradas</td></tr>';
@@ -112,7 +126,7 @@
                 generarControles();
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('convocatoriasTable').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">Error al cargar. ¿Está el servidor corriendo?</td></tr>';
+                document.getElementById('convocatoriasTable').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">Error al cargar convocatorias</td></tr>';
             }
         }
 

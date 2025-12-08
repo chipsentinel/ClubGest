@@ -63,52 +63,21 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Juan Pérez García</strong></td>
-                            <td>POL-2025-001</td>
-                            <td>Mapfre Deportes</td>
-                            <td>Completa</td>
-                            <td>Hasta 30/06/2025</td>
-                            <td><span class="badge badge-success">Vigente</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carlos Ruiz López</strong></td>
-                            <td>POL-2025-002</td>
-                            <td>Axa Seguros</td>
-                            <td>Completa</td>
-                            <td>Hasta 30/06/2025</td>
-                            <td><span class="badge badge-success">Vigente</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Miguel Sánchez Romero</strong></td>
-                            <td>POL-2025-003</td>
-                            <td>Generali</td>
-                            <td>Básica</td>
-                            <td>Hasta 31/12/2024</td>
-                            <td><span class="badge badge-warning">Vence próximo</span></td>
-                            <td>
-                                <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-                                <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
-                            </td>
-                        </tr>
+                    <tbody id="segurosTable">
+                        <tr><td colspan="7" style="text-align: center; padding: 2rem;">Cargando seguros...</td></tr>
                     </tbody>
                 </table>
             </div>
 
+            <!-- Controles de paginación -->
+            <div class="pagination-controls">
+                <label for="seg-page1" class="btn btn-small btn-info pagination-btn">← Anterior</label>
+                <span class="pagination-info">Página <strong id="paginaActualSeg">1</strong> de <strong id="totalPaginasSeg">1</strong></span>
+                <label for="seg-page2" class="btn btn-small btn-info pagination-btn">Siguiente →</label>
+            </div>
+
             <div class="table-info">
-                <p>Total seguros registrados: <strong>3</strong> | Vigentes: <strong>2</strong> | Por renovar: <strong>1</strong></p>
+                <p>Total seguros registrados: <strong id="totalSeguros">0</strong></p>
             </div>
         </main>
     </div>
@@ -120,19 +89,88 @@
     </footer>
 
     <script>
-        function verDetalles(id) {
-            alert('Ver detalles del seguro ' + id);
-        }
+        const registrosPorPagina = 10;
+        let todosSeguros = [];
 
-        function editarSeguro(id) {
-            alert('Editar seguro ' + id);
-        }
+        // Datos mockup para seguros (demostración sin BD)
+        const datosSeguros = [
+            { jugador: 'Juan Pérez García', poliza: 'POL-2025-001', aseguradora: 'Mapfre Deportes', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' },
+            { jugador: 'Carlos Ruiz López', poliza: 'POL-2025-002', aseguradora: 'Axa Seguros', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' },
+            { jugador: 'Miguel Sánchez Romero', poliza: 'POL-2025-003', aseguradora: 'Generali', cobertura: 'Básica', vigencia: 'Hasta 31/12/2024', estado: 'Vence próximo' },
+            { jugador: 'David Fernández Ruiz', poliza: 'POL-2025-004', aseguradora: 'Liberty Seguros', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' },
+            { jugador: 'Antonio López García', poliza: 'POL-2025-005', aseguradora: 'Mapfre Deportes', cobertura: 'Premium', vigencia: 'Hasta 31/12/2025', estado: 'Vigente' },
+            { jugador: 'Roberto Martín Sanz', poliza: 'POL-2025-006', aseguradora: 'Zurich', cobertura: 'Completa', vigencia: 'Hasta 30/04/2025', estado: 'Vence próximo' },
+            { jugador: 'Francisco García López', poliza: 'POL-2025-007', aseguradora: 'Allianz', cobertura: 'Básica', vigencia: 'Hasta 31/03/2025', estado: 'Vence próximo' },
+            { jugador: 'José María González', poliza: 'POL-2025-008', aseguradora: 'Axa Seguros', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' },
+            { jugador: 'Luis Rodríguez Díaz', poliza: 'POL-2025-009', aseguradora: 'Mapfre Deportes', cobertura: 'Premium', vigencia: 'Hasta 31/12/2025', estado: 'Vigente' },
+            { jugador: 'Andrés Martínez Blanco', poliza: 'POL-2025-010', aseguradora: 'Liberty Seguros', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' },
+            { jugador: 'Pedro Jiménez Costa', poliza: 'POL-2025-011', aseguradora: 'Generali', cobertura: 'Básica', vigencia: 'Hasta 31/05/2025', estado: 'Vigente' },
+            { jugador: 'Javier Sánchez Ruiz', poliza: 'POL-2025-012', aseguradora: 'Zurich', cobertura: 'Completa', vigencia: 'Hasta 30/06/2025', estado: 'Vigente' }
+        ];
 
-        function eliminarSeguro(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este seguro?')) {
-                alert('Seguro ' + id + ' eliminado');
+        function cargarSeguros() {
+            try {
+                todosSeguros = datosSeguros;
+                generarFilasSeguros();
+                document.getElementById('totalSeguros').textContent = todosSeguros.length;
+                generarControlesSeguros();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('segurosTable').innerHTML = '<tr><td colspan="7" style="text-align: center; color: red;">Error al cargar seguros</td></tr>';
             }
         }
+
+        function generarFilasSeguros() {
+            const tabla = document.getElementById('segurosTable');
+            tabla.innerHTML = '';
+            
+            todosSeguros.forEach((item, index) => {
+                const pagina = Math.floor(index / registrosPorPagina) + 1;
+                const badgeEstado = item.estado === 'Vigente' ? 'badge-success' : 'badge-warning';
+                
+                const fila = `
+                    <tr data-page="${pagina}">
+                        <td><strong>${item.jugador}</strong></td>
+                        <td>${item.poliza}</td>
+                        <td>${item.aseguradora}</td>
+                        <td>${item.cobertura}</td>
+                        <td>${item.vigencia}</td>
+                        <td><span class="badge ${badgeEstado}">${item.estado}</span></td>
+                        <td>
+                            <button class="btn-icon" title="Ver"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                            <button class="btn-icon" title="Editar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
+                            <button class="btn-icon" title="Eliminar"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+                        </td>
+                    </tr>
+                `;
+                tabla.innerHTML += fila;
+            });
+        }
+
+        function generarControlesSeguros() {
+            const totalPaginas = Math.ceil(todosSeguros.length / registrosPorPagina);
+            const layout = document.querySelector('.layout');
+            const currentRadios = document.querySelectorAll('[name="seg-pagination"]');
+            
+            if (currentRadios.length < totalPaginas) {
+                for (let i = currentRadios.length; i < totalPaginas; i++) {
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.id = `seg-page${i + 1}`;
+                    radio.name = 'seg-pagination';
+                    radio.className = 'pagination-radio';
+                    layout.insertBefore(radio, document.querySelector('.main'));
+                }
+            }
+            
+            document.getElementById('totalPaginasSeg').textContent = totalPaginas;
+            if (totalPaginas > 1) {
+                document.querySelector('.pagination-controls').style.display = 'flex';
+            }
+        }
+
+        // Cargar al iniciar
+        cargarSeguros();
     </script>
 </body>
 </html>
