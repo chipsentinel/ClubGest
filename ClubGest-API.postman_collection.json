@@ -154,6 +154,134 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Entrenamientos",
+      "item": [
+        {
+          "name": "Listar todos los entrenamientos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos"]
+            },
+            "description": "Obtiene la lista completa de todos los entrenamientos programados"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener entrenamiento por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos", "1"]
+            },
+            "description": "Obtiene los detalles de un entrenamiento específico por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear nuevo entrenamiento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Entrenamiento Técnico\",\n  \"descripcion\": \"Trabajo de pases y recepciones\",\n  \"fechaHora\": \"2025-12-15T18:30:00\",\n  \"duracionMinutos\": 90,\n  \"lugar\": \"Campo de entrenamientos\",\n  \"tipo\": \"Técnico\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos"]
+            },
+            "description": "Crea un nuevo entrenamiento con todos los atributos"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar entrenamiento completo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Entrenamiento Táctico Modificado\",\n  \"descripcion\": \"Trabajo de defensas\",\n  \"fechaHora\": \"2025-12-16T19:00:00\",\n  \"duracionMinutos\": 120,\n  \"lugar\": \"Campo principal\",\n  \"tipo\": \"Táctico\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos", "1"]
+            },
+            "description": "Actualiza todos los campos de un entrenamiento existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar estado del entrenamiento",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos/1/estado",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos", "1", "estado"]
+            },
+            "description": "Actualiza solo el estado del entrenamiento (cancelado/programado)"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar entrenamiento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/entrenamientos/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "entrenamientos", "1"]
+            },
+            "description": "Elimina un entrenamiento de la base de datos"
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [
