@@ -37,23 +37,76 @@
         <main class="main-content">
             <div class="page-header">
                 <h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="10" r="2.5"></circle><circle cx="19" cy="10" r="2.5"></circle><line x1="8" y1="10" x2="16" y2="10"></line><path d="M7 5v10M17 5v10"></path></svg>Entrenamientos</h1>
-                <button class="btn btn-success">+ Nuevo</button>
+                <button class="btn btn-success" onclick="mostrarFormularioCrear()">+ Nuevo Entrenamiento</button>
+            </div>
+
+            <!-- Formulario crear entrenamiento -->
+            <div id="formCrear" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <h3>Crear Nuevo Entrenamiento</h3>
+                <form id="formNuevoEntrenamiento" onsubmit="crearEntrenamiento(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div class="form-group">
+                            <label>Nombre *</label>
+                            <input type="text" name="nombre" required placeholder="Ej: Entrenamiento técnico">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo *</label>
+                            <select name="tipo" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Táctico">Táctico</option>
+                                <option value="Físico">Físico</option>
+                                <option value="Mixto">Mixto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha y Hora *</label>
+                            <input type="datetime-local" name="fechaHora" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Duración (minutos) *</label>
+                            <input type="number" name="duracionMinutos" min="15" max="300" required placeholder="90">
+                        </div>
+                        <div class="form-group">
+                            <label>Lugar *</label>
+                            <input type="text" name="lugar" required placeholder="Campo Principal">
+                        </div>
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select name="estado">
+                                <option value="true">Programado</option>
+                                <option value="false">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea name="descripcion" rows="3" placeholder="Descripción del entrenamiento..."></textarea>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button type="submit" class="btn btn-success">Crear Entrenamiento</button>
+                        <button type="button" class="btn btn-secondary" onclick="ocultarFormularioCrear()">Cancelar</button>
+                    </div>
+                </form>
             </div>
 
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
-                            <th>Hora</th>
+                            <th>Nombre</th>
+                            <th>Fecha y Hora</th>
                             <th>Tipo</th>
-                            <th>Categoría</th>
+                            <th>Duración</th>
                             <th>Lugar</th>
-                            <th>Asistencia</th>
+                            <th>Estado</th>
+                            <th>Mi Asistencia</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="entrenamientosTable"></tbody>
+                    <tbody id="entrenamientosTable">
+                        <tr><td colspan="8" style="text-align: center;">Cargando...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </main>
@@ -63,46 +116,173 @@
         <p>&copy; 2025 Rugby Club Gest</p>
     </footer>
     <script>
-        // Datos de ejemplo. TODO: sustituir por fetch a /api/entrenamientos cuando exista.
-        const entrenamientos = [
-            { id: 1, fecha: 'Jueves 12 Dic', hora: '18:30', tipo: 'Técnico', categoria: 'Senior', lugar: 'Campo Principal', asistencia: 'Pendiente' },
-            { id: 2, fecha: 'Martes 17 Dic', hora: '19:00', tipo: 'Físico', categoria: 'Sub-21', lugar: 'Campo Auxiliar', asistencia: 'Pendiente' },
-            { id: 3, fecha: 'Jueves 19 Dic', hora: '18:30', tipo: 'Mixto', categoria: 'Senior', lugar: 'Campo Principal', asistencia: 'No asistiré' }
-        ];
+        // ID del jugador actual (hardcodeado por ahora, en producción vendría de sesión)
+        const JUGADOR_ACTUAL_ID = 1;
+        let entrenamientos = [];
+        let asistencias = {};
 
-        const statusBadge = (estado) => {
-            if (estado === 'Asistiré') return '<span class="badge badge-success">Asistiré</span>';
-            if (estado === 'No asistiré') return '<span class="badge badge-danger">No asistiré</span>';
-            return '<span class="badge badge-warning">Pendiente</span>';
-        };
+        // Cargar entrenamientos desde el backend
+        async function cargarEntrenamientos() {
+            try {
+                const response = await fetch('http://localhost:8080/api/entrenamientos');
+                if (!response.ok) throw new Error('Error al cargar entrenamientos');
+                entrenamientos = await response.json();
+                await cargarAsistenciasJugador();
+                renderEntrenamientos();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('entrenamientosTable').innerHTML = 
+                    '<tr><td colspan="8" style="text-align: center; color: red;">Error al cargar entrenamientos. ¿Está el servidor corriendo?</td></tr>';
+            }
+        }
+
+        // Cargar asistencias del jugador actual
+        async function cargarAsistenciasJugador() {
+            try {
+                const response = await fetch(`http://localhost:8080/api/asistencias/jugador/${JUGADOR_ACTUAL_ID}`);
+                if (!response.ok) return;
+                const asistenciasArray = await response.json();
+                
+                // Convertir array a objeto indexado por entrenamientoId
+                asistencias = {};
+                asistenciasArray.forEach(a => {
+                    asistencias[a.entrenamientoId] = a.asistencia;
+                });
+            } catch (error) {
+                console.error('Error cargando asistencias:', error);
+            }
+        }
+
+        // Formatear fecha
+        function formatearFecha(fechaISO) {
+            const fecha = new Date(fechaISO);
+            const opciones = { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return fecha.toLocaleDateString('es-ES', opciones);
+        }
+
+        // Badge de estado del entrenamiento
+        function estadoBadge(estado) {
+            return estado 
+                ? '<span class="badge badge-success">Programado</span>'
+                : '<span class="badge badge-danger">Cancelado</span>';
+        }
+
+        // Badge de asistencia del jugador
+        function asistenciaBadge(entrenamientoId) {
+            if (asistencias[entrenamientoId] === undefined) {
+                return '<span class="badge badge-warning">Sin registrar</span>';
+            }
+            return asistencias[entrenamientoId]
+                ? '<span class="badge badge-success">Asistiré</span>'
+                : '<span class="badge badge-danger">No asistiré</span>';
+        }
 
         function renderEntrenamientos() {
             const tbody = document.getElementById('entrenamientosTable');
+            
+            if (entrenamientos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No hay entrenamientos programados</td></tr>';
+                return;
+            }
+
             tbody.innerHTML = entrenamientos.map((e) => `
                 <tr>
-                    <td>${e.fecha}</td>
-                    <td>${e.hora}</td>
+                    <td><strong>${e.nombre}</strong></td>
+                    <td>${formatearFecha(e.fechaHora)}</td>
                     <td>${e.tipo}</td>
-                    <td>${e.categoria}</td>
+                    <td>${e.duracionMinutos} min</td>
                     <td>${e.lugar}</td>
-                    <td>${statusBadge(e.asistencia)}</td>
+                    <td>${estadoBadge(e.estado)}</td>
+                    <td>${asistenciaBadge(e.id)}</td>
                     <td>
-                        <button class="btn btn-small btn-success" onclick="marcarAsistencia(${e.id}, 'Asistiré')">Asistiré</button>
-                        <button class="btn btn-small btn-danger" onclick="marcarAsistencia(${e.id}, 'No asistiré')">No asistiré</button>
+                        <button class="btn btn-small btn-success" onclick="marcarAsistencia(${e.id}, true)" title="Confirmar asistencia">✓</button>
+                        <button class="btn btn-small btn-danger" onclick="marcarAsistencia(${e.id}, false)" title="No asistiré">✗</button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        function marcarAsistencia(id, estado) {
-            const item = entrenamientos.find((e) => e.id === id);
-            if (!item) return;
-            item.asistencia = estado;
-            renderEntrenamientos();
-            // TODO: cuando exista backend, hacer PATCH/PUT a /api/entrenamientos/:id/asistencia
+        // Marcar asistencia
+        async function marcarAsistencia(entrenamientoId, asistira) {
+            try {
+                const response = await fetch('http://localhost:8080/api/asistencias', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jugadorId: JUGADOR_ACTUAL_ID,
+                        entrenamientoId: entrenamientoId,
+                        asistencia: asistira
+                    })
+                });
+
+                if (!response.ok) throw new Error('Error al registrar asistencia');
+                
+                // Actualizar estado local
+                asistencias[entrenamientoId] = asistira;
+                renderEntrenamientos();
+                
+                alert(asistira ? 'Asistencia confirmada' : 'Ausencia registrada');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al registrar asistencia');
+            }
         }
 
-        renderEntrenamientos();
+        // Crear nuevo entrenamiento
+        async function crearEntrenamiento(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const nuevoEntrenamiento = {
+                nombre: formData.get('nombre'),
+                descripcion: formData.get('descripcion') || '',
+                fechaHora: formData.get('fechaHora'),
+                duracionMinutos: parseInt(formData.get('duracionMinutos')),
+                lugar: formData.get('lugar'),
+                tipo: formData.get('tipo'),
+                estado: formData.get('estado') === 'true'
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/entrenamientos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(nuevoEntrenamiento)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Error al crear entrenamiento');
+                }
+
+                alert('Entrenamiento creado exitosamente');
+                form.reset();
+                ocultarFormularioCrear();
+                cargarEntrenamientos();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al crear entrenamiento: ' + error.message);
+            }
+        }
+
+        function mostrarFormularioCrear() {
+            document.getElementById('formCrear').style.display = 'block';
+        }
+
+        function ocultarFormularioCrear() {
+            document.getElementById('formCrear').style.display = 'none';
+        }
+
+        // Cargar al iniciar
+        cargarEntrenamientos();
     </script>
 </body>
 </html>
