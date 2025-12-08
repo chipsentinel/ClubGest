@@ -574,39 +574,173 @@ body {
     opacity: 1;
 }
 
-/* Responsive: tablet/móvil */
-@media (max-width: 768px) {
+/* ========================================
+   RESPONSIVE DESIGN - MÚLTIPLES BREAKPOINTS
+   ======================================== */
+
+/* RESPONSIVE: Grandes pantallas (1200px+) - Desktop */
+@media (min-width: 1200px) {
     .container {
-        flex-direction: column;  /* Apila izquierda sobre derecha */
+        max-width: 1000px;
+    }
+    
+    .lado-izquierdo {
+        min-width: 450px;
+    }
+}
+
+/* RESPONSIVE: Pantallas medianas (1024px - 1199px) - Laptops pequeñas */
+@media (max-width: 1199px) and (min-width: 1024px) {
+    .container {
+        max-width: 900px;
+    }
+    
+    .lado-izquierdo {
+        min-width: 380px;
+    }
+    
+    .lado-derecho {
+        padding: 35px 25px;
+    }
+}
+
+/* RESPONSIVE: Tablets (769px - 1023px) - Layout de lado como PC */
+@media (max-width: 1023px) and (min-width: 769px) {
+    .container {
+        max-width: 95vw;
+        height: 100vh;
+        flex-direction: row;
+        margin: 0 auto;
+        border-radius: 12px;
+    }
+    
+    .lado-izquierdo {
+        min-width: 320px;
+        width: 40%;
+        padding: 40px 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .lado-derecho {
+        width: 60%;
+        padding: 40px 30px;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .logo img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .logo h1 {
+        font-size: 2em;
+    }
+    
+    .logo p {
+        font-size: 1em;
+    }
+    
+    .form-group input,
+    .form-group select {
+        font-size: 15px;
+    }
+    
+    .tabs {
+        gap: 10px;
+    }
+    
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.95em;
+    }
+}
+
+/* RESPONSIVE: Móvil y tablets pequeñas (hasta 768px) - Vertical expandido */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .container {
+        flex-direction: column;
+        max-width: 100vw;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
     }
 
     .lado-izquierdo {
         width: 100%;
-        min-height: 200px;
         padding: 40px 20px;
+        min-height: auto;
+        flex: 0 0 auto;
     }
 
-    .lado-izquierdo .logo img {
-        width: 70px;
-        height: 70px;
+    .logo {
+        text-align: center;
     }
 
-    .lado-izquierdo .logo h1 {
-        font-size: 1.8em;
+    .logo img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+
+    .logo h1 {
+        font-size: 2em;
+        margin: 10px 0 5px 0;
+    }
+    
+    .logo p {
+        font-size: 1em;
+        margin: 0;
     }
 
     .lado-derecho {
         width: 100%;
-        padding: 30px 20px;
+        padding: 25px 20px;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .form-section {
+        padding: 20px 0;
+    }
+
+    .form-section h2 {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.95em;
+    }
+
+    .form-group input,
+    .form-group select {
+        font-size: 16px;
+        padding: 12px;
     }
 
     .tabs {
         gap: 8px;
+        margin-bottom: 20px;
     }
 
     .tab-btn {
-        padding: 8px 12px;
-        font-size: 0.85em;
+        padding: 10px 14px;
+        font-size: 0.9em;
+        border-radius: 6px;
     }
 
     .button-group {
@@ -615,34 +749,46 @@ body {
 
     .btn {
         width: 100%;
+        padding: 12px;
+        font-size: 0.95em;
+        margin-bottom: 8px;
+    }
+
+    .btn-volver {
+        margin-top: 8px;
+    }
+
+    .registro-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .reg-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9em;
     }
 }
 
-/* Responsive: móvil pequeño */
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
+/* RESPONSIVE: Ultra móvil (menos de 320px) - Muy raro pero considerado */
+@media (max-width: 319px) {
     .container {
-        border-radius: 8px;
+        padding: 5px;
     }
 
-    .lado-izquierdo {
-        padding: 30px 15px;
-        min-height: 150px;
-    }
-
-    .lado-derecho {
-        padding: 20px 15px;
+    .logo img {
+        width: 50px;
+        height: 50px;
     }
 
     .form-group input,
     .form-group select {
-        font-size: 16px; /* Evita zoom en iOS */
+        font-size: 14px;
+        padding: 8px;
     }
 
-    .tabs {
-        margin-bottom: 20px;
+    .btn {
+        padding: 10px;
+        font-size: 0.85em;
     }
 }
