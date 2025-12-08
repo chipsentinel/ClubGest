@@ -29,7 +29,7 @@ backend/
 		route/jugador.route.js   # CRUD + asistencia
 frontend/
 	index.html                 # Login/registro
-	pages/                     # home, entrenamientos, convocatorias, fichas, seguros, lesiones, register-jugador (+ future/* borradores)
+	pages/                     # home, entrenamientos, convocatorias, fichas, seguros, lesiones, registro-jugador (+ future/* borradores)
 	css/                       # variables.css, layout.css, components.css, pages.css, auth.css, style.css (importador)
 	img/                       # logos y svg de iconos
 ```
@@ -67,7 +67,7 @@ npm start            # node app.js --config src/configuration/config.prod.yaml
 
 ## Frontend
 - Login/registro en `index.html` con tabs y estilos en `auth.css`.
-- Páginas: `home.html`, `convocatorias.html`, `entrenamientos.html`, `lesiones.html`, `seguros.html`, `fichas.html`, `register-jugador.html` (y borradores en `future/`).
+- Páginas: `home.html`, `convocatorias.html`, `entrenamientos.html`, `lesiones.html`, `seguros.html`, `fichas.html`, `registro-jugador.html` (y borradores en `future/`).
 - Navegación unificada de 6 enlaces y sistema de iconos SVG (24x24, `currentColor`).
 - CSS modular importado desde `css/style.css`.
 
