@@ -3,20 +3,28 @@
  * Radio buttons controlan qué formulario se ve
  ****************************************/
 
+/* @import: Importa estilos externos desde Google Fonts */
+/* &display=swap: optimiza la carga mostrando texto con fuente del sistema hasta que cargue */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset universal: quita márgenes/paddings por defecto del navegador */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box;  /* Hace que padding/border se incluyan en width/height */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Anton', sans-serif;
     /* Gradiente translúcido sobre imagen de fondo */
     background: 
         /*linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%),*/
         url('../img/ACG-background-index-original.png') center center / cover no-repeat fixed;
 
-/* Utilidad para ocultar visualmente pero mantener en accesibilidad/SEO */
+/* .sr-only: Clase de accesibilidad para ocultar elementos visualmente pero mantenerlos para lectores de pantalla y SEO */
+/* position: absolute saca el elemento del flujo normal del documento */
+/* width/height de 1px + overflow: hidden lo hace invisible pero no con display:none */
+/* clip: rect() recorta el elemento a un rectángulo de 0x0 (invisible) */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -24,8 +32,8 @@ body {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    clip: rect(0, 0, 0, 0);  /* Compatibilidad con navegadores antiguos */
+    white-space: nowrap;     /* Evita que el texto se divida en líneas */
     border: 0;
 }
     display: flex;                 /* Centro todo en pantalla */
@@ -35,52 +43,84 @@ body {
     padding: 20px;
 }
 
-/* Radios ocultos: su estado :checked maneja qué tab y formulario se muestran */
+/* Radios ocultos: input[type="radio"] invisibles que controlan el estado de la UI */
+/* Su estado :checked se usa en selectores CSS para mostrar/ocultar contenido SIN JavaScript */
+/* Ejemplo: #tab-login:checked ~ .container .login-form { display: flex; } */
 #tab-login,
 #tab-registro,
 #tab-club,
 #tab-jugador,
 #tab-entrenador {
-    display: none;
+    display: none;  /* Los ocultamos porque usamos <label> para hacer clic */
 }
 
 /* CONTENEDOR PRINCIPAL */
 .container {
     background: white;
-    border-radius: 15px;          /* Bordes más suaves */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Sombra para levantar la tarjeta */
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);  /* Sombra: horizontal vertical blur spread color */
     width: 100%;
-    max-width: 950px;
-    height: 480px;                /* Altura fija para que siempre sea igual */
-    display: flex;                /* Split horizontal con flex (izquierda fija, derecha cambia) */
-    flex-direction: row;
-    overflow: hidden;             /* Evita desbordes visuales */
+    max-width: 950px;  /* Limita ancho máximo en pantallas grandes */
+    height: 480px;
+    display: flex;
+    flex-direction: row;  /* Hijos en fila horizontal */
+    overflow: hidden;     /* Oculta contenido que se desborda */
+    animation: containerFadeIn 0.6s ease;  /* Aplica animación de entrada */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* Transición suave con curva de aceleración personalizada */
+}
+
+/* Selector :checked con operador ~ (hermano general) */
+/* #tab-registro:checked ~ .container significa: "cuando #tab-registro esté marcado, aplica estilos a .container que sea hermano" */
+/* 95vw = 95% del viewport width (ancho de ventana) */
+/* 90vh = 90% del viewport height (alto de ventana) */
+#tab-registro:checked ~ .container {
+    max-width: 95vw;   /* Expande a casi toda la pantalla horizontalmente */
+    height: 90vh;      /* Expande a casi toda la pantalla verticalmente */
+    max-height: 90vh;
+}
+
+/* @keyframes: Define una animación CSS reutilizable */
+/* from/to: estados inicial y final (también puedes usar 0%, 50%, 100%) */
+/* transform: scale() cambia tamaño, translateY() mueve en eje vertical */
+@keyframes containerFadeIn {
+    from {
+        opacity: 0;                            /* Invisible */
+        transform: scale(0.95) translateY(30px);  /* 95% del tamaño, 30px abajo */
+    }
+    to {
+        opacity: 1;                            /* Visible */
+        transform: scale(1) translateY(0);     /* Tamaño normal, posición normal */
+    }
 }
 
 /* LADO IZQUIERDO: solo marca/branding, se mantiene fijo */
 .lado-izquierdo {
-    background: linear-gradient(135deg, #1D6AAE  0%, white 100%); /* Bloque estático de marca */
+    background: linear-gradient(135deg, #1D3A70 0%, white 100%); /* Gradiente diagonal: 135deg es de abajo-izq a arriba-der */
     padding: 60px 40px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;  /* Hijos apilados verticalmente */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center;     /* Centra horizontalmente */
     color: white;
     width: 40%;
+    min-width: 380px;  /* Ancho mínimo: no se encogerá más allá de 380px */
+    max-width: 450px;  /* Ancho máximo: no crecerá más allá de 450px */
     min-height: 500px;
+    transition: all 0.4s ease;  /* Transición suave de 0.4 segundos para TODAS las propiedades */
 }
+
 
 /* Tema dinámico: el lado izquierdo toma el color del sub-tab activo en registro */
 #tab-registro:checked ~ #tab-club:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #2E9E67 0%, white 100%);
+    background: linear-gradient(135deg, #2E7D32 0%, white 100%); /* Verde armonizado */
 }
 
 #tab-registro:checked ~ #tab-jugador:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #ff1e00 0%, white 100%);
+    background: linear-gradient(135deg, #D32F2F 0%, white 100%); /* Rojo armonizado */
 }
 
 #tab-registro:checked ~ #tab-entrenador:checked ~ .container .lado-izquierdo {
-    background: linear-gradient(135deg, #25C5C0 0%, white 100%);
+    background: linear-gradient(135deg, #0097A7 0%, white 100%); /* Turquesa armonizado */
 }
 
 .logo {
@@ -92,8 +132,8 @@ body {
 }
 
 .logo img {
-    width: 250px;
-    height: 250px;
+    width: 270px;
+    height: 270px;
     margin-bottom: 10px;
 }
 
@@ -110,26 +150,53 @@ body {
 }
 
 .logo p {
-    font-size: 1.4em;
+    font-size: 2em;
     opacity: 0.9;
-    line-height: 1.5;
-    color: #F1E4C2; /* Verde aqua solicitado */
-    /* Trazo alrededor del texto usando text-shadow (compatible cross-browser) */
+    line-height: 3;
+    text-transform: uppercase;  /* Convierte todo el texto a mayúsculas */
+    color: #F1E4C2;
+    /* text-shadow: Crea un "outline" alrededor del texto usando 4 sombras en las esquinas */
+    /* Sintaxis: horizontal vertical blur color */
+    /* Al poner 0 blur y desplazamientos pequeños en las 4 direcciones, simula un borde */
     text-shadow:
-        -0.5px -0.5px 0 #1F3A5B,
-         0.5px -0.5px 0 #1F3A5B,
-        -0.5px  0.5px 0 #1F3A5B,
-         0.5px  0.5px 0 #1F3A5B;
+        -0.5px -0.5px 0 #1F3A5B,  /* Sombra arriba-izquierda */
+         0.5px -0.5px 0 #1F3A5B,  /* Sombra arriba-derecha */
+        -0.5px  0.5px 0 #1F3A5B,  /* Sombra abajo-izquierda */
+         0.5px  0.5px 0 #1F3A5B;  /* Sombra abajo-derecha */
 }
 
 /* LADO DERECHO: contiene tabs y formularios */
 .lado-derecho {
     padding: 40px;
     width: 60%;
+    flex: 1;  /* IMPORTANTE: flex:1 hace que este elemento crezca para ocupar TODO el espacio disponible */
+              /* Cuando el contenedor se expande, este lado toma el espacio extra automáticamente */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;             /* Scroll si el contenido excede la altura fija */
+    justify-content: flex-start;  /* Alinea contenido al inicio (arriba) */
+    overflow-y: auto;    /* Permite scroll vertical si el contenido es más alto que el contenedor */
+    scroll-behavior: smooth;  /* Hace que el scroll sea suave en lugar de instantáneo */
+    transition: all 0.4s ease;
+}
+
+/* Personalizar scrollbar (solo funciona en navegadores WebKit: Chrome, Safari, Edge) */
+/* ::-webkit-scrollbar son pseudo-elementos que permiten estilizar la barra de scroll */
+.lado-derecho::-webkit-scrollbar {
+    width: 8px;  /* Ancho de la barra de scroll */
+}
+
+.lado-derecho::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Color del "riel" donde se desliza el thumb */
+    border-radius: 10px;
+}
+
+.lado-derecho::-webkit-scrollbar-thumb {
+    background: #E9B34A;  /* Color del "pulgar" que se arrastra */
+    border-radius: 10px;
+}
+
+.lado-derecho::-webkit-scrollbar-thumb:hover {
+    background: #d4a03a;  /* Color más oscuro cuando pasas el mouse */
 }
 
 /* TABS PRINCIPALES (Login / Registro) */
@@ -142,27 +209,34 @@ body {
 }
 
 .tab-btn {
-    padding: 12px 20px;
-    background: transparent;
+    padding: 12px 24px;
+    background: transparent;  /* Fondo invisible */
     border: none;
-    cursor: pointer;
+    cursor: pointer;  /* Cambia el cursor a manita al pasar el mouse */
     color: #999;
-    font-size: 0.95em;
-    font-weight: 600;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    position: relative;
+    font-size: 1.05em;  /* 1.05 veces el tamaño de fuente del padre */
+    font-weight: 500;   /* Grosor medio (100=thin, 400=normal, 700=bold, 900=black) */
+    font-family: 'Poppins', sans-serif;  /* Poppins para mejor legibilidad */
+    border-bottom: 3px solid transparent;  /* Borde invisible que luego se colorea al activar */
+    /* cubic-bezier: curva de aceleración personalizada (más natural que linear/ease) */
+    /* Valores (0.4, 0, 0.2, 1): puntos de control de la curva bezier */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;  /* Necesario si queremos posicionar pseudo-elementos ::before/::after */
 }
 
+/* :hover es una pseudo-clase que aplica estilos cuando el mouse está sobre el elemento */
 .tab-btn:hover {
-    color: #667eea;
+    color: #E9B34A;
+    transform: translateY(-2px);  /* Mueve el elemento 2px hacia ARRIBA (valores negativos van arriba) */
 }
 
-/* Estados activos: label asociado al radio :checked toma color y subrayado */
+/* Selector complejo: combina :checked, hermano general (~), descendiente (espacio) y atributo [for] */
+/* Se lee: "cuando #tab-login esté :checked, busca su hermano .container, dentro busca .tabs, dentro busca label con for='tab-login'" */
+/* [for="tab-login"]: selector de atributo, selecciona elementos con ese atributo exacto */
 #tab-login:checked ~ .container .tabs label[for="tab-login"],
 #tab-registro:checked ~ .container .tabs label[for="tab-registro"] {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: #E9B34A;
+    border-bottom-color: #E9B34A;  /* Activa el borde inferior cuando el tab está seleccionado */
 }
 
 /* Bloques de formularios: ocultos por defecto, visibles cuando su radio está activo */
@@ -174,14 +248,43 @@ body {
     gap: 20px;
 }
 
+/* Títulos de sección */
+.form-section h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;  /* Poppins para los títulos h2 */
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #E9B34A;
+    /* display: inline-block: hace que el elemento se comporte como inline pero respete width/height/padding */
+    /* Esto hace que el borde inferior solo cubra el ancho del texto, no toda la línea */
+    display: inline-block;
+}
+
 #tab-login:checked ~ .container .lado-derecho .login-form {
     display: flex;
     opacity: 1;
+    animation: fadeInUp 0.4s ease;
 }
 
 #tab-registro:checked ~ .container .lado-derecho .registro-opciones {
     display: flex;
     opacity: 1;
+    animation: fadeInUp 0.4s ease;
+}
+
+/* Animación suave de aparición desde abajo */
+/* Esta animación hace que los formularios aparezcan con un efecto de "subida" */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;              /* Comienza invisible */
+        transform: translateY(20px);  /* Comienza 20px más abajo */
+    }
+    to {
+        opacity: 1;              /* Termina visible */
+        transform: translateY(0);     /* Termina en su posición normal */
+    }
 }
 
 /* Botones de selección de tipo de registro */
@@ -189,29 +292,98 @@ body {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    position: sticky;  /* STICKY: se queda pegado en la parte superior cuando scrolleas */
+    top: 0;           /* top: 0 lo pega justo arriba del contenedor */
+    background: white;  /* Fondo blanco para no trasparentarse al scrollear */
+    padding: 15px 0;    /* Padding para separación */
+    z-index: 100;       /* z-index: 100 asegura que esté encima de otros elementos */
+    border-bottom: 2px solid #f0f0f0;  /* Línea divisoria sutil */
 }
 
 .reg-btn {
     flex: 1;
     min-width: 120px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 2px solid transparent;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border: 3px solid transparent;
     cursor: pointer;
-    font-weight: 700;
+    font-size: 1.3em;  /* Font-size aumentado */
+    font-weight: 400;  /* Mantener font-weight original (Anton se ve mejor con 400) */
+    font-family: 'Anton', sans-serif;  /* Mantener Anton original para consistencia */
+    text-transform: uppercase;
     text-align: center;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: #fff;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),   /* Sombra principal */
+        0 0 0 0px rgba(0, 0, 0, 0);       /* Preparación para animación */
+    position: relative;  /* Para usar ::before/::after si es necesario */
+    letter-spacing: 1px;  /* Más espacio entre letras para elegancia */
 }
 
-.club-btn { background: #FF6B6B; }
-.jugador-btn { background: #4ECDC4; }
-.entrenador-btn { background: #FFD93D; color: #333; }
+.club-btn { 
+    background: #2E7D32; /* Verde armonizado */
+    color: #F1E4C2;
+    text-shadow:
+        -0.5px -0.5px 0 #1F3A5B,
+         0.5px -0.5px 0 #1F3A5B,
+        -0.5px  0.5px 0 #1F3A5B,
+         0.5px  0.5px 0 #1F3A5B;
+}
+.jugador-btn { 
+    background: #D32F2F; /* Rojo armonizado */
+    color: #F1E4C2;
+    text-shadow:
+        -0.5px -0.5px 0 #1F3A5B,
+         0.5px -0.5px 0 #1F3A5B,
+        -0.5px  0.5px 0 #1F3A5B,
+         0.5px  0.5px 0 #1F3A5B;
+}
+.entrenador-btn { 
+    background: #0097A7; /* Turquesa armonizado */
+    color: #F1E4C2;
+    text-shadow:
+        -0.5px -0.5px 0 #1F3A5B,
+         0.5px -0.5px 0 #1F3A5B,
+        -0.5px  0.5px 0 #1F3A5B,
+         0.5px  0.5px 0 #1F3A5B;
+}
 
-/* Estados activos de sub-tabs (registro) */
-#tab-registro:checked ~ #tab-club:checked ~ .container .registro-buttons .club-btn { border-color: #c43f3f; box-shadow: 0 6px 15px rgba(255, 107, 107, 0.35); }
-#tab-registro:checked ~ #tab-jugador:checked ~ .container .registro-buttons .jugador-btn { border-color: #2ea79c; box-shadow: 0 6px 15px rgba(78, 205, 196, 0.35); }
-#tab-registro:checked ~ #tab-entrenador:checked ~ .container .registro-buttons .entrenador-btn { border-color: #d8b300; box-shadow: 0 6px 15px rgba(255, 217, 61, 0.35); }
+/* Estados activos de sub-tabs (registro) con efecto 3D mejorado */
+#tab-registro:checked ~ #tab-club:checked ~ .container .registro-buttons .club-btn { 
+    border-color: #1B5E20; 
+    box-shadow: 
+        0 8px 20px rgba(46, 125, 50, 0.45),   /* Sombra principal agrandada */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);  /* Luz interior para efecto 3D */
+    transform: translateY(-3px) scale(1.02);
+}
+#tab-registro:checked ~ #tab-jugador:checked ~ .container .registro-buttons .jugador-btn { 
+    border-color: #B71C1C; 
+    box-shadow: 
+        0 8px 20px rgba(211, 47, 47, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.02);
+}
+#tab-registro:checked ~ #tab-entrenador:checked ~ .container .registro-buttons .entrenador-btn { 
+    border-color: #00838F; 
+    box-shadow: 
+        0 8px 20px rgba(0, 151, 167, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Hover effects para botones de registro */
+.reg-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* :active se aplica mientras el usuario mantiene presionado el click */
+/* Crea un efecto de "presión" al hacer clic */
+.reg-btn:active {
+    transform: translateY(0) scale(0.98);  /* scale(0.98) = 98% del tamaño original (más pequeño) */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  /* Sombra más pequeña = efecto de hundimiento */
+}
 
 /* Formularios de registro: ocultos por defecto */
 .form-registro {
@@ -222,41 +394,54 @@ body {
     gap: 15px;
 }
 
+/* Selector con DOS radios :checked encadenados */
+/* Se lee: "cuando tab-registro Y tab-club estén ambos marcados, muestra el formulario" */
+/* Esto permite tener sub-tabs: primero eliges Registro, luego eliges Club/Jugador/Entrenador */
 #tab-registro:checked ~ #tab-club:checked ~ .container .lado-derecho .form-registro.club-color,
 #tab-registro:checked ~ #tab-jugador:checked ~ .container .lado-derecho .form-registro.jugador-color,
 #tab-registro:checked ~ #tab-entrenador:checked ~ .container .lado-derecho .form-registro.entrenador-color {
     display: flex;
     opacity: 1;
+    animation: fadeInUp 0.4s ease;  /* Aplica la animación definida arriba */
 }
 
 /* Campos de formulario */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 4px;
 }
 
 .form-group label {
-    color: #333;
+    color: #2c3e50;
     font-weight: 600;
     font-size: 0.95em;
+    font-family: 'Poppins', sans-serif;  /* Poppins para mejor legibilidad en textos pequeños */
+    letter-spacing: 0.3px;
 }
 
 .form-group input,
 .form-group select {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    padding: 14px 18px;  /* padding: vertical horizontal */
+    border: 2px solid #e8e8e8;  /* Borde de 2px sólido gris claro */
+    border-radius: 8px;  /* Esquinas redondeadas de 8px */
     font-size: 0.95em;
-    transition: border-color 0.3s ease;
-    font-family: inherit;
+    font-family: 'Poppins', sans-serif;  /* Cambiar a Poppins para mejor legibilidad en inputs */
+    transition: all 0.3s ease;  /* Transición en TODAS las propiedades que cambien */
+    background: #fafafa;   /* Gris muy claro */
 }
 
+/* :focus se aplica cuando el input está seleccionado (con click o tabulador) */
 .form-group input:focus,
 .form-group select:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Halo suave al enfocar para accesibilidad visual */
+    outline: none;  /* Quita el outline azul predeterminado del navegador */
+    border-color: #E9B34A;
+    background: white;  /* Cambia a fondo blanco cuando está enfocado */
+    /* rgba(r, g, b, alpha): alpha es la transparencia (0=invisible, 1=opaco) */
+    /* 0.15 = 15% opaco = muy transparente, crea un "halo" sutil */
+    box-shadow: 0 0 0 4px rgba(233, 179, 74, 0.15);
+    transform: translateY(-1px);  /* Levanta ligeramente el input */
 }
 
 /* Botonera común */
@@ -268,16 +453,20 @@ body {
 }
 
 .btn {
-    flex: 1;
-    padding: 12px 20px;
+    flex: 1;  /* Crece para llenar espacio disponible en contenedor flex */
+    padding: 14px 24px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.95em;
+    font-size: 1em;  /* 1em = tamaño base (generalmente 16px) */
     font-weight: 600;
-    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;  /* Poppins para mejor legibilidad */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: #667eea;
     color: white;
+    /* box-shadow: horizontal vertical blur spread color */
+    /* rgba con alpha 0.25 = sombra semi-transparente */
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.25);
 }
 
 .btn-primary {
@@ -287,9 +476,17 @@ body {
 
 .btn:hover,
 .btn-primary:hover {
-    background: #25C5C0;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    background: #E9B34A;
+    /* Puedes combinar múltiples transformaciones separadas por espacio */
+    /* translateY(-3px): mueve 3px arriba, scale(1.02): agranda al 102% */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(233, 179, 74, 0.4);  /* Sombra más grande = más elevación */
+}
+
+.btn:active,
+.btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(233, 179, 74, 0.3);
 }
 
 /* Colores dinámicos según sub-tab de registro (usa el radio activo) */
