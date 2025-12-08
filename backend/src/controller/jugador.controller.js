@@ -13,9 +13,7 @@ async function listar(req, res) {
       posicion: j.posicion,
       dorsal: j.dorsal,
       fechaNacimiento: j.fecha_nacimiento,
-      peso: j.peso,
-      // 0/1 → true/false
-      asistenciaEntrenamientos: !!j.asistencia_entrenamientos
+      peso: j.peso
     }));
 
     res.status(200).json(jugadores);
@@ -44,8 +42,7 @@ async function obtener(req, res) {
       posicion: j.posicion,
       dorsal: j.dorsal,
       fechaNacimiento: j.fecha_nacimiento,
-      peso: j.peso,
-      asistenciaEntrenamientos: !!j.asistencia_entrenamientos
+      peso: j.peso
     };
 
     res.status(200).json(jugador);
@@ -65,21 +62,17 @@ async function crear(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso,
-      asistenciaEntrenamientos
+      peso
     } = req.body;
 
     // Las validaciones ya se hicieron en el middleware (express-validator)
-    const asistenciaBD = asistenciaEntrenamientos ? 1 : 0;
-
     const nuevo = await service.create({
       nombre,
       apellidos,
       posicion,
       dorsal,
       fecha_nacimiento: fechaNacimiento,
-      peso,
-      asistencia_entrenamientos: asistenciaBD
+      peso
     });
 
     res.status(201).json({
@@ -89,8 +82,7 @@ async function crear(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso,
-      asistenciaEntrenamientos: !!asistenciaBD
+      peso
     });
   } catch (err) {
     console.error(err);
@@ -108,8 +100,7 @@ async function actualizar(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso,
-      asistenciaEntrenamientos
+      peso
     } = req.body;
 
     // Las validaciones ya se hicieron en el middleware (express-validator)
@@ -127,8 +118,7 @@ async function actualizar(req, res) {
       posicion,
       dorsal,
       fecha_nacimiento: fechaNacimiento,
-      peso,
-      asistencia_entrenamientos: asistenciaEntrenamientos ? 1 : 0
+      peso
     });
 
     if (cambios === 0) {
@@ -144,29 +134,7 @@ async function actualizar(req, res) {
   }
 }
 
-// PATCH /jugadores/:id/asistencia  (solo asistencia)
-async function actualizarAsistencia(req, res) {
-  try {
-    const id = req.params.id;
-    const { asistenciaEntrenamientos } = req.body;
 
-    // Las validaciones ya se hicieron en el middleware (express-validator)
-    const jugadorDB = await service.getById(id);
-    if (!jugadorDB) {
-      return res.status(404).json({
-        status: 'not-found',
-        message: 'Jugador no encontrado'
-      });
-    }
-
-    await service.updateAsistencia(id, asistenciaEntrenamientos);
-
-    res.status(204).json({});
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error actualizando asistencia' });
-  }
-}
 
 // DELETE /jugadores/:id
 async function borrar(req, res) {
@@ -195,6 +163,5 @@ module.exports = {
   obtener,
   crear,
   actualizar,
-  actualizarAsistencia,
   borrar
 };

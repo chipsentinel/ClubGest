@@ -53,7 +53,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López\",\n  \"posicion\": \"Apertura\",\n  \"dorsal\": 10,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 82.5,\n  \"asistenciaEntrenamientos\": true\n}"
+              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López\",\n  \"posicion\": \"Apertura\",\n  \"dorsal\": 10,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 82.5\n}"
             },
             "url": {
               "raw": "http://localhost:8080/api/jugadores",
@@ -78,7 +78,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López Actualizado\",\n  \"posicion\": \"Centro\",\n  \"dorsal\": 15,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 85.0,\n  \"asistenciaEntrenamientos\": false\n}"
+              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López Actualizado\",\n  \"posicion\": \"Centro\",\n  \"dorsal\": 15,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 85.0\n}"
             },
             "url": {
               "raw": "http://localhost:8080/api/jugadores/1",
@@ -88,31 +88,6 @@
               "path": ["api", "jugadores", "1"]
             },
             "description": "Actualiza todos los campos de un jugador existente (actualización completa)"
-          },
-          "response": []
-        },
-        {
-          "name": "Actualizar asistencia a entrenamientos",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"asistenciaEntrenamientos\": true\n}"
-            },
-            "url": {
-              "raw": "http://localhost:8080/api/jugadores/1/asistencia",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["api", "jugadores", "1", "asistencia"]
-            },
-            "description": "Actualiza solamente el campo de asistencia a entrenamientos (actualización parcial)"
           },
           "response": []
         },
@@ -282,9 +257,126 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Asistencias",
+      "item": [
+        {
+          "name": "Listar asistencias de un entrenamiento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias/entrenamiento/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias", "entrenamiento", "1"]
+            },
+            "description": "Obtiene la lista de asistencias de un entrenamiento específico con datos de los jugadores"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar asistencias de un jugador",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias/jugador/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias", "jugador", "1"]
+            },
+            "description": "Obtiene el historial de asistencias de un jugador específico"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener estadísticas de asistencia de un jugador",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias/estadisticas/jugador/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias", "estadisticas", "jugador", "1"]
+            },
+            "description": "Obtiene estadísticas de asistencia de un jugador (total, asistencias, ausencias, porcentaje)"
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar asistencia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jugadorId\": 1,\n  \"entrenamientoId\": 1,\n  \"asistencia\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias"]
+            },
+            "description": "Registra o actualiza la asistencia de un jugador a un entrenamiento"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar asistencia",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asistencia\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias/1/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias", "1", "1"]
+            },
+            "description": "Actualiza la asistencia de un jugador para un entrenamiento específico (formato: /:jugadorId/:entrenamientoId)"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar asistencia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/asistencias/1/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "asistencias", "1", "1"]
+            },
+            "description": "Elimina el registro de asistencia de un jugador para un entrenamiento (formato: /:jugadorId/:entrenamientoId)"
+          },
+          "response": []
+        }
+      ]
     }
-  ],
-  "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:8080",
