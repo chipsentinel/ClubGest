@@ -122,13 +122,13 @@
             <div class="pagination-controls">
                 <label for="ent-page1" class="btn btn-small btn-info pagination-btn">← ANTERIOR</label>
                 <span class="pagination-info">
-                    Página <strong class="pagination-page-num">1</strong> de <strong class="pagination-total-pages">1</strong>
+                    Página <strong id="paginaActual" class="pagination-page-num">1</strong> de <strong id="totalPaginas" class="pagination-total-pages">1</strong>
                 </span>
                 <label for="ent-page2" class="btn btn-small btn-info pagination-btn">SIGUIENTE →</label>
             </div>
 
             <div class="table-info">
-                <p>Total registros: <strong>12</strong> entrenamientos | Mostrando: <strong>10</strong> por página</p>
+                <p>Total registros: <strong id="totalEntrenamientos">0</strong> entrenamientos | Mostrando: <strong>10</strong> por página</p>
             </div>
         </main>
     </div>
@@ -140,6 +140,8 @@
     </footer>
     <script>
         // ID del jugador actual (hardcodeado por ahora, en producción vendría de sesión)
+        // Si la página se sirve desde el backend en 8080 usa ruta relativa; de lo contrario, apunta al backend local
+        const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
         const JUGADOR_ACTUAL_ID = 1;
         let entrenamientos = [];
         let asistencias = {};
@@ -147,7 +149,7 @@
         // Cargar entrenamientos desde el backend
         async function cargarEntrenamientos() {
             try {
-                const response = await fetch('http://localhost:8080/api/entrenamientos');
+                const response = await fetch(`${API_BASE}/entrenamientos`);
                 if (!response.ok) throw new Error('Error al cargar entrenamientos');
                 entrenamientos = await response.json();
                 await cargarAsistenciasJugador();
@@ -162,7 +164,7 @@
         // Cargar asistencias del jugador actual
         async function cargarAsistenciasJugador() {
             try {
-                const response = await fetch(`http://localhost:8080/api/asistencias/jugador/${JUGADOR_ACTUAL_ID}`);
+                const response = await fetch(`${API_BASE}/asistencias/jugador/${JUGADOR_ACTUAL_ID}`);
                 if (!response.ok) return;
                 const asistenciasArray = await response.json();
                 
@@ -242,7 +244,7 @@
         // Marcar asistencia
         async function marcarAsistencia(entrenamientoId, asistira) {
             try {
-                const response = await fetch('http://localhost:8080/api/asistencias', {
+                const response = await fetch(`${API_BASE}/asistencias`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -282,7 +284,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:8080/api/entrenamientos', {
+                const response = await fetch(`${API_BASE}/entrenamientos`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(nuevoEntrenamiento)

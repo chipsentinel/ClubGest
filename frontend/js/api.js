@@ -101,61 +101,21 @@ export const entrenamientoService = {
   /**
    * Obtener lista de entrenamientos
    * GET /api/entrenamientos
+   * TODO: Implementar en backend
    */
   listar: async () => {
-    return fetchAPI(`${API_BASE}/entrenamientos`);
-  },
-
-  /**
-   * Obtener entrenamiento por ID
-   * GET /api/entrenamientos/:id
-   */
-  obtener: async (id) => {
-    return fetchAPI(`${API_BASE}/entrenamientos/${id}`);
-  },
-
-  /**
-   * Crear nuevo entrenamiento
-   * POST /api/entrenamientos
-   */
-  crear: async (datos) => {
-    return fetchAPI(`${API_BASE}/entrenamientos`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-  },
-
-  /**
-   * Actualizar entrenamiento existente
-   * PUT /api/entrenamientos/:id
-   */
-  actualizar: async (id, datos) => {
-    return fetchAPI(`${API_BASE}/entrenamientos/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
+    console.warn('entrenamientoService.listar() - endpoint no implementado en backend');
+    return [];
   },
 
   /**
    * Marcar asistencia a entrenamiento
    * PATCH /api/entrenamientos/:id/asistencia
+   * TODO: Implementar en backend
    */
   marcarAsistencia: async (id, estado) => {
-    return fetchAPI(`${API_BASE}/entrenamientos/${id}/asistencia`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ estado })
-    });
-  },
-
-  /**
-   * Eliminar entrenamiento
-   * DELETE /api/entrenamientos/:id
-   */
-  eliminar: async (id) => {
-    return fetchAPI(`${API_BASE}/entrenamientos/${id}`, { method: 'DELETE' });
+    console.warn(`entrenamientoService.marcarAsistencia(${id}, ${estado}) - endpoint no implementado`);
+    return { id, estado };
   }
 };
 
@@ -169,57 +129,6 @@ export const convocatoriaService = {
   listar: async () => {
     console.warn('convocatoriaService.listar() - endpoint no implementado en backend');
     return [];
-  }
-};
-
-// ========== SERVICIO: FICHAS ==========
-export const fichasService = {
-  /**
-   * Obtener lista de fichas de jugadores
-   * GET /api/jugadores (reutiliza endpoint de jugadores)
-   */
-  listar: async () => {
-    return fetchAPI(`${API_BASE}/jugadores`);
-  },
-
-  /**
-   * Obtener ficha de un jugador
-   * GET /api/jugadores/:id
-   */
-  obtener: async (id) => {
-    return fetchAPI(`${API_BASE}/jugadores/${id}`);
-  },
-
-  /**
-   * Crear nueva ficha
-   * POST /api/jugadores
-   */
-  crear: async (datos) => {
-    return fetchAPI(`${API_BASE}/jugadores`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-  },
-
-  /**
-   * Actualizar ficha
-   * PUT /api/jugadores/:id
-   */
-  actualizar: async (id, datos) => {
-    return fetchAPI(`${API_BASE}/jugadores/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
-  },
-
-  /**
-   * Eliminar ficha
-   * DELETE /api/jugadores/:id
-   */
-  eliminar: async (id) => {
-    return fetchAPI(`${API_BASE}/jugadores/${id}`, { method: 'DELETE' });
   }
 };
 
@@ -283,7 +192,6 @@ window.APIServices = {
   jugadorService,
   entrenamientoService,
   convocatoriaService,
-  fichasService,
   statusService,
   renderTabla,
   toggleSpinner,

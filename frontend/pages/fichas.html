@@ -64,7 +64,7 @@
             </div>
 
             <div class="table-info">
-                <p>Total registros: <strong>12</strong> fichas | Mostrando: <strong>10</strong> por página</p>
+                <p>Total registros: <strong id="totalFichas">0</strong> fichas | Mostrando: <strong id="fichaMostradas">0</strong> por página</p>
             </div>
         </main>
     </div>
@@ -76,12 +76,14 @@
     </footer>
 
     <script>
+        // Si se sirve desde el backend en 8080 usa ruta relativa; si no, usa backend en localhost:8080
+        const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
         const jugadoresPorPagina = 10;
         let todosLosJugadores = [];
 
         async function cargarFichas() {
             try {
-                const response = await fetch('http://localhost:8080/api/jugadores');
+                const response = await fetch(`${API_BASE}/jugadores`);
                 if (!response.ok) throw new Error('Error cargando jugadores');
                 
                 todosLosJugadores = await response.json();
@@ -199,7 +201,7 @@
         async function eliminarJugador(id, nombre) {
             if (confirm(`¿Está seguro de que desea eliminar a ${nombre}?`)) {
                 try {
-                    const response = await fetch(`http://localhost:8080/api/jugadores/${id}`, {
+                    const response = await fetch(`${API_BASE}/jugadores/${id}`, {
                         method: 'DELETE'
                     });
                     
