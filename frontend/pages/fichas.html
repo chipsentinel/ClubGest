@@ -42,6 +42,12 @@
 
             <!-- Grid de fichas -->
             <div class="fichas-grid" id="fichasGrid">
+                <p style="text-align: center; padding: 2rem;">Cargando jugadores...</p>
+            </div>
+
+            <div class="table-info" id="tableInfo">
+                <p>Total fichas: <strong id="totalFichas">0</strong></p>
+            </div>
                 <!-- Ficha 1 - Aceptada -->
                 <div class="ficha-card">
                     <div class="ficha-header">
@@ -224,63 +230,63 @@
         async function cargarFichas() {
             try {
                 const response = await fetch('http://localhost:8080/api/jugadores');
+                if (!response.ok) throw new Error('Error cargando jugadores');
+                
                 const jugadores = await response.json();
                 
                 const fichasGrid = document.getElementById('fichasGrid');
                 fichasGrid.innerHTML = '';
                 
+                if (jugadores.length === 0) {
+                    fichasGrid.innerHTML = '<p style="text-align: center; padding: 2rem;">No hay jugadores registrados</p>';
+                    return;
+                }
+                
                 jugadores.forEach(jugador => {
                     const ficha = crearFichaHTML(jugador);
                     fichasGrid.innerHTML += ficha;
                 });
+                
+                document.getElementById('totalFichas').textContent = jugadores.length;
             } catch (error) {
                 console.error('Error cargando fichas:', error);
+                document.getElementById('fichasGrid').innerHTML = '<p style="text-align: center; padding: 2rem; color: red;">Error al cargar jugadores. ¿Está el servidor corriendo?</p>';
             }
         }
 
         function crearFichaHTML(jugador) {
+            const fechaNac = jugador.fechaNacimiento ? new Date(jugador.fechaNacimiento).toLocaleDateString('es-ES') : 'No especificado';
+            
             return `
                 <div class="ficha-card">
                     <div class="ficha-header">
-                        <h3>${jugador.nombre} ${jugador.apellidos}</h3>
-                        <span class="badge badge-warning">Pendiente</span>
+                        <h3>${jugador.nombre} ${jugador.apellidos || ''}</h3>
+                        <span class="badge badge-success">Aceptado</span>
                     </div>
                     <div class="ficha-body">
-                        <p><strong>Email:</strong> ${jugador.email || 'No especificado'}</p>
-                        <p><strong>Teléfono:</strong> ${jugador.telefono || 'No especificado'}</p>
-                        <p><strong>Categoría:</strong> ${jugador.categoria || 'No especificado'}</p>
                         <p><strong>Posición:</strong> ${jugador.posicion || 'No especificado'}</p>
                         <p><strong>Dorsal:</strong> ${jugador.dorsal || '-'}</p>
+                        <p><strong>Fecha Nacimiento:</strong> ${fechaNac}</p>
+                        <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : 'No especificado'}</p>
                     </div>
                     <div class="ficha-actions">
-                        <button class="btn btn-small btn-success" onclick="aceptarFicha(${jugador.id})"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Aceptar</button>
-                        <button class="btn btn-small btn-danger" onclick="rechazarFicha(${jugador.id})"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>Rechazar</button>
+                        <button class="btn btn-small btn-info" onclick="verDetalles(${jugador.id})"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Ver más</button>
+                        <button class="btn btn-small btn-warning" onclick="editarFicha(${jugador.id})"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>Editar</button>
                     </div>
                 </div>
             `;
         }
 
-        function aceptarFicha(id) {
-            if(confirm('¿Aceptar esta ficha de jugador?')) {
-                // Aquí llamarás al backend para cambiar estado
-                alert('Ficha ' + id + ' aceptada');
-                // fetch(`http://localhost:8080/api/jugadores/${id}/aceptar`, { method: 'PUT' });
-            }
-        }
-
-        function rechazarFicha(id) {
-            if(confirm('¿Rechazar esta ficha de jugador?')) {
-                alert('Ficha ' + id + ' rechazada');
-                // fetch(`http://localhost:8080/api/jugadores/${id}/rechazar`, { method: 'PUT' });
-            }
-        }
-
         function verDetalles(id) {
-            alert('Ver detalles completos de la ficha ' + id);
+            alert('Ver detalles completos del jugador ' + id);
         }
 
-        // Cargar fichas al inicio (descomentar cuando el backend esté listo)
-        // window.onload = cargarFichas;
+        function editarFicha(id) {
+            alert('Editar información del jugador ' + id);
+        }
+
+        // Cargar fichas al inicio
+        window.onload = cargarFichas;
     </script>
 </body>
 </html>
