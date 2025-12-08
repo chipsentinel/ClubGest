@@ -3,6 +3,27 @@
  * Sistema de diseño centralizado
  ****************************************/
 
+/* ========== RESET Y ESTILOS BASE ========== */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-primary, 'Poppins', sans-serif);
+}
+
+body > footer {
+    margin-top: auto;
+}
+
 /* ========== VARIABLES CSS ========== */
 :root {
     /* COLORES - Paleta armónica */
