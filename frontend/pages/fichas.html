@@ -56,11 +56,11 @@
 
             <!-- Controles de paginación -->
             <div class="pagination-controls">
-                <label for="fic-page1" class="btn btn-small btn-info pagination-btn">← ANTERIOR</label>
+                <label for="page1" class="btn btn-small btn-info pagination-btn">← ANTERIOR</label>
                 <span class="pagination-info">
                     Página <strong class="pagination-page-num">1</strong> de <strong class="pagination-total-pages">1</strong>
                 </span>
-                <label for="fic-page2" class="btn btn-small btn-info pagination-btn">SIGUIENTE →</label>
+                <label for="page2" class="btn btn-small btn-info pagination-btn">SIGUIENTE →</label>
             </div>
 
             <div class="table-info">
@@ -78,7 +78,7 @@
     <script>
         // Si se sirve desde el backend en 8080 usa ruta relativa; si no, usa backend en localhost:8080
         const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
-        const jugadoresPorPagina = 10;
+        const jugadoresPorPagina = 20;
         let todosLosJugadores = [];
 
         async function cargarFichas() {
@@ -138,12 +138,11 @@
                         <span class="badge badge-danger">Jugador</span>
                     </div>
                     <div class="ficha-body">
-                        <p style="font-weight: 600; margin-bottom: 0.5rem;">${jugador.nombre} ${jugador.apellidos || ''}</p>
-                        <p><strong>Dorsal:</strong> ${jugador.dorsal || '-'}</p>
-                        <p><strong>Posición:</strong> ${jugador.posicion || '-'}</p>
-                        <p><strong>Nacimiento:</strong> ${fechaNac}</p>
-                        <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : '-'}</p>
-                    </div>
+                            <p style="font-weight: 600; margin-bottom: 0.5rem;">${jugador.nombre} ${jugador.apellidos || ''}</p>
+                            <p><strong>Posición:</strong> ${jugador.posicion || '-'}</p>
+                            <p><strong>Nacimiento:</strong> ${fechaNac}</p>
+                            <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : '-'}</p>
+                        </div>
                     <div class="ficha-actions">
                         <button class="btn btn-small btn-info" onclick="verDetalles(${jugador.id})">Ver más</button>
                         <button class="btn btn-small btn-danger" onclick="eliminarJugador(${jugador.id}, '${jugador.nombre} ${jugador.apellidos || ''}')">Eliminar</button>
@@ -173,11 +172,30 @@
             // Actualizar controles visibles
             if (totalPaginas > 1) {
                 document.querySelector('.pagination-info').style.display = 'inline-block';
-                document.querySelector('.pagination-page-num').textContent = '1';
                 document.querySelector('.pagination-total-pages').textContent = totalPaginas;
             } else {
                 document.querySelector('.pagination-info').style.display = 'none';
             }
+
+            conectarPaginacionRadios();
+        }
+
+        function conectarPaginacionRadios() {
+            const radios = Array.from(document.querySelectorAll('.pagination-radio'));
+            const pageNumEl = document.querySelector('.pagination-page-num');
+
+            if (!pageNumEl || radios.length === 0) return;
+
+            const actualizar = () => {
+                const checkedIndex = radios.findIndex(radio => radio.checked);
+                pageNumEl.textContent = checkedIndex >= 0 ? checkedIndex + 1 : 1;
+            };
+
+            radios.forEach(radio => {
+                radio.onchange = actualizar;
+            });
+
+            actualizar();
         }
 
         function actualizarFichaMostradas() {

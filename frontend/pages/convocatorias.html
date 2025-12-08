@@ -98,5 +98,31 @@
     <footer class="footer">
         <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const radios = Array.from(document.querySelectorAll('.pagination-radio'));
+            const pageNumEl = document.querySelector('.pagination-page-num');
+            const totalEl = document.querySelector('.pagination-total-pages');
+            const filas = document.querySelectorAll('[data-page]');
+
+            if (totalEl && filas.length > 0) {
+                const totalPaginas = Math.max(...Array.from(filas, fila => parseInt(fila.dataset.page) || 1));
+                totalEl.textContent = totalPaginas;
+            }
+
+            const actualizar = () => {
+                if (!pageNumEl) return;
+                const checkedIndex = radios.findIndex(radio => radio.checked);
+                pageNumEl.textContent = checkedIndex >= 0 ? checkedIndex + 1 : 1;
+            };
+
+            radios.forEach(radio => {
+                radio.onchange = actualizar;
+            });
+
+            actualizar();
+        });
+    </script>
 </body>
 </html>

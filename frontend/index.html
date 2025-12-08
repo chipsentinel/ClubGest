@@ -164,6 +164,51 @@
                 </form>
             </div>
         </div>
-    </div>
-</body>
-</html>
+            </div>
+
+            <script>
+                const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
+
+                function normalizarAccion(form) {
+                    try {
+                        const url = new URL(form.action, window.location.href);
+                        if (url.pathname.startsWith('/api/')) return url.href;
+                        const endpoint = url.pathname.replace(/^(\/)/, '');
+                        return `${API_BASE}/${endpoint}`;
+                    } catch (e) {
+                        return form.action || API_BASE;
+                    }
+                }
+
+                function manejarEnvio(form) {
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const datos = Object.fromEntries(new FormData(form).entries());
+                        const destino = normalizarAccion(form);
+
+                        try {
+                            const resp = await fetch(destino, {
+                                method: form.method || 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(datos)
+                            });
+
+                            if (!resp.ok) {
+                                const msg = (await resp.json().catch(() => ({}))).message || 'Error al registrar';
+                                alert(msg);
+                                return;
+                            }
+
+                            window.location.href = 'pages/home.html';
+                        } catch (error) {
+                            alert('No se pudo conectar con el servidor');
+                        }
+                    });
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.querySelectorAll('.form-section form').forEach(manejarEnvio);
+                });
+            </script>
+        </body>
+        </html>

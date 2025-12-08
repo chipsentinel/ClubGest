@@ -239,6 +239,7 @@
             
             document.getElementById('totalEntrenamientos').textContent = entrenamientos.length;
             generarControles();
+            conectarPaginacionRadios();
         }
 
         // Marcar asistencia
@@ -341,6 +342,14 @@
                     }
                 }
             }
+        }
+
+        function conectarPaginacionRadios() {
+            const radios = document.querySelectorAll('.pagination-radio');
+            radios.forEach(radio => {
+                radio.onchange = actualizarMostrados;
+            });
+            actualizarMostrados();
         }
 
         // Actualizar página mostrada
