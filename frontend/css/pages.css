@@ -243,8 +243,8 @@
 /* ========== FICHAS DE JUGADORES ========== */
 .fichas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 200px));
+    gap: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
     justify-content: center;
 }
@@ -279,13 +279,15 @@
 }
 
 .ficha-body {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
 }
 
 .ficha-body p {
-    margin-bottom: var(--spacing-sm);
-    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-xs);
     color: var(--color-gray-dark);
+    line-height: 1.4;
 }
 
 .ficha-body p strong {

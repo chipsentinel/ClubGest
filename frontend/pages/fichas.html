@@ -48,7 +48,16 @@
             <div class="table-info" id="tableInfo">
                 <p>Total fichas: <strong id="totalFichas">0</strong></p>
             </div>
-                <!-- Ficha 1 - Aceptada -->
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2025 Rugby Club Gest</p>
+    </footer>
+
+    <script>
+        // Cargar fichas desde el backend
                 <div class="ficha-card">
                     <div class="ficha-header">
                         <h3>Carlos Ruiz López</h3>
@@ -260,14 +269,14 @@
             return `
                 <div class="ficha-card">
                     <div class="ficha-header">
-                        <h3>${jugador.nombre} ${jugador.apellidos || ''}</h3>
+                        <h3>#${jugador.dorsal || '?'}</h3>
                         <span class="badge badge-success">Aceptado</span>
                     </div>
                     <div class="ficha-body">
-                        <p><strong>Posición:</strong> ${jugador.posicion || 'No especificado'}</p>
-                        <p><strong>Dorsal:</strong> ${jugador.dorsal || '-'}</p>
-                        <p><strong>Fecha Nacimiento:</strong> ${fechaNac}</p>
-                        <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : 'No especificado'}</p>
+                        <p><strong>${jugador.nombre} ${jugador.apellidos || ''}</strong></p>
+                        <p><strong>Posición:</strong> ${jugador.posicion || '-'}</p>
+                        <p><strong>Nacimiento:</strong> ${fechaNac}</p>
+                        <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : '-'}</p>
                     </div>
                     <div class="ficha-actions">
                         <button class="btn btn-small btn-info" onclick="verDetalles(${jugador.id})"><svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Ver más</button>
