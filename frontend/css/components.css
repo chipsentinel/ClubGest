@@ -3,6 +3,28 @@
  * Botones, formularios, tablas, tarjetas
  ****************************************/
 
+/* ========== ANIMACIONES ========== */
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(233, 179, 74, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(233, 179, 74, 0); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ========== BOTONES ========== */
 .btn {
     padding: var(--spacing-md) var(--spacing-lg);
@@ -23,12 +45,29 @@
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.15),
         0 0 0 0px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--transition-normal);
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.25),
+        0 8px 24px rgba(0, 0, 0, 0.25),
         inset 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
@@ -126,6 +165,7 @@ select {
     font-size: var(--font-size-base);
     transition: all var(--transition-normal);
     background-color: var(--color-white);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 input[type="text"]:focus,
@@ -138,7 +178,8 @@ textarea:focus,
 select:focus {
     outline: none;
     border-color: var(--color-primary-blue);
-    box-shadow: 0 0 0 3px rgba(29, 58, 112, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(29, 58, 112, 0.15);
+    background-color: #fafbfc;
 }
 
 textarea {
@@ -265,11 +306,30 @@ tr:hover {
     padding: var(--spacing-xl);
     margin-bottom: var(--spacing-lg);
     transition: all var(--transition-normal);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233, 179, 74, 0.1), transparent);
+    transition: left var(--transition-normal);
 }
 
 .card:hover {
     box-shadow: var(--box-shadow-lg);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: rgba(233, 179, 74, 0.2);
+}
+
+.card:hover::before {
+    left: 100%;
 }
 
 .card-header {
@@ -296,11 +356,20 @@ tr:hover {
     font-size: var(--font-size-xs);
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .badge-success {
     background-color: #e8f5e9;
     color: var(--color-primary-green);
+    border-left: 3px solid var(--color-primary-green);
+}
+
+.badge-success:hover {
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+    transform: translateY(-1px);
 }
 
 .badge-danger {
