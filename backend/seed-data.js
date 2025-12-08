@@ -2,7 +2,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = path.join(__dirname, '..', 'clubgest.db');
+const dbPath = path.join(__dirname, 'clubgest.db');
 const db = new sqlite3.Database(dbPath);
 
 // Datos de ejemplo
@@ -95,6 +95,22 @@ async function insertAsistencias() {
     for (let jugadorId = 1; jugadorId <= 15; jugadorId++) {
       const asiste = jugadorId !== 5 && jugadorId !== 11 ? 1 : 0;
       stmt.run(jugadorId, 5, asiste);
+    }
+    
+    // Asistencias para el sexto entrenamiento (mayormente físico)
+    for (let jugadorId = 1; jugadorId <= 15; jugadorId++) {
+      const asiste = jugadorId <= 14 ? 1 : 0; // Todos menos el último
+      stmt.run(jugadorId, 6, asiste);
+    }
+    
+    // Asistencias para el séptimo entrenamiento (todos)
+    for (let jugadorId = 1; jugadorId <= 15; jugadorId++) {
+      stmt.run(jugadorId, 7, 1);
+    }
+    
+    // Asistencias para el octavo entrenamiento (cancelado, pero registramos ausencias)
+    for (let jugadorId = 1; jugadorId <= 15; jugadorId++) {
+      stmt.run(jugadorId, 8, 0); // Todos ausentes por cancelación
     }
     
     stmt.finalize((err) => {

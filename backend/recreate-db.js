@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 const path = require('path');
 
-const dbPath = path.join(__dirname, '..', 'clubgest.db');
+const dbPath = path.join(__dirname, 'clubgest.db');
 const scriptPath = path.join(__dirname, 'db', 'script.sql');
 
 // Eliminar BD anterior si existe
