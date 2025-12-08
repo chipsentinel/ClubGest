@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Gest - Inicio</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header header-club">
+        <div class="header-left">
+            <h1>AClubGest</h1>
+            <p class="header-subtitle">Panel de Administración</p>
+        </div>
+        <div class="header-right">
+            <span class="user-info">Admin: <strong>Club Deportivo</strong></span>
+            <a href="../index.html" class="btn btn-small btn-danger">Salir</a>
+        </div>
+    </header>
+
+    <!-- NAVBAR - Navegación Principal -->
+    <!-- Implementación: Navbar responsiva con iconos SVG inline, estado activo dinámico -->
+    <!-- Orden de navegación: Inicio > Convocatorias > Entrenamientos > Lesiones > Seguros > Fichas -->
+    <nav class="navbar-top">
+        <!-- Enlace HOME: Dashboard principal con indicador de estado activo -->
+        <a href="home.html" class="nav-link active">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>Inicio
+        </a>
+
+        <!-- Enlace CONVOCATORIAS: Gestión de convocaciones para partidos y entrenamientos -->
+        <a href="convocatorias.html" class="nav-link">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>Convocatorias
+        </a>
+
+        <!-- Enlace ENTRENAMIENTOS: Programación y registro de sesiones de entrenamiento -->
+        <a href="entrenamientos.html" class="nav-link">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="5" cy="10" r="2.5"></circle>
+                <circle cx="19" cy="10" r="2.5"></circle>
+                <line x1="8" y1="10" x2="16" y2="10"></line>
+                <path d="M7 5v10M17 5v10"></path>
+            </svg>Entrenamientos
+        </a>
+
+        <!-- Enlace LESIONES: Registro y control de lesiones de jugadores -->
+        <a href="lesiones.html" class="nav-link">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>Lesiones
+        </a>
+
+        <!-- Enlace SEGUROS: Gestión de pólizas de seguros de jugadores -->
+        <a href="seguros.html" class="nav-link">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>Seguros
+        </a>
+
+        <!-- Enlace FICHAS: Base de datos de fichas técnicas de jugadores aceptados -->
+        <a href="fichas.html" class="nav-link">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 3H5c-1 0-2 1-2 2v14c0 1 1 2 2 2h14c1 0 2-1 2-2V5c0-1-1-2-2-2z"></path>
+                <path d="M9 7h6M9 11h6M9 15h2"></path>
+            </svg>Fichas
+        </a>
+    </nav>
+
+    <!-- LAYOUT -->
+    <div class="layout-flex">
+        <!-- MAIN -->
+        <main class="main-content">
+            <!-- SECCIÓN DE BIENVENIDA Y PRESENTACIÓN -->
+            <!-- Componente principal del dashboard con información introductoria del sistema -->
+            <section class="welcome-section">
+                <h1>
+                    <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2a8 8 0 110 16 8 8 0 010-16z" fill="currentColor"/>
+                        <path d="M12 6l2.5 2.5L12 11l-2.5-2.5L12 6zm0 6l2.5 2.5L12 17l-2.5-2.5L12 12z" fill="currentColor"/>
+                        <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2"/>
+                    </svg>Club Gest
+                </h1>
+                <p class="intro-text">
+                    Sistema integral de gestión para clubes deportivos. Centraliza la administración de entrenamientos, 
+                    convocaciones, fichas de jugadores, registros de lesiones y pólizas de seguros desde una única plataforma.
+                </p>
+            </section>
+
+            <!-- SECCIÓN DE MÉTRICAS Y KPIs -->
+            <!-- Dashboard de estadísticas clave para monitoreo en tiempo real -->
+            <!-- Estructura: 3 tarjetas de métricas con iconografía SVG y datos dinámicos (vinculados a IDs) -->
+            <section class="stats-grid">
+                
+                <!-- MÉTRICA 1: Entrenamientos programados en la semana -->
+                <div class="stat-card">
+                    <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                    <div class="stat-content">
+                        <h3>Entrenamientos</h3>
+                        <p class="stat-number" id="totalEntrenamientos">8</p>
+                        <p class="stat-label">Esta semana</p>
+                    </div>
+                </div>
+
+                <!-- MÉTRICA 2: Convocaciones activas para partidos -->
+                <div class="stat-card">
+                    <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <div class="stat-content">
+                        <h3>Convocatorias</h3>
+                        <p class="stat-number" id="totalConvocatorias">3</p>
+                        <p class="stat-label">Activas</p>
+                    </div>
+                </div>
+
+                <!-- MÉTRICA 3: Solicitudes de registro pendientes de revisión -->
+                <div class="stat-card">
+                    <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <div class="stat-content">
+                        <h3>Nuevos Registros</h3>
+                        <p class="stat-number" id="totalRegistros">12</p>
+                        <p class="stat-label">Pendientes revisar</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DE REGISTRO DE ACTIVIDAD -->
+            <!-- Timeline de eventos recientes del sistema para auditoría y seguimiento -->
+            <!-- Cada actividad incluye: icono identificador, descripción, timestamp relativo -->
+            <section class="recent-activity">
+                <h2>
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                        <circle cx="5" cy="12" r="1"></circle>
+                    </svg>Actividad Reciente
+                </h2>
+                <div class="activity-list" id="activityList">
+                    
+                    <!-- Evento 1: Nuevo registro de jugador -->
+                    <div class="activity-item">
+                        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="activity-text">Nuevo registro: <strong>Juan Pérez</strong></span>
+                        <span class="activity-date">Hace 2 horas</span>
+                    </div>
+
+                    <!-- Evento 2: Convocatoria generada -->
+                    <div class="activity-item">
+                        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span class="activity-text">Convocatoria creada para partido del sábado</span>
+                        <span class="activity-date">Ayer</span>
+                    </div>
+
+                    <!-- Evento 3: Sesión de entrenamiento programada -->
+                    <div class="activity-item">
+                        <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="14" rx="1"></rect>
+                            <line x1="12" y1="4" x2="12" y2="18"></line>
+                            <line x1="3" y1="11" x2="21" y2="11"></line>
+                            <circle cx="8" cy="8" r="1"></circle>
+                            <circle cx="16" cy="14" r="1"></circle>
+                        </svg>
+                        <span class="activity-text">Entrenamiento programado: Jueves 18:30</span>
+                        <span class="activity-date">Hace 1 día</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <!-- Pie de página con información de copyright y versión del sistema -->
+    <footer class="footer">
+        <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
+    </footer>
+</body>
+</html>
