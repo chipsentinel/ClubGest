@@ -697,18 +697,49 @@
     display: none;
 }
 
+/* ===== PAGINACIÓN PARA GRIDS (fichas) ===== */
 /* Ocultar todas las fichas por defecto */
-.ficha-card {
+.fichas-grid .ficha-card {
     display: none;
 }
 
-/* Mostrar fichas de la página 1 */
+/* Mostrar fichas de la página activa */
 #page1:checked ~ .table-container .fichas-grid .ficha-card[data-page="1"],
 #page2:checked ~ .table-container .fichas-grid .ficha-card[data-page="2"],
 #page3:checked ~ .table-container .fichas-grid .ficha-card[data-page="3"],
 #page4:checked ~ .table-container .fichas-grid .ficha-card[data-page="4"],
 #page5:checked ~ .table-container .fichas-grid .ficha-card[data-page="5"] {
     display: grid;
+}
+
+/* ===== PAGINACIÓN PARA TABLAS ===== */
+/* Ocultar todas las filas de tabla por defecto */
+.data-table tbody tr {
+    display: none;
+}
+
+/* Mostrar filas de tabla de la página activa */
+#conv-page1:checked ~ .main .table-container .data-table tbody tr[data-page="1"],
+#conv-page2:checked ~ .main .table-container .data-table tbody tr[data-page="2"],
+#conv-page3:checked ~ .main .table-container .data-table tbody tr[data-page="3"],
+#conv-page4:checked ~ .main .table-container .data-table tbody tr[data-page="4"],
+#conv-page5:checked ~ .main .table-container .data-table tbody tr[data-page="5"],
+#ent-page1:checked ~ .main .table-container .data-table tbody tr[data-page="1"],
+#ent-page2:checked ~ .main .table-container .data-table tbody tr[data-page="2"],
+#ent-page3:checked ~ .main .table-container .data-table tbody tr[data-page="3"],
+#ent-page4:checked ~ .main .table-container .data-table tbody tr[data-page="4"],
+#ent-page5:checked ~ .main .table-container .data-table tbody tr[data-page="5"],
+#les-page1:checked ~ .main .table-container .data-table tbody tr[data-page="1"],
+#les-page2:checked ~ .main .table-container .data-table tbody tr[data-page="2"],
+#les-page3:checked ~ .main .table-container .data-table tbody tr[data-page="3"],
+#les-page4:checked ~ .main .table-container .data-table tbody tr[data-page="4"],
+#les-page5:checked ~ .main .table-container .data-table tbody tr[data-page="5"],
+#seg-page1:checked ~ .main .table-container .data-table tbody tr[data-page="1"],
+#seg-page2:checked ~ .main .table-container .data-table tbody tr[data-page="2"],
+#seg-page3:checked ~ .main .table-container .data-table tbody tr[data-page="3"],
+#seg-page4:checked ~ .main .table-container .data-table tbody tr[data-page="4"],
+#seg-page5:checked ~ .main .table-container .data-table tbody tr[data-page="5"] {
+    display: table-row;
 }
 
 /* Controles de paginación */
@@ -753,27 +784,14 @@
 }
 
 /* Botón deshabilitado (previo) */
-#page1:checked ~ .pagination-controls #btnPrev {
+#page1:checked ~ .pagination-controls #btnPrev,
+#conv-page1:checked ~ .main ~ .pagination-controls .pagination-btn:first-of-type,
+#ent-page1:checked ~ .main ~ .pagination-controls .pagination-btn:first-of-type,
+#les-page1:checked ~ .main ~ .pagination-controls .pagination-btn:first-of-type,
+#seg-page1:checked ~ .main ~ .pagination-controls .pagination-btn:first-of-type {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
-}
-
-/* Botón deshabilitado (siguiente) - se calcula dinámicamente con JS */
-.pagination-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Actualizar página actual dinámicamente */
-#page1:checked ~ .pagination-controls .pagination-page-num::after { content: "1"; }
-#page2:checked ~ .pagination-controls .pagination-page-num::after { content: "2"; }
-#page3:checked ~ .pagination-controls .pagination-page-num::after { content: "3"; }
-#page4:checked ~ .pagination-controls .pagination-page-num::after { content: "4"; }
-#page5:checked ~ .pagination-controls .pagination-page-num::after { content: "5"; }
-
-#page1:checked ~ .pagination-controls .pagination-page-num {
-    color: transparent;
 }
 
 /* Responsive para tablet */

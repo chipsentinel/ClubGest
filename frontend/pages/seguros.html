@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seguros - Club Gest</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../img/ACG-paint-logo.png">
 </head>
 <body>
     <!-- HEADER -->
@@ -33,9 +34,16 @@
     </nav>
 
     <!-- LAYOUT -->
-    <div class="layout-flex">
+    <div class="layout">
+        <!-- Radios ocultos para paginación -->
+        <input type="radio" id="seg-page1" name="seg-pagination" class="pagination-radio" checked>
+        <input type="radio" id="seg-page2" name="seg-pagination" class="pagination-radio">
+        <input type="radio" id="seg-page3" name="seg-pagination" class="pagination-radio">
+        <input type="radio" id="seg-page4" name="seg-pagination" class="pagination-radio">
+        <input type="radio" id="seg-page5" name="seg-pagination" class="pagination-radio">
+
         <!-- MAIN -->
-        <main class="main-content">
+        <main class="main">
             <div class="page-header">
                 <h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Gestión de Seguros</h1>
                 <button class="btn btn-success">+ Nuevo Seguro</button>
@@ -106,8 +114,9 @@
     </div>
 
     <!-- FOOTER -->
+    <!-- Pie de página con información de copyright y versión del sistema -->
     <footer class="footer">
-        <p>&copy; 2025 Rugby Club Gest</p>
+        <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
     </footer>
 
     <script>
