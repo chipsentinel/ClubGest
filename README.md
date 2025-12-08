@@ -1,98 +1,113 @@
-# ClubGest
-Plataforma web para la gestión de clubes deportivos amateurs. Incluye frontend responsive y backend API REST en Express + SQLite. Nació para rugby, pero es extensible a otros deportes y clubes.
+﻿# ClubGest
+Plataforma web para clubes deportivos amateurs. Frontend HTML/CSS/JS estatico y backend Express + SQLite sirviendo API REST. Pensado para levantar rapido, entender facil y extender a mas entidades.
 
-## Características principales
-- **Frontend responsive**: login/registro y 6 secciones de navegación (Inicio, Convocatorias, Entrenamientos, Lesiones, Seguros, Fichas). CSS modular (variables, layout, componentes, páginas, auth) e iconos SVG integrados.
-- **Diseño adaptativo**: breakpoints para desktop, tablet y móvil, con layouts apilados en móvil y lado a lado en tablet/desktop.
-- **Backend Express**: API REST con endpoints de jugadores (`/api/jugadores` y alias `/api/jugador`), CORS habilitado y configuración externa via YAML (local/prod).
-- **Base de datos SQLite**: script de inicialización y conexión integrada; pensado para despliegues ligeros.
-- **Listo para ampliar**: rutas comentadas para futuras entidades (entrenadores, entrenamientos, etc.).
+## 1. Idea y criterios de diseno
+- Simplicidad: sin frameworks en frontend; solo HTML/CSS/JS para facilitar contribuciones.
+- Responsive real: layouts apilados en movil y side-by-side en desktop/tablet con CSS modular.
+- API limpia: Express con CORS + JSON, configuracion externa YAML, SQLite embebido para no depender de servicios externos.
+- Paginacion ligera: radios + CSS para mostrar/ocultar; JS solo sincroniza contadores y crea radios extra.
+- Ruta base automatica: `API_BASE` elige `/api` si sirves estaticos desde el backend o `http://localhost:8080/api` si abres el HTML suelto.
+- Flujos guiados: formularios de registro interceptados en `index.html` para enviar por `fetch` y redirigir a `pages/home.html` al exito.
 
-## Tecnologías utilizadas
-- **Frontend**: HTML5, CSS3 modular, SVG inline; sin frameworks para mantenerlo simple y didáctico.
-- **Backend**: Node.js + Express, CORS, json parsing.
-- **Base de datos**: SQLite (ligero y embebido para desarrollo rápido).
-- **Config**: Archivos YAML separados (`config.local.yaml` y `config.prod.yaml`) preparados para futuros entornos; hoy solo se usa local, pero queda listo para escalar a prod.
-- **Herramientas**: Nodemon para desarrollo, Yargs + js-yaml para leer configuración externa.
+## 2. Tecnologias
+- Frontend: HTML5, CSS3 modular, SVG inline, JS vanilla.
+- Backend: Node.js + Express, CORS, `express.json`, `express.urlencoded`.
+- BD: SQLite (`backend/clubgest.db`), script inicial en `backend/db/script.sql`.
+- Config: YAML (`config.local.yaml`, `config.prod.yaml`) leido por `src/configuration/configuration.js` (prod es el default; puedes pasar `--config` para cambiarlo).
+- Dev tooling: `nodemon`, `js-yaml`, `yargs`.
 
-## Estructura del proyecto
+## 3. Estructura de carpetas
 ```
 backend/
-	app.js                     # Servidor Express, CORS, estáticos frontend y /api
-	package.json               # Scripts: dev (nodemon) y start (config prod)
-	db/                        # SQLite + script.sql
-	src/
-		configuration/           # config.local.yaml, config.prod.yaml, loader JS
-		controller/jugador.controller.js
-		service/jugador.service.js
-		route/index.js           # monta /jugador y /jugadores
-		route/jugador.route.js   # CRUD + asistencia
+  app.js                     # Servidor Express: CORS, estaticos frontend, rutas /api
+  package.json               # Scripts dev/start
+  db/                        # SQLite y script.sql
+  src/
+    configuration/           # Carga YAML local/prod
+    controller/jugador.controller.js
+    service/jugador.service.js
+    route/index.js           # monta /api/{jugadores,entrenamientos,asistencias}
+    route/jugador.route.js   # CRUD jugadores (singular y plural expuestos)
 frontend/
-	index.html                 # Login/registro
-	pages/                     # home, entrenamientos, convocatorias, fichas, seguros, lesiones, registro-jugador (+ future/* borradores)
-	css/                       # variables.css, layout.css, components.css, pages.css, auth.css, style.css (importador)
-	img/                       # logos y svg de iconos
+  index.html                 # Login/registro (tabs)
+  pages/                     # home, convocatorias, entrenamientos, lesiones, seguros, fichas, registro-jugador, future/*
+  css/                       # variables.css, layout.css, components.css, pages.css, auth.css, style.css (import)
+  js/                        # api.js (servicios centralizados)
+  img/                       # logos e iconos
 ```
 
-## Backend
-- **Rutas base**: `/api/jugadores` y `/api/jugador` (alias)
-	- GET `/` lista
-	- GET `/:id` detalle
-	- POST `/` crear
-	- PUT `/:id` actualizar
-	- PATCH `/:id/asistencia` actualizar asistencia
-	- DELETE `/:id` borrar
-- **Estado**: `/status` devuelve `{ message: 'API ClubGest funcionando' }`
-- **Configuración**: `src/configuration/configuration.js` carga YAML (local/prod) para puerto y DB.
+## 4. Backend (API REST)
+- Rutas jugador (`/api/jugadores`, alias `/api/jugador`): GET `/`, GET `/:id`, POST `/`, PUT `/:id`, PATCH `/:id/asistencia` (placeholder), DELETE `/:id`.
+- Estado: GET `/status`  `{ "message": "API ClubGest funcionando" }`.
+- Config YAML: `--config src/configuration/config.local.yaml` (dev) o `config.prod.yaml` (prod) define puerto y DB.
+- Respuesta API en camelCase; la base usa snake_case y se mapea en el controlador.
 
-### Ejecutar en desarrollo
+### Levantar en desarrollo
 ```bash
 cd backend
 npm install
-npm run dev          # nodemon app.js --config src/configuration/config.local.yaml
+npm run dev   # nodemon app.js --config src/configuration/config.local.yaml
 ```
 
-### Ejecutar en producción (local)
+### Levantar en produccion local
 ```bash
 cd backend
 npm install --omit=dev
-npm start            # node app.js --config src/configuration/config.prod.yaml
+npm start    # node app.js --config src/configuration/config.prod.yaml
 ```
 
-### Comprobación rápida (backend + frontend juntos)
-1) Arranca el backend: `npm run dev` en `backend/` (sirve API y estáticos del frontend).
-2) Abre en navegador: `http://localhost:8080/` para ver el login/registro.
-3) Test de API: `http://localhost:8080/status` debe responder `{ "message": "API ClubGest funcionando" }`.
-4) Endpoints jugador: prueba con `curl http://localhost:8080/api/jugadores` o Postman.
+### Checks rapidos
+1) Backend vivo: `http://localhost:8080/status`.
+2) Lista jugadores: `curl http://localhost:8080/api/jugadores`.
+3) Frontend servido por Express: `http://localhost:8080/` abre el login.
 
-## Frontend
-- Login/registro en `index.html` con tabs y estilos en `auth.css`.
-- Páginas: `home.html`, `convocatorias.html`, `entrenamientos.html`, `lesiones.html`, `seguros.html`, `fichas.html`, `registro-jugador.html` (y borradores en `future/`).
-- Navegación unificada de 6 enlaces y sistema de iconos SVG (24x24, `currentColor`).
-- CSS modular importado desde `css/style.css`.
-- **API centralizada**: `js/api.js` con servicios reutilizables para todas las páginas.
+## 5. Frontend y flujos
+- Login/Registro (`index.html`): tabs para login y registro (club/jugador/entrenador). Los formularios se interceptan con `fetch`; si responde OK, se redirige a `pages/home.html`. Usa `API_BASE` dinamica.
+- Paginacion ligera (convocatorias, lesiones, seguros, fichas, entrenamientos): radios ocultos controlan que tarjetas/filas se ven. JS sincroniza el numero mostrado y anade radios extra cuando hay mas paginas. 
+- Fichas: consume `/api/jugadores`, muestra 20 por pagina, permite eliminar y actualiza contadores.
+- Entrenamientos: consume `/api/entrenamientos` y `/api/asistencias/jugador/:id`, muestra badges de estado/asistencia, permite marcar asistencia y pagina 10 items.
+- Convocatorias/Lesiones/Seguros: maquetados estaticos con paginacion sincronizada (listos para conectar a API).
 
-### Estructura Frontend
-```
-frontend/
-  js/
-    api.js              # Servicio centralizado de API (jugadores, entrenamientos, etc.)
-  pages/                # HTML con integración a servicios API
-  css/                  # Estilos modularizados
-```
+## 6. Criterios aplicados en este trabajo
+- HTML limpio con IDs/clases claros para JS/CSS.
+- Comentarios solo donde la intencion no es obvia (API_BASE dinamica, paginacion con radios, interceptacion de formularios).
+- Sin dependencias nuevas en frontend; todo en vanilla.
+- Compatibilidad local: si abres el HTML fuera del servidor, se usa `http://localhost:8080/api`.
 
-## Registro de cambios (resumen de commits recientes)
-- `style: optimize responsive design for tablet and mobile layouts`
-- `feat: frontend architecture with modular CSS and responsive design`
-- `style: ajustes estéticos index.html y auth.css`
-- `feat: tabs al panel derecho y colores dinámicos de registro`
-- `docs: comentarios en el frontend para facilitar edición`
-- `feat: conectar formulario registro jugador con backend API`
-- `feat: integración base backend (Express + SQLite + rutas jugador)`
-- `docs: 0.1.4 v` (backend)
+## 7. Comandos usados habitualmente
+- `npm run dev` (backend con nodemon + config local).
+- `npm start` (backend con config prod).
+- `curl http://localhost:8080/api/jugadores` (ver datos rapido).
+- `git status -sb`, `git add ...`, `git commit -m "..."`, `git push origin dev` (flujo git).
 
-## Próximos pasos sugeridos
-- Añadir entidades restantes: entrenamientos, convocatorias, seguros, lesiones, fichas (API + UI).
-- Integrar autenticación real (JWT) y proteger rutas.
-- Añadir tests (unitarios y e2e) y documentación OpenAPI/Swagger.
-- Automatizar despliegue y CI.
+## 8. Tutorial rapido de uso
+1) Instalar deps: `cd backend && npm install`.
+2) Arrancar backend: `npm run dev` (sirve API y frontend en `http://localhost:8080/`).
+3) Registrar (club/jugador/entrenador): abre `http://localhost:8080/`, pestana Registro; al exito redirige a `pages/home.html`.
+4) Crear jugadores: desde Registro de jugador o via API POST `/api/jugadores`.
+5) Ver fichas: `pages/fichas.html` lista jugadores, 20 por pagina; eliminar actualiza contadores.
+6) Gestionar entrenamientos: `pages/entrenamientos.html` crea entrenamientos, marca asistencia y pagina 10 items.
+7) Comprobar estado: `http://localhost:8080/status`.
+
+## 9. Proximos pasos sugeridos
+- Anadir API real para convocatorias, lesiones y seguros y conectar las tablas maquetadas.
+- Integrar autenticacion (JWT) y roles.
+- Anadir tests (unit/e2e) y documentacion OpenAPI.
+- Automatizar despliegue/CI y migrar SQLite a un RDBMS gestionado si crece.
+
+## 10. Rubrica de terminos y siglas (glosario rapido)
+- API: interfaz para que otro sistema consuma datos. Aqui es REST sobre HTTP (JSON).
+- CRUD: Create, Read, Update, Delete (alta, consulta, actualizar, borrar).
+- CORS: Cross-Origin Resource Sharing; permite que el navegador llame a la API desde otro origen.
+- YAML: formato de configuracion legible; define puerto, base de datos, etc.
+- SQLite: base de datos ligera en un archivo (`backend/clubgest.db`).
+- Express: framework minimalista para crear APIs en Node.js.
+- Middleware: funcion que intercepta una request antes del handler (ej: validaciones).
+- express-validator: libreria para validar inputs HTTP.
+- nodemon: reinicia el servidor al guardar cambios en dev.
+- Endpoint: URL de la API (ej: `/api/jugadores`).
+- Status 2xx/4xx/5xx: codigos HTTP de exito, error cliente, error servidor.
+- camelCase vs snake_case: estilo de nombres; la API responde camelCase, la DB guarda snake_case.
+- API_BASE: constante JS que elige `http://localhost:8080/api` o `/api` segun donde abras el HTML.
+- Paginacion con radios: tecnica en frontend usando inputs type radio y CSS para mostrar/ocultar paginas.
+- Asistencia: relacion jugador-entrenamiento que marca si asistio (endpoint placeholder).

@@ -6,6 +6,7 @@ async function listar(req, res) {
   try {
     const jugadoresDB = await service.getAll();
 
+    // La capa API responde en camelCase aunque la base guarde snake_case
     const jugadores = jugadoresDB.map((j) => ({
       id: j.id,
       nombre: j.nombre,

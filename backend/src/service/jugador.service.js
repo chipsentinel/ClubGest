@@ -1,7 +1,7 @@
 const { run, get, all } = require('../../db/db');
 
 
-// Devuelve todos los jugadores async es para usar await
+// Devuelve todos los jugadores; columnas en snake_case como en la tabla
 async function getAll() {
   const sql = `
     SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso

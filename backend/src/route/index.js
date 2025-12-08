@@ -5,6 +5,7 @@ const asistenciasRoutes = require('./asistencia.route');
 
 const router = express.Router();
 
+// Acepta singular/plural para no romper llamados existentes
 router.use('/jugador', jugadoresRoutes);
 router.use('/jugadores', jugadoresRoutes);
 router.use('/entrenamiento', entrenamientosRoutes);

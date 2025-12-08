@@ -3,7 +3,7 @@ const fs = require('fs');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
-// Fichero de configuración por defecto
+// Fichero de configuración por defecto (prod); se puede sobreescribir por CLI
 let configFile = 'src/configuration/config.prod.yaml';
 
 // Permite cambiar el fichero con: node app.js --config src/configuration/config.local.yaml
