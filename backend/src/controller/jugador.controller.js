@@ -69,21 +69,7 @@ async function crear(req, res) {
       asistenciaEntrenamientos
     } = req.body;
 
-    // Validaciones básicas
-    if (!nombre || nombre.trim() === '') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'nombre' es obligatorio"
-      });
-    }
-
-    if (dorsal !== undefined && Number(dorsal) <= 0) {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: 'El dorsal debe ser mayor que 0'
-      });
-    }
-
+    // Las validaciones ya se hicieron en el middleware (express-validator)
     const asistenciaBD = asistenciaEntrenamientos ? 1 : 0;
 
     const nuevo = await service.create({
@@ -126,13 +112,7 @@ async function actualizar(req, res) {
       asistenciaEntrenamientos
     } = req.body;
 
-    if (!nombre || nombre.trim() === '') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'nombre' es obligatorio"
-      });
-    }
-
+    // Las validaciones ya se hicieron en el middleware (express-validator)
     const jugadorDB = await service.getById(id);
     if (!jugadorDB) {
       return res.status(404).json({
@@ -170,13 +150,7 @@ async function actualizarAsistencia(req, res) {
     const id = req.params.id;
     const { asistenciaEntrenamientos } = req.body;
 
-    if (typeof asistenciaEntrenamientos !== 'boolean') {
-      return res.status(400).json({
-        status: 'bad-request',
-        message: "El campo 'asistenciaEntrenamientos' debe ser booleano"
-      });
-    }
-
+    // Las validaciones ya se hicieron en el middleware (express-validator)
     const jugadorDB = await service.getById(id);
     if (!jugadorDB) {
       return res.status(404).json({
