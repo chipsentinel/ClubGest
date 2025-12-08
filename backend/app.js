@@ -1,9 +1,12 @@
 /**
  * @author: Cristian G.Gz
  * Archivo: app.js
- * Descripción: Este archivo configura un servidor web básico utilizando Express.js.
- *              El servidor escucha en un puerto específico y maneja solicitudes GET
- *              para servir datos JSON.
+ * Descripción: Servidor Express.js para la API REST de ClubGest.
+ *              - Sirve la API REST con endpoints CRUD de jugadores
+ *              - Sirve archivos estáticos del frontend
+ *              - Usa express-validator para validar entrada de datos en los endpoints
+ *              - Integrado con SQLite para persistencia de datos
+ *              - Configuración externa via archivos YAML (local/producción)
  */
 
 
@@ -26,6 +29,7 @@ app.use(express.urlencoded({ extended: true })); // Aceptar formularios HTML (ap
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Usar las rutas definidas en src/route para las solicitudes de la API
+// Las rutas incluyen validación con express-validator en el middleware
 // Ejemplo: /api/jugadores, /api/entrenamientos, etc.
 app.use('/api', routes);
 
@@ -49,24 +53,39 @@ app.listen(PORT, () => {
 /*
 Comandos node.js para ejecutar el servidor:
 cd .\backend\
-1. Iniciar node.js en el terminal:
-    node
-2. Instalar dependencias:
-    npm init -y             // Inicializar un nuevo proyecto Node.js
-    npm install express     // Instalar Express.js
-    npm install cors        // Instalar CORS
-3. Iniciar el servidor:
-    node app.js          // Ejecutar el archivo app.js
-    
-4. Verificar que el servidor esté corriendo:
-    curl http://localhost:8080/api/data
-5. Instalar sqlite3 para la base de datos:
-    npm install sqlite3
-6. Instalar yaml para guardar configuraciones externas al código y permitir distintos ajustes para desarrollo (local) y producción (prod).
-    npm install js-yaml yargs
 
-X. Instalar nodemon para desarrollo (opcional):
-    npm install --save-dev nodemon
-    npm run dev      // Ejecutar el servidor con nodemon para reinicios automáticos
-    
+1. Instalar dependencias:
+    npm install
+    // Esto instala:
+    // - express: framework web
+    // - cors: habilitar CORS
+    // - sqlite3: base de datos
+    // - js-yaml: leer configuración YAML
+    // - yargs: parsear argumentos de línea de comandos
+    // - express-validator: validación de datos en endpoints
+    // - nodemon (dev): reload automático en desarrollo
+
+2. Iniciar el servidor en desarrollo (con nodemon):
+    npx nodemon app.js -- --config src/configuration/config.local.yaml
+
+3. Iniciar el servidor en producción:
+    node app.js --config src/configuration/config.prod.yaml
+
+4. Verificar que el servidor está corriendo:
+    http://localhost:8080/status
+
+5. Endpoints disponibles:
+    GET    /api/jugadores          - Listar todos los jugadores
+    GET    /api/jugadores/:id      - Obtener un jugador por ID
+    POST   /api/jugadores          - Crear nuevo jugador (validado con express-validator)
+    PUT    /api/jugadores/:id      - Actualizar jugador completo (validado)
+    PATCH  /api/jugadores/:id/asistencia - Actualizar solo asistencia (validado)
+    DELETE /api/jugadores/:id      - Eliminar jugador
+
+NOTA: Todos los endpoints POST, PUT y PATCH usan express-validator para validar:
+    - Tipos de datos (TEXT, INTEGER, REAL, DATE, BOOLEAN)
+    - Longitud de cadenas
+    - Rangos numéricos
+    - Fechas válidas (no futuras)
+    - Campos booleanos
 */
