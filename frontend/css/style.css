@@ -1,0 +1,11 @@
+/****************************************
+ * CLUBGEST - ESTILOS GLOBALES
+ * Import centralizado de módulos CSS
+ ****************************************/
+
+/* Importar módulos CSS en orden */
+@import url('./variables.css');
+@import url('./layout.css');
+@import url('./components.css');
+@import url('./pages.css');
+
