@@ -383,3 +383,161 @@
     gap: var(--spacing-sm);
     flex-wrap: wrap;
 }
+
+/* ========== TABLAS DE DATOS ========== */
+.table-container {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+
+.data-table thead {
+    background: linear-gradient(90deg, var(--color-primary-blue), #0d5a8f);
+    color: var(--color-text-light);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-table thead th {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--color-accent-gold);
+}
+
+.data-table tbody tr {
+    border-bottom: 1px solid var(--color-gray-medium);
+    transition: all var(--transition-normal);
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(29, 58, 112, 0.05);
+    box-shadow: inset 4px 0 0 var(--color-accent-gold);
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: rgba(245, 245, 245, 0.5);
+}
+
+.data-table tbody td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    vertical-align: middle;
+}
+
+.data-table strong {
+    color: var(--color-primary-green);
+    font-weight: 700;
+}
+
+/* ========== BADGES DE ESTADO ========== */
+.badge-info {
+    background-color: #e3f2fd;
+    color: var(--color-primary-blue);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-left: 3px solid var(--color-primary-blue);
+    display: inline-block;
+}
+
+.badge-warning {
+    background-color: #fff3e0;
+    color: #ff9800;
+    border-left-color: #ff9800;
+}
+
+.badge-danger {
+    background-color: #ffebee;
+    color: var(--color-primary-red);
+    border-left-color: var(--color-primary-red);
+}
+
+.badge-success {
+    background-color: #e8f5e9;
+    color: var(--color-primary-green);
+    border-left-color: var(--color-primary-green);
+}
+
+/* ========== BOTONES DE ACCIÓN EN TABLAS ========== */
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-primary-blue);
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background-color: rgba(29, 58, 112, 0.1);
+    color: var(--color-primary-green);
+    transform: scale(1.15);
+}
+
+.btn-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.icon-sm {
+    width: 18px;
+    height: 18px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: var(--spacing-sm);
+}
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-gray-medium);
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.page-header h1 {
+    color: var(--color-primary-blue);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-3xl);
+}
+
+/* ========== LAYOUT FLEXIBLE ========== */
+.layout-flex {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.main-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+}
