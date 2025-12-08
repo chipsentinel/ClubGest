@@ -134,10 +134,10 @@
     text-align: center;
     margin-bottom: var(--spacing-2xl);
     padding: var(--spacing-xl);
-    background: linear-gradient(135deg, var(--color-primary-green) 0%, #226626 50%, var(--color-primary-turquoise) 100%);
+    background: linear-gradient(135deg, var(--color-accent-gold) 0%, #d4a928 50%);
     border-radius: var(--border-radius-lg);
-    color: var(--color-text-light);
-    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.3);
+    color: var(--color-text-dark);
+    box-shadow: 0 8px 24px rgba(233, 179, 74, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -149,13 +149,13 @@
     right: -10%;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
 
 .welcome-section h1 {
-    color: var(--color-text-light);
+    color: #000000;
     margin-bottom: var(--spacing-md);
     position: relative;
     z-index: 1;
@@ -164,6 +164,7 @@
 .intro-text {
     font-size: var(--font-size-lg);
     line-height: 1.8;
+    color: #000000;
 }
 
 /* Stats Cards */

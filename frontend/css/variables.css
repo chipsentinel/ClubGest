@@ -181,6 +181,13 @@ a:hover {
     flex-shrink: 0;
 }
 
+.welcome-logo {
+    width: 4rem;
+    height: 4rem;
+    margin-right: var(--spacing-lg);
+    flex-shrink: 0;
+}
+
 .btn .icon-sm {
     margin-right: var(--spacing-sm);
 }
