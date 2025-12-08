@@ -32,6 +32,8 @@
     align-items: center;
 }
 
+
+
 .header-club {
     background: linear-gradient(135deg, #2E7D32 0%, #1b4d1f 100%);
 }
@@ -47,6 +49,14 @@
     margin-bottom: 0;
 }
 
+.header-logo {
+    height: 60px;
+    width: auto;
+    margin-right: var(--spacing-lg);
+}
+.header .header:hover {
+    transform: scale(1.05);
+}
 .header-left {
     display: flex;
     align-items: center;
