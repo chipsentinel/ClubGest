@@ -12,6 +12,8 @@ async function listar(req, res) {
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
+      fechaNacimiento: j.fecha_nacimiento,
+      peso: j.peso,
       // 0/1 → true/false
       asistenciaEntrenamientos: !!j.asistencia_entrenamientos
     }));
@@ -41,6 +43,8 @@ async function obtener(req, res) {
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
+      fechaNacimiento: j.fecha_nacimiento,
+      peso: j.peso,
       asistenciaEntrenamientos: !!j.asistencia_entrenamientos
     };
 
@@ -60,6 +64,8 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      fechaNacimiento,
+      peso,
       asistenciaEntrenamientos
     } = req.body;
 
@@ -85,6 +91,8 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      fecha_nacimiento: fechaNacimiento,
+      peso,
       asistencia_entrenamientos: asistenciaBD
     });
 
@@ -94,6 +102,8 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      fechaNacimiento,
+      peso,
       asistenciaEntrenamientos: !!asistenciaBD
     });
   } catch (err) {
@@ -111,6 +121,8 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
+      fechaNacimiento,
+      peso,
       asistenciaEntrenamientos
     } = req.body;
 
@@ -134,6 +146,8 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
+      fecha_nacimiento: fechaNacimiento,
+      peso,
       asistencia_entrenamientos: asistenciaEntrenamientos ? 1 : 0
     });
 

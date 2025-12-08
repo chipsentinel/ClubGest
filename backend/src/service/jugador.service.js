@@ -4,7 +4,7 @@ const { run, get, all } = require('../../db/db');
 // Devuelve todos los jugadores async es para usar await
 async function getAll() {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, asistencia_entrenamientos
     FROM jugadores
   `;
   return await all(sql);
@@ -13,7 +13,7 @@ async function getAll() {
 // Devuelve un jugador por su ID
 async function getById(id) {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, asistencia_entrenamientos
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, asistencia_entrenamientos
     FROM jugadores
     WHERE id = ?
   `;
@@ -23,8 +23,8 @@ async function getById(id) {
 // Crea un nuevo jugador
 async function create(jugador) {
   const sql = `
-    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, asistencia_entrenamientos)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, asistencia_entrenamientos)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
   const asistencia = jugador.asistencia_entrenamientos ? 1 : 0;
@@ -34,6 +34,8 @@ async function create(jugador) {
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
+    jugador.fecha_nacimiento,
+    jugador.peso,
     asistencia
   ]);
 
@@ -48,7 +50,7 @@ async function create(jugador) {
 async function update(id, jugador) {
   const sql = `
     UPDATE jugadores
-    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, asistencia_entrenamientos = ?
+    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, fecha_nacimiento = ?, peso = ?, asistencia_entrenamientos = ?
     WHERE id = ?
   `;
 
@@ -59,6 +61,8 @@ async function update(id, jugador) {
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
+    jugador.fecha_nacimiento,
+    jugador.peso,
     asistencia,
     id
   ]);

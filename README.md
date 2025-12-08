@@ -70,9 +70,16 @@ npm start            # node app.js --config src/configuration/config.prod.yaml
 - Páginas: `home.html`, `convocatorias.html`, `entrenamientos.html`, `lesiones.html`, `seguros.html`, `fichas.html`, `registro-jugador.html` (y borradores en `future/`).
 - Navegación unificada de 6 enlaces y sistema de iconos SVG (24x24, `currentColor`).
 - CSS modular importado desde `css/style.css`.
+- **API centralizada**: `js/api.js` con servicios reutilizables para todas las páginas.
 
-### Visualización rápida
-Puedes servir el frontend estático desde el backend (ya configurado con `express.static`) o abrir los HTML directamente en el navegador.
+### Estructura Frontend
+```
+frontend/
+  js/
+    api.js              # Servicio centralizado de API (jugadores, entrenamientos, etc.)
+  pages/                # HTML con integración a servicios API
+  css/                  # Estilos modularizados
+```
 
 ## Registro de cambios (resumen de commits recientes)
 - `style: optimize responsive design for tablet and mobile layouts`

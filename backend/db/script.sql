@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS jugadores (
     apellidos TEXT,
     posicion TEXT,
     dorsal INTEGER,
+    fecha_nacimiento DATE,
+    peso REAL,
     -- 0 = no asiste habitualmente, 1 = sí asiste habitualmente
     asistencia_entrenamientos BOOLEAN NOT NULL DEFAULT 0 CHECK (asistencia_entrenamientos IN (0,1))
 );

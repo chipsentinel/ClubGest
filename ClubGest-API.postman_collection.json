@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "clubgest-api-collection",
+    "name": "ClubGest API",
+    "description": "Colección de endpoints de la API REST de ClubGest para gestión de jugadores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Jugadores",
+      "item": [
+        {
+          "name": "Listar todos los jugadores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores"]
+            },
+            "description": "Obtiene la lista completa de todos los jugadores registrados"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener jugador por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores", "1"]
+            },
+            "description": "Obtiene los detalles de un jugador específico por su ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear nuevo jugador",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López\",\n  \"posicion\": \"Apertura\",\n  \"dorsal\": 10,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 82.5,\n  \"asistenciaEntrenamientos\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores"]
+            },
+            "description": "Crea un nuevo jugador con todos los 7 atributos requeridos"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar jugador completo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidos\": \"García López Actualizado\",\n  \"posicion\": \"Centro\",\n  \"dorsal\": 15,\n  \"fechaNacimiento\": \"1997-07-22\",\n  \"peso\": 85.0,\n  \"asistenciaEntrenamientos\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores", "1"]
+            },
+            "description": "Actualiza todos los campos de un jugador existente (actualización completa)"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar asistencia a entrenamientos",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asistenciaEntrenamientos\": true\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores/1/asistencia",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores", "1", "asistencia"]
+            },
+            "description": "Actualiza solamente el campo de asistencia a entrenamientos (actualización parcial)"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar jugador",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/jugadores/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "jugadores", "1"]
+            },
+            "description": "Elimina un jugador de la base de datos por su ID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Estado de la API",
+      "item": [
+        {
+          "name": "Verificar estado del servidor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["status"]
+            },
+            "description": "Verifica que el servidor API está activo y funcionando correctamente"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jugadorId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}
