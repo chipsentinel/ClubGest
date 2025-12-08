@@ -139,14 +139,13 @@
         <p>&copy; 2025 Club Gest - Sistema de Gestión de Clubes Deportivos</p>
     </footer>
     <script>
-        // ID del jugador actual (hardcodeado por ahora, en producción vendría de sesión)
-        // Si la página se sirve desde el backend en 8080 usa ruta relativa; de lo contrario, apunta al backend local
+        // ID del jugador actual (hardcodeado) y API_BASE según sirvas estáticos o no.
         const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
         const JUGADOR_ACTUAL_ID = 1;
         let entrenamientos = [];
         let asistencias = {};
 
-        // Cargar entrenamientos desde el backend
+        // Cargar entrenamientos y después las asistencias del jugador.
         async function cargarEntrenamientos() {
             try {
                 const response = await fetch(`${API_BASE}/entrenamientos`);
@@ -209,6 +208,7 @@
                 : '<span class="badge badge-danger">No asistiré</span>';
         }
 
+        // Renderiza filas con data-page para que los radios oculten/mostrar por CSS.
         function renderEntrenamientos() {
             const tbody = document.getElementById('entrenamientosTable');
             
@@ -314,7 +314,7 @@
             document.getElementById('formCrear').style.display = 'none';
         }
 
-        // Generar controles de paginación
+        // Genera radios extra si hace falta y muestra total de páginas.
         function generarControles() {
             const ITEMS_POR_PAGINA = 10;
             const totalPaginas = Math.ceil(entrenamientos.length / ITEMS_POR_PAGINA);
@@ -344,6 +344,7 @@
             }
         }
 
+        // Sincroniza el texto "Página X" con el radio activo.
         function conectarPaginacionRadios() {
             const radios = document.querySelectorAll('.pagination-radio');
             radios.forEach(radio => {

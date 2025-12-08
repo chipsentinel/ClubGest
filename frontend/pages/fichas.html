@@ -76,11 +76,12 @@
     </footer>
 
     <script>
-        // Si se sirve desde el backend en 8080 usa ruta relativa; si no, usa backend en localhost:8080
+        // API_BASE se ajusta si sirves estáticos desde backend o abrís el HTML suelto.
         const API_BASE = window.location.origin.includes('8080') ? '/api' : 'http://localhost:8080/api';
         const jugadoresPorPagina = 20;
         let todosLosJugadores = [];
 
+        // Carga jugadores, genera fichas y activa paginación al iniciar.
         async function cargarFichas() {
             try {
                 const response = await fetch(`${API_BASE}/jugadores`);
@@ -117,6 +118,7 @@
             }
         }
 
+        // Pinta todas las fichas con su data-page para que los radios las oculten/mostrar.
         function generarFichasHTML() {
             const fichasGrid = document.getElementById('fichasGrid');
             fichasGrid.innerHTML = '';
@@ -151,6 +153,7 @@
             `;
         }
 
+        // Ajusta radios y total de páginas según el total de jugadores cargados.
         function generarControlesPaginacion() {
             const totalPaginas = Math.ceil(todosLosJugadores.length / jugadoresPorPagina);
             
@@ -180,6 +183,7 @@
             conectarPaginacionRadios();
         }
 
+        // Sincroniza el número mostrado con el radio actualmente seleccionado.
         function conectarPaginacionRadios() {
             const radios = Array.from(document.querySelectorAll('.pagination-radio'));
             const pageNumEl = document.querySelector('.pagination-page-num');
@@ -198,6 +202,7 @@
             actualizar();
         }
 
+        // Ajusta el contador de "Mostrando" cuando solo hay una página.
         function actualizarFichaMostradas() {
             const totalPaginas = Math.ceil(todosLosJugadores.length / jugadoresPorPagina);
             if (totalPaginas === 1) {
