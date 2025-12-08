@@ -281,9 +281,10 @@
 .layout-flex {
     display: flex;
     gap: var(--spacing-md);
-    min-height: calc(100vh - 140px);
+    min-height: auto;
     padding: var(--spacing-md);
     animation: fadeIn 0.6s ease;
+    width: 100%;
 }
 
 @keyframes fadeIn {
@@ -321,7 +322,7 @@
     padding: var(--spacing-xl);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--box-shadow-md);
-    overflow-y: auto;
+    overflow: visible;
     scroll-behavior: smooth;
     max-width: 1400px;
     margin: 0 auto;
