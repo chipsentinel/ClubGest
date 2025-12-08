@@ -59,6 +59,12 @@ npm install --omit=dev
 npm start            # node app.js --config src/configuration/config.prod.yaml
 ```
 
+### Comprobación rápida (backend + frontend juntos)
+1) Arranca el backend: `npm run dev` en `backend/` (sirve API y estáticos del frontend).
+2) Abre en navegador: `http://localhost:8080/` para ver el login/registro.
+3) Test de API: `http://localhost:8080/status` debe responder `{ "message": "API ClubGest funcionando" }`.
+4) Endpoints jugador: prueba con `curl http://localhost:8080/api/jugadores` o Postman.
+
 ## Frontend
 - Login/registro en `index.html` con tabs y estilos en `auth.css`.
 - Páginas: `home.html`, `convocatorias.html`, `entrenamientos.html`, `lesiones.html`, `seguros.html`, `fichas.html`, `register-jugador.html` (y borradores en `future/`).
