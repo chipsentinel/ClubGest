@@ -1,0 +1,315 @@
+{
+  "info": {
+    "_postman_id": "clubgest-api-crud-collection",
+    "name": "ClubGest API - CRUD Completo",
+    "description": "Colección con todos los endpoints CRUD (GET, POST, PUT, DELETE) para Jugadores, Entrenamientos y Asistencias",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Jugadores",
+      "item": [
+        {
+          "name": "GET - Listar todos los jugadores",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jugadores",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores"]
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener jugador por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jugadores/{{jugador_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores", "{{jugador_id}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear jugador",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"email\": \"juan@example.com\",\n  \"telefono\": \"123456789\",\n  \"posicion\": \"Delantero\",\n  \"numero_camiseta\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jugadores",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar jugador",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Carlos\",\n  \"apellido\": \"García López\",\n  \"email\": \"juancarlos@example.com\",\n  \"telefono\": \"987654321\",\n  \"posicion\": \"Centrocampista\",\n  \"numero_camiseta\": 8\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jugadores/{{jugador_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores", "{{jugador_id}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar jugador",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/jugadores/{{jugador_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores", "{{jugador_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Entrenamientos",
+      "item": [
+        {
+          "name": "GET - Listar todos los entrenamientos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/entrenamientos",
+              "host": ["{{base_url}}"],
+              "path": ["entrenamientos"]
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener entrenamiento por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/entrenamientos/{{entrenamiento_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["entrenamientos", "{{entrenamiento_id}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear entrenamiento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha\": \"2025-12-10\",\n  \"hora_inicio\": \"18:00\",\n  \"hora_fin\": \"19:30\",\n  \"lugar\": \"Estadio Principal\",\n  \"descripcion\": \"Entrenamiento de táctica y pases\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/entrenamientos",
+              "host": ["{{base_url}}"],
+              "path": ["entrenamientos"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar entrenamiento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha\": \"2025-12-11\",\n  \"hora_inicio\": \"19:00\",\n  \"hora_fin\": \"20:30\",\n  \"lugar\": \"Campo de Entrenamiento\",\n  \"descripcion\": \"Entrenamiento de preparación física\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/entrenamientos/{{entrenamiento_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["entrenamientos", "{{entrenamiento_id}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar entrenamiento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/entrenamientos/{{entrenamiento_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["entrenamientos", "{{entrenamiento_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Asistencias",
+      "item": [
+        {
+          "name": "GET - Listar todas las asistencias",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/asistencias",
+              "host": ["{{base_url}}"],
+              "path": ["asistencias"]
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener asistencia por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/asistencias/{{asistencia_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["asistencias", "{{asistencia_id}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear asistencia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jugador_id\": 1,\n  \"entrenamiento_id\": 1,\n  \"estado\": \"Presente\",\n  \"observaciones\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/asistencias",
+              "host": ["{{base_url}}"],
+              "path": ["asistencias"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar asistencia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jugador_id\": 1,\n  \"entrenamiento_id\": 1,\n  \"estado\": \"Ausente\",\n  \"observaciones\": \"Lesión\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/asistencias/{{asistencia_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["asistencias", "{{asistencia_id}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar asistencia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/asistencias/{{asistencia_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["asistencias", "{{asistencia_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/api",
+      "type": "string",
+      "description": "URL base de la API ClubGest"
+    },
+    {
+      "key": "jugador_id",
+      "value": "1",
+      "type": "string",
+      "description": "ID del jugador para operaciones específicas"
+    },
+    {
+      "key": "entrenamiento_id",
+      "value": "1",
+      "type": "string",
+      "description": "ID del entrenamiento para operaciones específicas"
+    },
+    {
+      "key": "asistencia_id",
+      "value": "1",
+      "type": "string",
+      "description": "ID de la asistencia para operaciones específicas"
+    }
+  ]
+}
