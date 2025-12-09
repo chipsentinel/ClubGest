@@ -1,6 +1,6 @@
 {
   "name": "clubgest-backend",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "API REST para la gestión de clubes deportivos amateurs: jugadores, entrenadores, entrenamientos, asistencia, seguros, lesiones y categorías.",
   "main": "app.js",
   "scripts": {
