@@ -32,6 +32,7 @@ async function create(jugador) {
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
+    jugador.sexo,
     jugador.fecha_nacimiento,
     jugador.peso
   ]);
@@ -55,6 +56,7 @@ async function update(id, jugador) {
     jugador.apellidos,
     jugador.posicion,
     jugador.dorsal,
+    jugador.sexo,
     jugador.fecha_nacimiento,
     jugador.peso,
     id

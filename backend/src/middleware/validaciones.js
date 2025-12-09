@@ -50,6 +50,11 @@ const validarCrearJugador = [
   body('dorsal')
     .optional({ checkFalsy: true })
     .isInt({ min: 1, max: 99 }).withMessage('El dorsal debe ser un número entre 1 y 99'),
+
+  body('sexo')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isLength({ max: 6 }).withMessage('El sexo no pueden exceder 6 caracteres'),
   
   body('fechaNacimiento')
     .optional({ checkFalsy: true })
@@ -94,6 +99,11 @@ const validarActualizarJugador = [
   body('dorsal')
     .optional({ checkFalsy: true })
     .isInt({ min: 1, max: 99 }).withMessage('El dorsal debe ser un número entre 1 y 99'),
+
+  body('sexo')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isLength({ max: 6 }).withMessage('El sexo no pueden exceder 6 caracteres'),
   
   body('fechaNacimiento')
     .optional({ checkFalsy: true })

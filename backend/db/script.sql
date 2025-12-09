@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS jugadores (
     apellidos TEXT,
     posicion TEXT,
     dorsal INTEGER,
+    sexo TEXT,
     fecha_nacimiento DATE,
     peso REAL
 );

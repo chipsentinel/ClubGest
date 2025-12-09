@@ -26,6 +26,7 @@ async function listarAsistenciasPorEntrenamiento(req, res) {
       apellidos: a.apellidos,
       posicion: a.posicion,
       dorsal: a.dorsal,
+      sexo: a.sexo,
       asistencia: !!a.asistencia
     }));
 
