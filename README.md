@@ -36,6 +36,19 @@ frontend/
   img/                       # logos e iconos
 ```
 
+## 📚 Documentación Completa
+Para una documentación **detallada y completa** del proyecto, consulta:
+- **[WIKI-ClubGest.md](./WIKI-ClubGest.md)** - Guía unificada con:
+  - Instalación paso a paso
+  - Arquitectura MVC explicada
+  - 15 endpoints API con ejemplos cURL
+  - Esquema de base de datos
+  - Guía de Postman
+  - Integración Frontend-Backend
+  - Flujo Git y GitHub
+  - Roadmap de 6 fases
+  - Guía para contribuidores
+
 ## 4. Backend (API REST)
 - Rutas jugador (`/api/jugadores`, alias `/api/jugador`): GET `/`, GET `/:id`, POST `/`, PUT `/:id`, PATCH `/:id/asistencia` (placeholder), DELETE `/:id`.
 - Estado: GET `/status`  `{ "message": "API ClubGest funcionando" }`.
