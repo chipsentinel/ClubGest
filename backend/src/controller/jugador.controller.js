@@ -13,6 +13,7 @@ async function listar(req, res) {
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
+      sexo: j.sexo,
       fechaNacimiento: j.fecha_nacimiento,
       peso: j.peso
     }));
@@ -42,6 +43,7 @@ async function obtener(req, res) {
       apellidos: j.apellidos,
       posicion: j.posicion,
       dorsal: j.dorsal,
+      sexo: j.sexo,
       fechaNacimiento: j.fecha_nacimiento,
       peso: j.peso
     };
@@ -62,6 +64,7 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      sexo,
       fechaNacimiento,
       peso
     } = req.body;
@@ -72,6 +75,7 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      sexo,
       fecha_nacimiento: fechaNacimiento,
       peso
     });
@@ -82,6 +86,7 @@ async function crear(req, res) {
       apellidos,
       posicion,
       dorsal,
+      sexo,
       fechaNacimiento,
       peso
     });
@@ -100,6 +105,7 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
+      sexo,
       fechaNacimiento,
       peso
     } = req.body;
@@ -118,6 +124,7 @@ async function actualizar(req, res) {
       apellidos,
       posicion,
       dorsal,
+      sexo,
       fecha_nacimiento: fechaNacimiento,
       peso
     });
