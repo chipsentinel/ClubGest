@@ -97,6 +97,7 @@
                         <p><strong>Posición:</strong> ${jugador.posicion || '-'}</p>
                         <p><strong>Nacimiento:</strong> ${fechaNac}</p>
                         <p><strong>Peso:</strong> ${jugador.peso ? jugador.peso + ' kg' : '-'}</p>
+                        <p><strong>Sexo:</strong> ${jugador.sexo ? jugador.sexo.charAt(0).toUpperCase() + jugador.sexo.slice(1) : '-'}</p>
                     </div>
                     <div class="ficha-actions">
                         <button class="btn btn-small btn-success" onclick="aprobarJugador(${jugador.id})">✓ Aprobar</button>

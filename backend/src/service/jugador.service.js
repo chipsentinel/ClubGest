@@ -4,7 +4,7 @@ const { run, get, all } = require('../../db/db');
 // Devuelve todos los jugadores; columnas en snake_case como en la tabla
 async function getAll() {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, sexo
     FROM jugadores
   `;
   return await all(sql);
@@ -13,7 +13,7 @@ async function getAll() {
 // Devuelve un jugador por su ID
 async function getById(id) {
   const sql = `
-    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso
+    SELECT id, nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, sexo
     FROM jugadores
     WHERE id = ?
   `;
@@ -23,8 +23,8 @@ async function getById(id) {
 // Crea un nuevo jugador
 async function create(jugador) {
   const sql = `
-    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, sexo)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
   const result = await run(sql, [
@@ -33,7 +33,8 @@ async function create(jugador) {
     jugador.posicion,
     jugador.dorsal,
     jugador.fecha_nacimiento,
-    jugador.peso
+    jugador.peso,
+    jugador.sexo
   ]);
 
   return {
@@ -46,7 +47,7 @@ async function create(jugador) {
 async function update(id, jugador) {
   const sql = `
     UPDATE jugadores
-    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, fecha_nacimiento = ?, peso = ?
+    SET nombre = ?, apellidos = ?, posicion = ?, dorsal = ?, fecha_nacimiento = ?, peso = ?, sexo = ?
     WHERE id = ?
   `;
 
@@ -57,6 +58,7 @@ async function update(id, jugador) {
     jugador.dorsal,
     jugador.fecha_nacimiento,
     jugador.peso,
+    jugador.sexo,
     id
   ]);
 

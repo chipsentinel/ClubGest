@@ -14,7 +14,8 @@ async function listar(req, res) {
       posicion: j.posicion,
       dorsal: j.dorsal,
       fechaNacimiento: j.fecha_nacimiento,
-      peso: j.peso
+      peso: j.peso,
+      sexo: j.sexo
     }));
 
     res.status(200).json(jugadores);
@@ -43,7 +44,8 @@ async function obtener(req, res) {
       posicion: j.posicion,
       dorsal: j.dorsal,
       fechaNacimiento: j.fecha_nacimiento,
-      peso: j.peso
+      peso: j.peso,
+      sexo: j.sexo
     };
 
     res.status(200).json(jugador);
@@ -63,7 +65,8 @@ async function crear(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso
+      peso,
+      sexo
     } = req.body;
 
     // Las validaciones ya se hicieron en el middleware (express-validator)
@@ -73,7 +76,8 @@ async function crear(req, res) {
       posicion,
       dorsal,
       fecha_nacimiento: fechaNacimiento,
-      peso
+      peso,
+      sexo
     });
 
     res.status(201).json({
@@ -83,7 +87,8 @@ async function crear(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso
+      peso,
+      sexo
     });
   } catch (err) {
     console.error(err);
@@ -101,7 +106,8 @@ async function actualizar(req, res) {
       posicion,
       dorsal,
       fechaNacimiento,
-      peso
+      peso,
+      sexo
     } = req.body;
 
     // Las validaciones ya se hicieron en el middleware (express-validator)
@@ -119,7 +125,8 @@ async function actualizar(req, res) {
       posicion,
       dorsal,
       fecha_nacimiento: fechaNacimiento,
-      peso
+      peso,
+      sexo
     });
 
     if (cambios === 0) {

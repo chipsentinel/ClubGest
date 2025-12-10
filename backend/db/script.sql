@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS jugadores (
     posicion TEXT,
     dorsal INTEGER,
     fecha_nacimiento DATE,
-    peso REAL
+    peso REAL,
+    sexo TEXT CHECK (sexo IN ('hombre', 'mujer'))
 );
 
 CREATE TABLE IF NOT EXISTS entrenamientos (

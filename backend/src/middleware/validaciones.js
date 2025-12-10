@@ -67,6 +67,11 @@ const validarCrearJugador = [
     .optional({ checkFalsy: true })
     .isFloat({ min: 30, max: 250 }).withMessage('El peso debe estar entre 30 y 250 kg'),
   
+  body('sexo')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isIn(['hombre', 'mujer']).withMessage('El sexo debe ser "hombre" o "mujer"'),
+  
   handleValidationErrors
 ];
 
@@ -110,6 +115,11 @@ const validarActualizarJugador = [
   body('peso')
     .optional({ checkFalsy: true })
     .isFloat({ min: 30, max: 250 }).withMessage('El peso debe estar entre 30 y 250 kg'),
+  
+  body('sexo')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isIn(['hombre', 'mujer']).withMessage('El sexo debe ser "hombre" o "mujer"'),
   
   handleValidationErrors
 ];
