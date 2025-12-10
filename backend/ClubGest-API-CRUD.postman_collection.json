@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "clubgest-api-crud-collection",
     "name": "ClubGest API - CRUD Completo",
-    "description": "Colección con todos los endpoints CRUD (GET, POST, PUT, DELETE) para Jugadores, Entrenamientos y Asistencias",
+    "description": "Colección con todos los endpoints CRUD (GET, POST, PUT, DELETE) para Jugadores, Entrenamientos y Asistencias.\n\nCampos de Jugador:\n- nombre (string, requerido)\n- apellidos (string, opcional)\n- posicion (string, opcional)\n- dorsal (number, opcional, 1-99)\n- fechaNacimiento (date ISO8601, opcional)\n- peso (number, opcional, 30-250 kg)\n- sexo (string, opcional: 'hombre' o 'mujer')\n\nActualizado: Diciembre 2025",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -55,7 +55,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Pérez\",\n  \"email\": \"juan@example.com\",\n  \"telefono\": \"123456789\",\n  \"posicion\": \"Delantero\",\n  \"numero_camiseta\": 10\n}"
+              "raw": "{\n  \"nombre\": \"Juan\",\n  \"apellidos\": \"García Pérez\",\n  \"posicion\": \"Delantero\",\n  \"dorsal\": 10,\n  \"fechaNacimiento\": \"1998-05-15\",\n  \"peso\": 75.5,\n  \"sexo\": \"hombre\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/jugadores",
@@ -76,12 +76,33 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Juan Carlos\",\n  \"apellido\": \"García López\",\n  \"email\": \"juancarlos@example.com\",\n  \"telefono\": \"987654321\",\n  \"posicion\": \"Centrocampista\",\n  \"numero_camiseta\": 8\n}"
+              "raw": "{\n  \"nombre\": \"Juan Carlos\",\n  \"apellidos\": \"García López\",\n  \"posicion\": \"Centrocampista\",\n  \"dorsal\": 8,\n  \"fechaNacimiento\": \"1997-08-22\",\n  \"peso\": 78.0,\n  \"sexo\": \"hombre\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/jugadores/{{jugador_id}}",
               "host": ["{{base_url}}"],
               "path": ["jugadores", "{{jugador_id}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear jugadora (mujer)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"María\",\n  \"apellidos\": \"Rodríguez Silva\",\n  \"posicion\": \"Centrocampista\",\n  \"dorsal\": 7,\n  \"fechaNacimiento\": \"1999-03-20\",\n  \"peso\": 62.5,\n  \"sexo\": \"mujer\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jugadores",
+              "host": ["{{base_url}}"],
+              "path": ["jugadores"]
             }
           }
         },
