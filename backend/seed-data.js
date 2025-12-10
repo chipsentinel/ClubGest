@@ -7,21 +7,21 @@ const db = new sqlite3.Database(dbPath);
 
 // Datos de ejemplo
 const jugadores = [
-  { nombre: 'Carlos', apellidos: 'Martínez López', posicion: 'Pilar', dorsal: 1, fecha_nacimiento: '1995-03-15', peso: 105.5 },
-  { nombre: 'Juan', apellidos: 'García Pérez', posicion: 'Hooker', dorsal: 2, fecha_nacimiento: '1996-07-22', peso: 98.0 },
-  { nombre: 'Luis', apellidos: 'Fernández Ruiz', posicion: 'Pilar', dorsal: 3, fecha_nacimiento: '1994-11-10', peso: 110.2 },
-  { nombre: 'Diego', apellidos: 'Rodríguez Sanz', posicion: 'Segunda Línea', dorsal: 4, fecha_nacimiento: '1997-02-18', peso: 112.5 },
-  { nombre: 'Pablo', apellidos: 'López Díaz', posicion: 'Segunda Línea', dorsal: 5, fecha_nacimiento: '1995-09-05', peso: 108.0 },
-  { nombre: 'Miguel', apellidos: 'Sánchez Torres', posicion: 'Ala', dorsal: 6, fecha_nacimiento: '1998-04-12', peso: 95.5 },
-  { nombre: 'Javier', apellidos: 'Gómez Morales', posicion: 'Ala', dorsal: 7, fecha_nacimiento: '1996-12-30', peso: 92.0 },
-  { nombre: 'Andrés', apellidos: 'Jiménez Castro', posicion: 'Octavo', dorsal: 8, fecha_nacimiento: '1997-06-25', peso: 100.0 },
-  { nombre: 'Alberto', apellidos: 'Ruiz Navarro', posicion: 'Medio Melé', dorsal: 9, fecha_nacimiento: '1999-01-08', peso: 78.5 },
-  { nombre: 'Fernando', apellidos: 'Hernández Vega', posicion: 'Apertura', dorsal: 10, fecha_nacimiento: '1998-08-14', peso: 82.0 },
-  { nombre: 'Sergio', apellidos: 'Moreno Gil', posicion: 'Centro', dorsal: 12, fecha_nacimiento: '1997-10-03', peso: 88.5 },
-  { nombre: 'David', apellidos: 'Romero Blanco', posicion: 'Centro', dorsal: 13, fecha_nacimiento: '1996-05-20', peso: 90.0 },
-  { nombre: 'Raúl', apellidos: 'Álvarez Serrano', posicion: 'Ala', dorsal: 14, fecha_nacimiento: '1999-03-17', peso: 85.0 },
-  { nombre: 'Jorge', apellidos: 'Ramírez Ortiz', posicion: 'Ala', dorsal: 11, fecha_nacimiento: '1998-11-28', peso: 84.5 },
-  { nombre: 'Antonio', apellidos: 'Domínguez Moya', posicion: 'Zaguero', dorsal: 15, fecha_nacimiento: '1997-07-09', peso: 87.0 }
+  { nombre: 'Carlos', apellidos: 'Martínez López', posicion: 'Pilar', dorsal: 1, fecha_nacimiento: '1995-03-15', peso: 105.5, sexo: 'hombre' },
+  { nombre: 'Juan', apellidos: 'García Pérez', posicion: 'Hooker', dorsal: 2, fecha_nacimiento: '1996-07-22', peso: 98.0, sexo: 'hombre' },
+  { nombre: 'Luis', apellidos: 'Fernández Ruiz', posicion: 'Pilar', dorsal: 3, fecha_nacimiento: '1994-11-10', peso: 110.2, sexo: 'hombre' },
+  { nombre: 'Diego', apellidos: 'Rodríguez Sanz', posicion: 'Segunda Línea', dorsal: 4, fecha_nacimiento: '1997-02-18', peso: 112.5, sexo: 'hombre' },
+  { nombre: 'Pablo', apellidos: 'López Díaz', posicion: 'Segunda Línea', dorsal: 5, fecha_nacimiento: '1995-09-05', peso: 108.0, sexo: 'hombre' },
+  { nombre: 'Miguel', apellidos: 'Sánchez Torres', posicion: 'Ala', dorsal: 6, fecha_nacimiento: '1998-04-12', peso: 95.5, sexo: 'hombre' },
+  { nombre: 'Javier', apellidos: 'Gómez Morales', posicion: 'Ala', dorsal: 7, fecha_nacimiento: '1996-12-30', peso: 92.0, sexo: 'hombre' },
+  { nombre: 'Andrés', apellidos: 'Jiménez Castro', posicion: 'Octavo', dorsal: 8, fecha_nacimiento: '1997-06-25', peso: 100.0, sexo: 'hombre' },
+  { nombre: 'Alberto', apellidos: 'Ruiz Navarro', posicion: 'Medio Melé', dorsal: 9, fecha_nacimiento: '1999-01-08', peso: 78.5, sexo: 'hombre' },
+  { nombre: 'Fernando', apellidos: 'Hernández Vega', posicion: 'Apertura', dorsal: 10, fecha_nacimiento: '1998-08-14', peso: 82.0, sexo: 'hombre' },
+  { nombre: 'Sergio', apellidos: 'Moreno Gil', posicion: 'Centro', dorsal: 12, fecha_nacimiento: '1997-10-03', peso: 88.5, sexo: 'hombre' },
+  { nombre: 'David', apellidos: 'Romero Blanco', posicion: 'Centro', dorsal: 13, fecha_nacimiento: '1996-05-20', peso: 90.0, sexo: 'hombre' },
+  { nombre: 'Raúl', apellidos: 'Álvarez Serrano', posicion: 'Ala', dorsal: 14, fecha_nacimiento: '1999-03-17', peso: 85.0, sexo: 'hombre' },
+  { nombre: 'Jorge', apellidos: 'Ramírez Ortiz', posicion: 'Ala', dorsal: 11, fecha_nacimiento: '1998-11-28', peso: 84.5, sexo: 'hombre' },
+  { nombre: 'Antonio', apellidos: 'Domínguez Moya', posicion: 'Zaguero', dorsal: 15, fecha_nacimiento: '1997-07-09', peso: 87.0, sexo: 'hombre' }
 ];
 
 const entrenamientos = [
@@ -37,10 +37,10 @@ const entrenamientos = [
 
 async function insertJugadores() {
   return new Promise((resolve, reject) => {
-    const stmt = db.prepare('INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso) VALUES (?, ?, ?, ?, ?, ?)');
+    const stmt = db.prepare('INSERT INTO jugadores (nombre, apellidos, posicion, dorsal, fecha_nacimiento, peso, sexo) VALUES (?, ?, ?, ?, ?, ?, ?)');
     
     jugadores.forEach(j => {
-      stmt.run(j.nombre, j.apellidos, j.posicion, j.dorsal, j.fecha_nacimiento, j.peso);
+      stmt.run(j.nombre, j.apellidos, j.posicion, j.dorsal, j.fecha_nacimiento, j.peso, j.sexo);
     });
     
     stmt.finalize((err) => {
