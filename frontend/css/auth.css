@@ -413,6 +413,26 @@ body {
     margin-bottom: 4px;
 }
 
+/* Reordenamiento de campos del formulario de jugador usando CSS Grid */
+.form-registro.jugador-color form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+/* Orden específico para el formulario de jugador */
+.form-registro.jugador-color .form-group:nth-child(1) { order: 1; }  /* Nombre */
+.form-registro.jugador-color .form-group:nth-child(2) { order: 2; }  /* Apellidos */
+.form-registro.jugador-color .form-group:nth-child(3) { order: 5; }  /* Email */
+.form-registro.jugador-color .form-group:nth-child(4) { order: 6; }  /* Teléfono */
+.form-registro.jugador-color .form-group:nth-child(5) { order: 7; }  /* Categoría */
+.form-registro.jugador-color .form-group:nth-child(6) { order: 8; }  /* Dorsal */
+.form-registro.jugador-color .form-group:nth-child(7) { order: 9; }  /* Posición */
+.form-registro.jugador-color .form-group:nth-child(8) { order: 4; }  /* Fecha de Nacimiento */
+.form-registro.jugador-color .form-group:nth-child(9) { order: 10; }  /* Peso */
+.form-registro.jugador-color .form-group:nth-child(10) { order: 3; }  /* Sexo */
+.form-registro.jugador-color button[type="submit"] { order: 11; }  /* Botón */
+
 .form-group label {
     color: #2c3e50;
     font-weight: 600;
@@ -767,6 +787,12 @@ body {
         width: 100%;
         padding: 12px;
         font-size: 0.9em;
+    }
+    
+    /* Mantener orden personalizado en móvil */
+    .form-registro.jugador-color form {
+        display: flex;
+        flex-direction: column;
     }
 }
 
